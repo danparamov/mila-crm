@@ -1,22 +1,22 @@
 import moment from 'moment';
 
 export default function nextContactDate(priority) {
-  if (priority === 'A') {
+  if (priority === 'Every two weeks') {
     return moment()
       .add(14, 'days')
       .calendar();
   }
-  if (priority === 'B') {
+  if (priority === 'Every month') {
     return moment()
       .add(30, 'days')
       .calendar();
   }
-  if (priority === 'C') {
+  if (priority === 'Every three months') {
     return moment()
       .add(90, 'days')
       .calendar();
   }
-  if (priority === 'D') {
+  if (priority === 'Every year') {
     return moment()
       .add(365, 'days')
       .calendar();
