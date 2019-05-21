@@ -59,6 +59,14 @@ function ProfileDesktop(props) {
           </Link>
         </div>
         <div className="w-100">
+          <Link
+            to="/updates"
+            className="f6 link dim ph3 pv1 mb2 dib black bg-white ba b--black"
+          >
+            Updates
+          </Link>
+        </div>
+        <div className="w-100">
           <a
             className="pointer f6 link dim ph3 pv1 mb2 dib black bg-white ba b--black"
             id="signout-button"
@@ -66,14 +74,6 @@ function ProfileDesktop(props) {
           >
             Logout
           </a>
-        </div>
-        <div className="w-100">
-          <Link
-            to="/updates"
-            className="f6 link dim ph3 pv1 mb2 dib black bg-white ba b--black"
-          >
-            Updates
-          </Link>
         </div>
       </p>
     </div>
