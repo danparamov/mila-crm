@@ -15,7 +15,7 @@ const Updates = () => (
       <p>
         Here is my{' '}
         <a
-          href="https://www.notion.so/kitcrm/Our-Roadmap-a1f5ad4f560045488e579cb3ccbd6f6f"
+          href="https://app.graphitedocs.com/documents/1558268246199"
           className="black"
         >
           Roadmap
