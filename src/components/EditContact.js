@@ -13,6 +13,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import findObjectBy from './util/findObjectBy';
 import avatarFallbackImage from '../assets/avatar-placeholder.png';
+import ProfileDesktop from './ProfileDesktop';
 import Nav from './Nav';
 import Form from './styles/Form';
 import Error from './ErrorMessage';
@@ -135,6 +136,7 @@ class EditContactPage extends Component {
     const { contact } = this.state;
     const { handleSignOut } = this.props;
     const { person } = this.state;
+    const { username } = this.state;
     const loading = false;
     const error = false;
     if (this.state.saved) {
@@ -149,167 +151,179 @@ class EditContactPage extends Component {
           }
           logout={handleSignOut.bind(this)}
         />
-        <h1>Edit Contact</h1>
-        <Form
-          onSubmit={async e => {
-            e.preventDefault();
-            this.handleEditContactSubmit(e);
-          }}
-        >
-          <Error error={error} />
-          <fieldset>
-            <label htmlFor="name">
-              Name
-              <input
-                type="text"
-                id="name"
-                name="name"
-                placeholder="Name.."
-                value={this.state.name}
-                onChange={this.handleChange}
-              />
-            </label>
-          </fieldset>
-          <fieldset>
-            <label htmlFor="lastName">
-              Last Name
-              <input
-                type="text"
-                id="lastName"
-                name="lastName"
-                placeholder="Last Name.."
-                value={this.state.lastName}
-                onChange={this.handleChange}
-              />
-            </label>
-          </fieldset>
-          <fieldset>
-            <label htmlFor="priority">
-              Contact Frequency
-              <select
-                type="text"
-                id="priority"
-                name="priority"
-                value={this.state.priority}
-                onChange={this.handleChange}
-              >
-                <option value="A">A - Every two weeks</option>
-                <option value="B">B - Every month</option>
-                <option value="C">C - Every three months</option>
-                <option value="D">D - Every year</option>
-              </select>
-            </label>
-          </fieldset>
-          <fieldset>
-            <label htmlFor="email">
-              Email
-              <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="Email.."
-                value={this.state.email}
-                onChange={this.handleChange}
-              />
-            </label>
-          </fieldset>
-          <fieldset>
-            <label htmlFor="phoneNumber">
-              Phone Number
-              <input
-                type="text"
-                id="phoneNumber"
-                name="phoneNumber"
-                placeholder="Phone Number.."
-                value={this.state.phoneNumber}
-                onChange={this.handleChange}
-              />
-            </label>
-          </fieldset>
-          <fieldset>
-            <label>
-              Gender
-              <select
-                onChange={this.handleChange}
-                id="sex"
-                name="sex"
-                value={this.state.sex}
-              >
-                <option value="" defaultChecked>
-                  Select Gender..
-                </option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
-              </select>
-            </label>
-          </fieldset>
-          <fieldset disabled={loading} aria-busy={loading}>
-            <label htmlFor="twitterHandle">
-              Twitter Handle
-              <input
-                type="text"
-                id="twitterHandle"
-                name="twitterHandle"
-                placeholder="Twitter handle.. (eg. 0xferruccio)"
-                value={this.state.twitterHandle}
-                onChange={this.handleChange}
-              />
-            </label>
-          </fieldset>
-          <fieldset disabled={loading} aria-busy={loading}>
-            <label htmlFor="birthDate">
-              Birth Date
-              <input
-                type="date"
-                id="birthDate"
-                name="birthDate"
-                placeholder="Click to select Birthday.."
-                value={this.state.birthDate}
-                onChange={this.handleChange}
-              />
-            </label>
-          </fieldset>
-          <fieldset>
-            <label htmlFor="country">
-              Country
-              <CountryDropdown
-                name="country"
-                id="country"
-                value={this.state.country}
-                onChange={val => this.selectCountry(val)}
-              />
-            </label>
-          </fieldset>
-          <fieldset>
-            <label htmlFor="region">
-              Region
-              <RegionDropdown
-                name="region"
-                id="region"
-                country={this.state.country}
-                value={this.state.region}
-                onChange={val => this.selectRegion(val)}
-              />
-            </label>
-          </fieldset>
-          <fieldset disabled={loading} aria-busy={loading}>
-            <label htmlFor="blockstackId">
-              Blockstack Id
-              <input
-                type="text"
-                id="blockstackId"
-                name="blockstackId"
-                placeholder="Blockstack ID.."
-                value={this.state.blockstackId}
-                onChange={this.handleChange}
-              />
-            </label>
-          </fieldset>
-          <button type="submit" className="bg-black">
-            Submit
-          </button>
-        </Form>
+        <div className="mw9 center ph3 cf">
+          <ProfileDesktop
+            logout={handleSignOut.bind(this)}
+            profileImage={
+              person.avatarUrl() ? person.avatarUrl() : avatarFallbackImage
+            }
+            name={person.name() ? person.name() : 'Nameless Person'}
+            username={username}
+          />
+          <h1>Edit Contact</h1>
+          <div className="w-70-l fl">
+            <Form
+              onSubmit={async e => {
+                e.preventDefault();
+                this.handleEditContactSubmit(e);
+              }}
+            >
+              <Error error={error} />
+              <fieldset>
+                <label htmlFor="name">
+                  Name
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Name.."
+                    value={this.state.name}
+                    onChange={this.handleChange}
+                  />
+                </label>
+              </fieldset>
+              <fieldset>
+                <label htmlFor="lastName">
+                  Last Name
+                  <input
+                    type="text"
+                    id="lastName"
+                    name="lastName"
+                    placeholder="Last Name.."
+                    value={this.state.lastName}
+                    onChange={this.handleChange}
+                  />
+                </label>
+              </fieldset>
+              <fieldset>
+                <label htmlFor="priority">
+                  Contact Frequency
+                  <select
+                    type="text"
+                    id="priority"
+                    name="priority"
+                    value={this.state.priority}
+                    onChange={this.handleChange}
+                  >
+                    <option value="A">A - Every two weeks</option>
+                    <option value="B">B - Every month</option>
+                    <option value="C">C - Every three months</option>
+                    <option value="D">D - Every year</option>
+                  </select>
+                </label>
+              </fieldset>
+              <fieldset>
+                <label htmlFor="email">
+                  Email
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Email.."
+                    value={this.state.email}
+                    onChange={this.handleChange}
+                  />
+                </label>
+              </fieldset>
+              <fieldset>
+                <label htmlFor="phoneNumber">
+                  Phone Number
+                  <input
+                    type="text"
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    placeholder="Phone Number.."
+                    value={this.state.phoneNumber}
+                    onChange={this.handleChange}
+                  />
+                </label>
+              </fieldset>
+              <fieldset>
+                <label>
+                  Gender
+                  <select
+                    onChange={this.handleChange}
+                    id="sex"
+                    name="sex"
+                    value={this.state.sex}
+                  >
+                    <option value="" defaultChecked>
+                      Select Gender..
+                    </option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </label>
+              </fieldset>
+              <fieldset disabled={loading} aria-busy={loading}>
+                <label htmlFor="twitterHandle">
+                  Twitter Handle
+                  <input
+                    type="text"
+                    id="twitterHandle"
+                    name="twitterHandle"
+                    placeholder="Twitter handle.. (eg. 0xferruccio)"
+                    value={this.state.twitterHandle}
+                    onChange={this.handleChange}
+                  />
+                </label>
+              </fieldset>
+              <fieldset disabled={loading} aria-busy={loading}>
+                <label htmlFor="birthDate">
+                  Birth Date
+                  <input
+                    type="date"
+                    id="birthDate"
+                    name="birthDate"
+                    placeholder="Click to select Birthday.."
+                    value={this.state.birthDate}
+                    onChange={this.handleChange}
+                  />
+                </label>
+              </fieldset>
+              <fieldset>
+                <label htmlFor="country">
+                  Country
+                  <CountryDropdown
+                    name="country"
+                    id="country"
+                    value={this.state.country}
+                    onChange={val => this.selectCountry(val)}
+                  />
+                </label>
+              </fieldset>
+              <fieldset>
+                <label htmlFor="region">
+                  Region
+                  <RegionDropdown
+                    name="region"
+                    id="region"
+                    country={this.state.country}
+                    value={this.state.region}
+                    onChange={val => this.selectRegion(val)}
+                  />
+                </label>
+              </fieldset>
+              <fieldset disabled={loading} aria-busy={loading}>
+                <label htmlFor="blockstackId">
+                  Blockstack Id
+                  <input
+                    type="text"
+                    id="blockstackId"
+                    name="blockstackId"
+                    placeholder="Blockstack ID.."
+                    value={this.state.blockstackId}
+                    onChange={this.handleChange}
+                  />
+                </label>
+              </fieldset>
+              <button type="submit" className="bg-black">
+                Submit
+              </button>
+            </Form>
+          </div>
+        </div>
       </div>
     ) : null;
   }
