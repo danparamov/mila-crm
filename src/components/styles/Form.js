@@ -28,13 +28,13 @@ const Form = styled.form`
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    width: 100%;
+    width: 25%;
     padding: 1rem;
     margin-top: 0.5rem;
     font-size: 1rem;
     background-color: #efefef;
     border-radius: 4px;
-    border: 1px solid #efefef;
+    border: 1px solid #0a0a0a;
     &:focus {
       outline: 0;
       border: 1px solid black;
@@ -45,7 +45,7 @@ const Form = styled.form`
     width: auto;
     background: black;
     color: white;
-    border: 0;
+    border: 1px;
     font-size: 2rem;
     font-weight: 400;
     padding: 0.5rem 1.2rem;
