@@ -69,7 +69,7 @@ class mySingleAccountPage extends Component {
     const options = { encrypt: true };
     putFile('accounts.json', JSON.stringify(newContactsList), options).then(
       () => {
-        this.props.history.push('/');
+        this.props.history.push('/accounts1');
       }
     );
   }
@@ -86,7 +86,7 @@ class mySingleAccountPage extends Component {
     const options = { encrypt: true };
     putFile('accounts.json', JSON.stringify(newContactsList), options).then(
       () => {
-        this.props.history.push('/');
+        this.props.history.push('/accounts1');
       }
     );
   }
@@ -201,7 +201,7 @@ class mySingleAccountPage extends Component {
                 </div>
                 <div className="w-100 w-80-ns center fl-ns">
                   <h1 className="f3 f1-ns">
-                    {account.name} {account.lastName}{' '}
+                    {account.accountname} {' '}
                     <PriorityLabel priority={account.priority} />
                   </h1>
                 </div>
