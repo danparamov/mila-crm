@@ -107,7 +107,7 @@ export default class Profile extends Component {
       NoContactTodayBlock = (
         <div className="w-100">
           <img src={NoOneLeft} className="center h4 db" alt="" />
-          <p className="center center tc b f4">No pending checkins for today</p>
+          <p className="center center tc b f4">No pending checkin</p>
         </div>
       );
     }
