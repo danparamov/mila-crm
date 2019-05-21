@@ -41,7 +41,7 @@ class mySingleOppPage extends Component {
     });
     this.fetchData();
   }
-  
+
   fetchData() {
     const options = { decrypt: true };
     //getFile('contacts.json', options).then(file => {
@@ -69,7 +69,7 @@ class mySingleOppPage extends Component {
     const options = { encrypt: true };
     putFile('opps.json', JSON.stringify(newContactsList), options).then(
       () => {
-        this.props.history.push('/');
+        this.props.history.push('/opportunities');
       }
     );
   }
@@ -86,7 +86,7 @@ class mySingleOppPage extends Component {
     const options = { encrypt: true };
     putFile('opps.json', JSON.stringify(newContactsList), options).then(
       () => {
-        this.props.history.push('/');
+        this.props.history.push('/opportunities');
       }
     );
   }
@@ -201,8 +201,7 @@ class mySingleOppPage extends Component {
                 </div>
                 <div className="w-100 w-80-ns center fl-ns">
                   <h1 className="f3 f1-ns">
-                    {opp.name} {opp.lastName}{' '}
-                    <PriorityLabel priority={opp.priority} />
+                    {opp.oppname} {' '}
                   </h1>
                 </div>
                 <div className="center w-80 w-40-ns pt6-ns">
