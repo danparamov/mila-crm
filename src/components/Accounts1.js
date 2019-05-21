@@ -70,7 +70,7 @@ export default class Profile extends Component {
       });
     });
   }
-  
+
   render() {
     const { handleSignOut } = this.props;
     const { person } = this.state;
@@ -94,7 +94,6 @@ export default class Profile extends Component {
     if (ifAttribute(accounts[0])) {
       ContactBlock = (
         <div className="w-100 w-75-ns fl ph4 tl">
-          <h1>Your Accounts</h1>
           {accounts.map(account => (
             <SingleAccount account={account} key={account.id} />
           ))}
@@ -140,15 +139,8 @@ export default class Profile extends Component {
             name={person.name() ? person.name() : 'Nameless Person'}
             username={username}
           />
-          {AddMoreContactsBlock}
           <div className="w-100 w-75-ns fl ph4 tl">
-            <h1>Accounts to Contact Today</h1>
-            {NoContactTodayBlock}
-            <div className="w-100 fl db"> 
-              {ContactToday.map(account => (
-                <AccountBubble account={account} key={account.id} />
-              ))}
-            </div>
+            <h1>Your Accounts</h1>
           </div>
           {ContactBlock}
           <div className="fr">
