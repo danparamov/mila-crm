@@ -12,6 +12,7 @@ import EditAccount from './EditAccount';
 import EditOpp from './EditOpp';
 import Profile from './Profile';
 import SignIn from './SignIn';
+import Contacts from './Contacts';
 import Updates from './Updates';
 import AddContact from './AddContact';
 import AddAccount from './AddAccount';
@@ -20,7 +21,6 @@ import Settings from './Settings';
 import SingleContactPage from './SingleContactPage';
 import SingleAccountPage from './SingleAccountPage';
 import SingleOppPage from './SingleOppPage';
-
 import Accounts from './Accounts1';
 import Opportunities from './Opportunities';
 
@@ -55,6 +55,10 @@ export default class Main extends Component {
 
             <Route
               path="/contact"
+              component={() => <SignIn handleSignIn={this.handleSignIn} />}
+            />
+            <Route
+              path="/contacts"
               component={() => <SignIn handleSignIn={this.handleSignIn} />}
             />
             <Route
@@ -160,6 +164,12 @@ export default class Main extends Component {
               path="/contact"
               component={() => (
                 <SingleContactPage handleSignOut={this.handleSignOut} />
+              )}
+            />
+            <Route
+              path="/contacts"
+              component={() => (
+                <Contacts handleSignOut={this.handleSignOut} />
               )}
             />
             <Route
