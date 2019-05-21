@@ -86,7 +86,6 @@ export default class Profile extends Component {
     if (ifAttribute(contacts[0])) {
       ContactBlock = (
         <div className="w-100 w-75-ns fl ph4 tl">
-          <h1>Your Contacts</h1>
           {contacts.map(contact => (
             <SingleContact contact={contact} key={contact.id} />
           ))}
@@ -107,7 +106,7 @@ export default class Profile extends Component {
       NoContactTodayBlock = (
         <div className="w-100">
           <img src={NoOneLeft} className="center h4 db" alt="" />
-          <p className="center center tc b f4">No pending checkins for today</p>
+          <p className="center center tc b f4">No pending</p>
         </div>
       );
     }
@@ -128,10 +127,10 @@ export default class Profile extends Component {
             name={person.name() ? person.name() : 'Nameless Person'}
             username={username}
           />
-          {AddMoreContactsBlock}
+
           <div className="w-100 w-75-ns fl ph4 tl">
-            <h1>Contact Today</h1>
-            {NoContactTodayBlock}
+            <h1>Your Contacts</h1>
+
             <div className="w-100 fl db">
               {ContactToday.map(contact => (
                 <ContactBubble contact={contact} key={contact.id} />
