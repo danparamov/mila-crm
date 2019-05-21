@@ -11,6 +11,7 @@ import moment from 'moment';
 import { Redirect } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.min.css';
 import avatarFallbackImage from '../assets/avatar-placeholder.png';
+import ProfileDesktop from './ProfileDesktop';
 import Nav from './Nav';
 import Form from './styles/Form';
 import Error from './ErrorMessage';
@@ -18,17 +19,22 @@ import nextContactDate from './util/nextContactDate';
 
 export default class AddAccount extends Component {
   state = {
-    name: '',
-    lastName: '',
+    //name: '',
+    //lastName: '',
+    accountname: '',
+    website: '',
     twitterHandle: '',
     email: '',
     phoneNumber: '',
-    birthDate: '',
+    //birthDate: '',
+    industry: '',
+    salesstage: '',
     country: '',
     region: '',
     contacts: [],
-    sex: '',
+    //sex: '',
     blockstackId: '',
+    description: '',
     priority: 'A',
     person: {
       name() {
@@ -95,16 +101,21 @@ export default class AddAccount extends Component {
     const newAccount = {
       id: Date.now(),
       created_at: Date.now(),
-      name: this.state.name,
-      lastName: this.state.lastName,
+      //name: this.state.name,
+      //lastName: this.state.lastName,
+      accountname: this.state.accountname,
+      website: this.state.website,
       twitterHandle: this.state.twitterHandle,
       email: this.state.email,
       phoneNumber: this.state.phoneNumber,
       country: this.state.country,
       region: this.state.region,
-      sex: this.state.sex,
+      industry: this.state.industry,
+      salesstage: this.state.salesstage,
+      description: this.state.description,
+      //sex: this.state.sex,
       blockstackId: this.state.blockstackId,
-      birthDate: this.state.birthDate,
+      //birthDate: this.state.birthDate,
       priority: this.state.priority,
       contactDate,
     };
@@ -120,13 +131,18 @@ export default class AddAccount extends Component {
     this.setState({
       country: '',
       region: '',
-      name: '',
-      lastName: '',
+      accountname: '',
+      website: '',
+      industry: '',
+      salesstage: '',
+      //name: '',
+      //lastName: '',
       twitterHandle: '',
+      description: '',
       email: '',
       phoneNumber: '',
-      birthDate: '',
-      sex: '',
+      //birthDate: '',
+      //sex: '',
       blockstackId: '',
       priority: '',
     });
@@ -151,8 +167,11 @@ export default class AddAccount extends Component {
     const { person } = this.state;
     const loading = false;
     const error = false;
+    const { username } = this.state;
+    //const { contacts } = this.state;
+    const { accounts } = this.state;
     if (this.state.saved) {
-      return <Redirect to="/" />;
+      return <Redirect to="/accounts1" />;
     }
 
     return !isSignInPending() ? (
@@ -163,170 +182,189 @@ export default class AddAccount extends Component {
           }
           logout={handleSignOut.bind(this)}
         />
-        <h1 className="f1">Add Account</h1>
-        <div className="dn db-l w-30-l fl">
-          <p className="tl ml4 mt3 f3 b margin-information">
-            Account Information
-          </p>
-          <p className="tl ml4 f3 b margin-social">Type</p>
-        </div>
-        <div className="w-70-l fl">
-          <Form
-            onSubmit={async e => {
-              e.preventDefault();
-              this.handleNewContactSubmit(e);
-            }}
-          >
-            <Error error={error} />
-            <fieldset>
-              <label htmlFor="name">
-                Name
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  placeholder="Name.."
-                  value={this.state.name}
-                  onChange={this.handleChange}
-                  required
-                />
-              </label>
-            </fieldset>
-            <fieldset>
-              <label htmlFor="lastName">
-                Last Name
-                <input
-                  type="text"
-                  id="lastName"
-                  name="lastName"
-                  placeholder="Last Name.."
-                  value={this.state.lastName}
-                  onChange={this.handleChange}
-                />
-              </label>
-            </fieldset>
-            <fieldset>
-              <label>
-                Gender
-                <select onChange={this.handleChange} id="sex" name="sex">
-                  <option value="" defaultChecked>
-                    Select Gender..
-                  </option>
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                  <option value="Other">Other</option>
-                </select>
-              </label>
-            </fieldset>
-            <fieldset disabled={loading} aria-busy={loading}>
-              <label htmlFor="birthDate">
-                Birth Date
-                <input
-                  type="date"
-                  id="birthDate"
-                  name="birthDate"
-                  placeholder="Click to select Birthday.."
-                  value={this.state.birthDate}
-                  onChange={this.handleChange}
-                />
-              </label>
-            </fieldset>
-            <fieldset>
-              <label htmlFor="country">
-                Country
-                <CountryDropdown
-                  name="country"
-                  id="country"
-                  value={this.state.country}
-                  onChange={val => this.selectCountry(val)}
-                />
-              </label>
-            </fieldset>
-            <fieldset>
-              <label htmlFor="region">
-                Region
-                <RegionDropdown
-                  name="region"
-                  id="region"
-                  country={this.state.country}
-                  value={this.state.region}
-                  onChange={val => this.selectRegion(val)}
-                />
-              </label>
-            </fieldset>
-            <fieldset>
-              <label htmlFor="email">
-                Email
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  placeholder="Email.."
-                  value={this.state.email}
-                  onChange={this.handleChange}
-                />
-              </label>
-            </fieldset>
-            <fieldset>
-              <label htmlFor="phoneNumber">
-                Phone Number
-                <input
-                  type="text"
-                  id="phoneNumber"
-                  name="phoneNumber"
-                  placeholder="Phone Number.."
-                  value={this.state.phoneNumber}
-                  onChange={this.handleChange}
-                />
-              </label>
-            </fieldset>
-            <fieldset disabled={loading} aria-busy={loading}>
-              <label htmlFor="twitterHandle">
-                Twitter Handle
-                <input
-                  type="text"
-                  id="twitterHandle"
-                  name="twitterHandle"
-                  placeholder="Twitter handle.. (eg. 0xferruccio)"
-                  value={this.state.twitterHandle}
-                  onChange={this.handleChange}
-                />
-              </label>
-            </fieldset>
-            <fieldset disabled={loading} aria-busy={loading}>
-              <label htmlFor="blockstackId">
-                Blockstack Id
-                <input
-                  type="text"
-                  id="blockstackId"
-                  name="blockstackId"
-                  placeholder="Blockstack ID.."
-                  value={this.state.blockstackId}
-                  onChange={this.handleChange}
-                />
-              </label>
-            </fieldset>
-            <fieldset>
-              <label htmlFor="priority">
-                Contact Frequency
-                <select
-                  type="text"
-                  id="priority"
-                  name="priority"
-                  value={this.state.priority}
-                  onChange={this.handleChange}
-                >
-                  <option value="A">A - Every two weeks</option>
-                  <option value="B">B - Every month</option>
-                  <option value="C">C - Every three months</option>
-                  <option value="D">D - Every year</option>
-                </select>
-              </label>
-            </fieldset>
-            <button type="submit" className="bg-black">
-              Submit
-            </button>
-          </Form>
+        <div className="mw9 center ph3 cf">
+          <ProfileDesktop
+            logout={handleSignOut.bind(this)}
+            profileImage={
+              person.avatarUrl() ? person.avatarUrl() : avatarFallbackImage
+            }
+            name={person.name() ? person.name() : 'Nameless Person'}
+            username={username}
+          />
+          <h1 className="f2">Add Account</h1>
+          <div className="w-70-l fl">
+            <Form
+              onSubmit={async e => {
+                e.preventDefault();
+                this.handleNewContactSubmit(e);
+              }}
+            >
+              <Error error={error} />
+              <fieldset>
+                <label htmlFor="accountname">
+                  Account Name
+                  <input
+                    type="text"
+                    id="accountname"
+                    name="accountname"
+                    placeholder="Account Name.."
+                    value={this.state.accountname}
+                    onChange={this.handleChange}
+                    required
+                  />
+                </label>
+              </fieldset>
+              <fieldset>
+                <label htmlFor="website">
+                  Website
+                  <input
+                    type="text"
+                    id="website"
+                    name="website"
+                    placeholder="Website.."
+                    value={this.state.website}
+                    onChange={this.handleChange}
+                  />
+                </label>
+              </fieldset>
+              <fieldset>
+                <label>
+                  Industry
+                  <select onChange={this.handleChange} id="industry" name="industry">
+                    <option value="" defaultChecked>
+                      Select Industry..
+                    </option>
+                    <option value="Telecomunications">Telecomunications</option>
+                    <option value="Education">Education</option>
+                    <option value="Aerospace">Aerospace</option>
+                    <option value="Government">Government</option>
+                  </select>
+                </label>
+              </fieldset>
+              <fieldset>
+                <label>
+                  Sales Stage
+                  <select onChange={this.handleChange} id="salesstage" name="salesstage">
+                    <option value="" defaultChecked>
+                      Select Stage..
+                    </option>
+                    <option value="Acquired">Acquired</option>
+                    <option value="Active">Active</option>
+                    <option value="Project Cancelled">Project Cancelled</option>
+                    <option value="Shut Down">Shut Down</option>
+                  </select>
+                </label>
+              </fieldset>
+              <fieldset>
+                <label htmlFor="description">
+                  Description
+                  <input
+                    type="description"
+                    id="description"
+                    name="description"
+                    placeholder="Description.."
+                    value={this.state.description}
+                    onChange={this.handleChange}
+                  />
+                </label>
+              </fieldset>
+              <fieldset>
+                <label htmlFor="country">
+                  Country
+                  <CountryDropdown
+                    name="country"
+                    id="country"
+                    value={this.state.country}
+                    onChange={val => this.selectCountry(val)}
+                  />
+                </label>
+              </fieldset>
+              <fieldset>
+                <label htmlFor="region">
+                  Region
+                  <RegionDropdown
+                    name="region"
+                    id="region"
+                    country={this.state.country}
+                    value={this.state.region}
+                    onChange={val => this.selectRegion(val)}
+                  />
+                </label>
+              </fieldset>
+              <fieldset>
+                <label htmlFor="email">
+                  Email
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Email.."
+                    value={this.state.email}
+                    onChange={this.handleChange}
+                  />
+                </label>
+              </fieldset>
+              <fieldset>
+                <label htmlFor="phoneNumber">
+                  Phone Number
+                  <input
+                    type="text"
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    placeholder="Phone Number.."
+                    value={this.state.phoneNumber}
+                    onChange={this.handleChange}
+                  />
+                </label>
+              </fieldset>
+              <fieldset disabled={loading} aria-busy={loading}>
+                <label htmlFor="twitterHandle">
+                  Twitter Handle
+                  <input
+                    type="text"
+                    id="twitterHandle"
+                    name="twitterHandle"
+                    placeholder="Twitter handle.. (eg. danparamov)"
+                    value={this.state.twitterHandle}
+                    onChange={this.handleChange}
+                  />
+                </label>
+              </fieldset>
+              <fieldset disabled={loading} aria-busy={loading}>
+                <label htmlFor="blockstackId">
+                  Blockstack Id
+                  <input
+                    type="text"
+                    id="blockstackId"
+                    name="blockstackId"
+                    placeholder="Blockstack ID.."
+                    value={this.state.blockstackId}
+                    onChange={this.handleChange}
+                  />
+                </label>
+              </fieldset>
+              <fieldset>
+                <label htmlFor="priority">
+                  Contact Frequency
+                  <select
+                    type="text"
+                    id="priority"
+                    name="priority"
+                    value={this.state.priority}
+                    onChange={this.handleChange}
+                  >
+                  <option value="Every two weeks">Every two weeks</option>
+                  <option value="Every month">Every month</option>
+                  <option value="Every three months">Every three months</option>
+                  <option value="Every year">Every year</option>
+                  </select>
+                </label>
+              </fieldset>
+              <button type="submit" className="bg-black">
+                Submit
+              </button>
+            </Form>
+          </div>
         </div>
       </div>
     ) : null;
