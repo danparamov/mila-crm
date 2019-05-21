@@ -61,7 +61,7 @@ class mySingleContactPage extends Component {
     const options = { encrypt: true };
     putFile('contacts.json', JSON.stringify(newContactsList), options).then(
       () => {
-        this.props.history.push('/');
+        this.props.history.push('/contacts');
       }
     );
   }
@@ -78,7 +78,7 @@ class mySingleContactPage extends Component {
     const options = { encrypt: true };
     putFile('contacts.json', JSON.stringify(newContactsList), options).then(
       () => {
-        this.props.history.push('/');
+        this.props.history.push('/contacts');
       }
     );
   }
