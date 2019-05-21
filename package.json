@@ -10,12 +10,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ferrucc-io/kit-crm.git"
+    "url": "git+https://github.com/danparamov/mila-crm.git"
   },
   "bugs": {
-    "url": "https://github.com/ferrucc-io/kit-crm/issues"
+    "url": "https://github.com/danparamov/mila-crm/issues"
   },
-  "homepage": "https://github.com/ferrucc-io/kit-crm#readme",
+  "homepage": "https://github.com/danparamov/kit-crm#readme",
   "author": "",
   "license": "MIT",
   "devDependencies": {
