@@ -70,7 +70,7 @@ export default class Profile extends Component {
       });
     });
   }
-  
+
   render() {
     const { handleSignOut } = this.props;
     const { person } = this.state;
@@ -94,7 +94,6 @@ export default class Profile extends Component {
     if (ifAttribute(opps[0])) {
       ContactBlock = (
         <div className="w-100 w-75-ns fl ph4 tl">
-          <h1>Your Opportunities</h1>
           {opps.map(opp => (
             <SingleOpp opp={opp} key={opp.id} />
           ))}
@@ -140,10 +139,8 @@ export default class Profile extends Component {
             name={person.name() ? person.name() : 'Nameless Person'}
             username={username}
           />
-          {AddMoreContactsBlock}
           <div className="w-100 w-75-ns fl ph4 tl">
-            <h1>Opportunities to Contact Today</h1>
-            {NoContactTodayBlock}
+            <h1>Your Opportunities</h1>
             <div className="w-100 fl db">
               {ContactToday.map(opp => (
                 <OppBubble opp={opp} key={opp.id} />
