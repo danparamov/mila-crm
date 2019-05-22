@@ -1,44 +1,35 @@
 import React from 'react';
 import Floating from './styles/Floating';
-import CRMIcons from '../assets/keepintouchicons.png';
-import CRMIcons2 from '../assets/iconstwokit.png';
-import PriorityLabel from '../assets/priority.png';
+import Grow from '../assets/funnelicon.jpg';
+import Create from '../assets/play.jpg';
+import Plans from '../assets/buildings.jpg';
 
 export default function LearnMore() {
   return (
     <div className="pa3">
       <div>
-        <Floating src={CRMIcons} className="mw-100 w-70-m w-40-l" />
-        <h1>🌲 Create leads, contacts and opportunities knowing that you data is yours</h1>
-        <p className="mid-gray mw-100 w-50-l w-20-l center">
-          Is your sales funnel, not ours! Is your data, not ours!
-        </p>
+        <h1>Create accounts, contacts and opportunities knowing that is your data</h1>
       </div>
       <div>
-        <Floating src={PriorityLabel} className="mw-100 w-70-m w-40-l" />
-        <h1>👥 Grow your business and protect your data</h1>
-        <p className="mid-gray">
-          Enjoy the Dashboard, Contacts, Accounts and Opportunities!
-        </p>
+        <Floating src={Grow} className="mw-100 w-70-m w-40-l" />
+        <h1>Grow your business where everything is encrypted</h1>
       </div>
       <div>
-        <Floating src={CRMIcons2} className="mw-100 w-70-m w-40-l" />
-        <h1>🔐 Keep your data on your Network</h1>
+        <Floating src={Plans} className="mw-100 w-70-m w-40-l" />
+        <h1>Security and privacy come first</h1>
         <p className="mid-gray">
           As we're leveraging the Blockstack network, you get to own and host
           your own data.
         </p>
-        <p className="b">No setup required.</p>
         <p className="lh-copy mid-gray">
-          You don't have to trust me, you can verify yourself checking our{' '}
+          Learn more about{' '}
           <a
-            href="https://github.com/danparamov/mila-crm"
+            href="https://www.blockstack.org"
             className="black b
-            no-underline bg-light-yellow pv1 ph1 hover-bg-yellow"
+            no-underline bg-green pv1 ph1 bg-green b--black pointer"
           >
-            Open Source
+            Blockstack
           </a>{' '}
-          code
         </p>
       </div>
     </div>
