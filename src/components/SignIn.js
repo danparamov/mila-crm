@@ -25,7 +25,7 @@ export default class SignIn extends Component {
         </div>
         <p>
           <DefaultButton
-            className="f6 ph3 pv2 mb2 dib white bg-black b--black pointer"
+            className="f6 ph3 pv2 mb2 dib white bg-green b--black pointer"
             id="signin-button"
             onClick={handleSignIn.bind(this)}
             primary
