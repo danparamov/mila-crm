@@ -31,6 +31,26 @@ export default function LearnMore() {
             Blockstack
           </a>{' '}
         </p>
+        <p className="lh-copy mid-gray">
+          Here is our{' '}
+          <a
+            href="https://www.notion.so/milacrm/5f0435f1a0974109b814a640ab664d25?v=e7d2a0ec348548859d2f2f438a46281c"
+            className="black b
+            no-underline bg-red pv1 ph1 bg-red b--black pointer"
+          >
+            Roadmap
+          </a>{' '}
+        </p>
+        <p className="lh-copy mid-gray">
+          Get in touch with us and send us a message on{' '}
+          <a
+            href="https://www.twitter.com/danparamov"
+            className="black b
+            no-underline bg-yellow pv1 ph1 bg-yellow b--black pointer"
+          >
+            Twitter
+          </a>{' '}
+        </p>
       </div>
     </div>
   );
