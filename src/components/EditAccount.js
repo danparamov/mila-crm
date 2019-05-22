@@ -26,18 +26,20 @@ class EditAccountPage extends Component {
     accountname: '',
     website: '',
     industry: '',
-    twitterHandle: '',
-    email: '',
-    phoneNumber: '',
-    //birthDate: '',
     salesstage: '',
+    description: '',
     country: '',
     region: '',
-    contacts: [],
+    email: '',
+    phoneNumber: '',
+    twitterHandle: '',
+    //birthDate: '',
     //sex: '',
     blockstackId: '',
     contactDate: '',
     created_at: '',
+    //contacts: [],
+    accounts: [],
     person: {
       name() {
         return 'Anonymous';
@@ -66,7 +68,7 @@ class EditAccountPage extends Component {
         id: this.props.location.search.substring(4),
       });
       if (!account) {
-        this.props.history.push('/accounts1');
+        this.props.history.push('/accounts');
       }
       this.setState({
         accounts,
@@ -75,19 +77,20 @@ class EditAccountPage extends Component {
         id: account[0].id,
         //lastname: account[0].lastname,
         website: account[0].website,
+        industry: account[0].industry,
         salesstage: account[0].salesstage,
-        twitterHandle: account[0].twitterHandle,
-        email: account[0].email,
-        phoneNumber: account[0].phoneNumber,
-        //birthDate: account[0].birthDate,
+        description: account[0].description,
         country: account[0].country,
         region: account[0].region,
+        email: account[0].email,
+        phoneNumber: account[0].phoneNumber,
+        twitterHandle: account[0].twitterHandle,
+        //birthDate: account[0].birthDate,
         //sex: account[0].sex,
         blockstackId: account[0].blockstackId,
         contactDate: account[0].contactDate,
         created_at: account[0].created_at,
         priority: account[0].priority,
-        industry: account[0].industry,
       });
     });
   }
@@ -105,16 +108,18 @@ class EditAccountPage extends Component {
       //lastName: this.state.lastName,
       accountname: this.state.accountname,
       website:this.state.website,
-      twitterHandle: this.state.twitterHandle,
-      email: this.state.email,
-      salesstage: account[0].salesstage,
-      phoneNumber: this.state.phoneNumber,
+      industry: this.state.industry,
+      salesstage: this.state.salesstage,
+      description: this.state.description,
       country: this.state.country,
       region: this.state.region,
-      //sex: this.state.sex,
-      industry: this.state.industry,
-      blockstackId: this.state.blockstackId,
+      email: this.state.email,
+      phoneNumber: this.state.phoneNumber,
+      twitterHandle: this.state.twitterHandle,
       //birthDate: this.state.birthDate,
+      //sex: this.state.sex,
+     
+      blockstackId: this.state.blockstackId,
       priority: this.state.priority,
       contactDate: this.state.contactDate,
       created_at: this.state.created_at,
@@ -146,7 +151,7 @@ class EditAccountPage extends Component {
   };
 
   render() {
-    const { accounts } = this.state;
+    const { account } = this.state;
     const { handleSignOut } = this.props;
     const { person } = this.state;
     const { username } = this.state;
@@ -154,7 +159,7 @@ class EditAccountPage extends Component {
     const error = false;
     if (this.state.saved) {
       //return <Redirect to={`/account?id=${this.state.id}`} />;
-      return <Redirect to={`/accounts1`} />;
+      return <Redirect to={`/accounts`} />;
     }
     return !isSignInPending() ? (
       <div>
@@ -212,10 +217,13 @@ class EditAccountPage extends Component {
               <fieldset>
                 <label>
                   Industry
-                  <select onChange={this.handleChange} id="industry" name="industry">
-                    <option value="" defaultChecked>
-                      Select Industry..
-                    </option>
+                  <select
+                    type="text"
+                    id="industry"
+                    name="industry"
+                    value={this.state.industry}
+                    onChange={this.handleChange}
+                  >
                     <option value="Telecomunications">Telecomunications</option>
                     <option value="Education">Education</option>
                     <option value="Aerospace">Aerospace</option>
@@ -226,10 +234,13 @@ class EditAccountPage extends Component {
               <fieldset>
                 <label>
                   Sales Stage
-                  <select onChange={this.handleChange} id="salesstage" name="salesstage">
-                    <option value="" defaultChecked>
-                      Select Stage..
-                    </option>
+                  <select
+                    type="text"
+                    id="salesstage"
+                    name="salesstage"
+                    value={this.state.salesstage}
+                    onChange={this.handleChange}
+                  >
                     <option value="Acquired">Acquired</option>
                     <option value="Active">Active</option>
                     <option value="Project Cancelled">Project Cancelled</option>

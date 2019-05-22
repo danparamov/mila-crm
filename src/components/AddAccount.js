@@ -23,19 +23,20 @@ export default class AddAccount extends Component {
     //lastName: '',
     accountname: '',
     website: '',
-    twitterHandle: '',
-    email: '',
-    phoneNumber: '',
-    //birthDate: '',
     industry: '',
     salesstage: '',
+    description: '',
     country: '',
     region: '',
-    contacts: [],
+    email: '',
+    phoneNumber: '',
+    twitterHandle: '',
+    //birthDate: '',
     //sex: '',
     blockstackId: '',
-    description: '',
     priority: 'A',
+    //contacts: [],
+    accounts: [],
     person: {
       name() {
         return 'Anonymous';
@@ -105,14 +106,14 @@ export default class AddAccount extends Component {
       //lastName: this.state.lastName,
       accountname: this.state.accountname,
       website: this.state.website,
-      twitterHandle: this.state.twitterHandle,
-      email: this.state.email,
-      phoneNumber: this.state.phoneNumber,
-      country: this.state.country,
-      region: this.state.region,
       industry: this.state.industry,
       salesstage: this.state.salesstage,
       description: this.state.description,
+      country: this.state.country,
+      region: this.state.region,
+      email: this.state.email,
+      phoneNumber: this.state.phoneNumber,
+      twitterHandle: this.state.twitterHandle,
       //sex: this.state.sex,
       blockstackId: this.state.blockstackId,
       //birthDate: this.state.birthDate,
@@ -129,18 +130,18 @@ export default class AddAccount extends Component {
       cb();
     });
     this.setState({
-      country: '',
-      region: '',
       accountname: '',
       website: '',
       industry: '',
       salesstage: '',
       //name: '',
       //lastName: '',
-      twitterHandle: '',
       description: '',
+      country: '',
+      region: '',
       email: '',
       phoneNumber: '',
+      twitterHandle: '',
       //birthDate: '',
       //sex: '',
       blockstackId: '',
@@ -171,7 +172,7 @@ export default class AddAccount extends Component {
     //const { contacts } = this.state;
     const { accounts } = this.state;
     if (this.state.saved) {
-      return <Redirect to="/accounts1" />;
+      return <Redirect to="/accounts" />;
     }
 
     return !isSignInPending() ? (

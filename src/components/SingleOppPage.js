@@ -97,15 +97,15 @@ class mySingleOppPage extends Component {
     const { person } = this.state;
     let UserCountryBlock;
     let SocialBlock = null;
-    let EmailBlock;
-    let BirthDateBlock;
-    let PhoneNumberBlock;
+    let AccountBlock;
+    let AmountBlock;
+    let ProbabilityBlock;
     let BlockstackBlock;
     let TwitterBlock;
     let ContactDateBlock;
     let contactDate = null;
     if (opp[0]) {
-      if (ifAttribute(opp[0].contactDate)) {
+      /*if (ifAttribute(opp[0].contactDate)) {
         contactDate = moment(opp[0].contactDate, 'MM/DD/YYYY').fromNow(
           'days'
         );
@@ -123,35 +123,36 @@ class mySingleOppPage extends Component {
             <span className="b">Country:</span>
             🌎
           </div>
-        );
-      if (ifAttribute(opp[0].email)) {
-        EmailBlock = (
+        );*/
+      if (ifAttribute(opp[0].accountname)) {
+        AccountBlock = (
           <div className="mt2">
-            <span className="b">Email:</span> {opp[0].email}
+            <span className="b">Account Name:</span> {opp[0].accountname}
           </div>
         );
-      } else EmailBlock = null;
-      if (ifAttribute(opp[0].birthDate)) {
-        BirthDateBlock = (
+      } else AccountBlock = null;
+      if (ifAttribute(opp[0].amount)) {
+        AmountBlock = (
           <div className="mt2">
-            <span className="b">Birthday:</span> {opp[0].birthDate}
+            <span className="b">Amount:</span> {opp[0].amount}
           </div>
         );
-      } else BirthDateBlock = null;
-      if (ifAttribute(opp[0].contactDate)) {
+      } else AmountBlock = null;
+      /*if (ifAttribute(opp[0].contactDate)) {
         ContactDateBlock = (
           <div className="mt2">
             <span className="b">Next Check in is in {contactDate}</span>
           </div>
         );
-      } else ContactDateBlock = null;
-      if (ifAttribute(opp[0].phoneNumber)) {
-        PhoneNumberBlock = (
+      } else ContactDateBlock = null;*/
+      if (ifAttribute(opp[0].probability)) {
+        ProbabilityBlock = (
           <div className="mt2">
-            <span className="b">Phone Number:</span> {opp[0].phoneNumber}
+            <span className="b">Probability:</span> {opp[0].probability}
+            <span className="b"> %</span>
           </div>
         );
-      } else PhoneNumberBlock = null;
+      } else ProbabilityBlock = null;
       if (
         ifAttribute(opp[0].twitterHandle) ||
         ifAttribute(opp[0].blockstackId)
@@ -207,9 +208,9 @@ class mySingleOppPage extends Component {
                 <div className="center w-80 w-40-ns pt6-ns">
                   <div className="tl">
                     {ContactDateBlock}
-                    {PhoneNumberBlock}
-                    {EmailBlock}
-                    {BirthDateBlock}
+                    {AccountBlock}
+                    {AmountBlock}
+                    {ProbabilityBlock}
                     {UserCountryBlock}
                   </div>
                   <div className="tl">

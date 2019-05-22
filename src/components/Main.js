@@ -21,7 +21,7 @@ import Settings from './Settings';
 import SingleContactPage from './SingleContactPage';
 import SingleAccountPage from './SingleAccountPage';
 import SingleOppPage from './SingleOppPage';
-import Accounts from './Accounts1';
+import Accounts from './Accounts';
 import Opportunities from './Opportunities';
 
 export default class Main extends Component {
@@ -71,7 +71,7 @@ export default class Main extends Component {
             />
 
             <Route
-              path="/accounts1"
+              path="/accounts"
               component={() => <SignIn handleSignIn={this.handleSignIn} />}
             />
             <Route
@@ -186,7 +186,7 @@ export default class Main extends Component {
             />
 
             <Route
-              path="/accounts1"
+              path="/accounts"
               component={() => (
                 <Accounts handleSignOut={this.handleSignOut} />
               )}

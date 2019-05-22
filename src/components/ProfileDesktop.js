@@ -36,7 +36,7 @@ function ProfileDesktop(props) {
       </div>
       <div className="w-100">
         <Link
-          to="/accounts1"
+          to="/accounts"
           className="f6 link dim ph3 pv1 mb2 dib black bg-white ba b--black"
         >
           Accounts

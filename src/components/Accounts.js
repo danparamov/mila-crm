@@ -10,11 +10,13 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 import Nav from './Nav';
 import avatarFallbackImage from '../assets/avatar-placeholder.png';
-import SingleContact from './SingleContact';
-import ContactBubble from './ContactBubble';
+//import SingleContact from './SingleContact';
+//import ContactBubble from './ContactBubble';
 import NoOneLeft from '../assets/no-one-left.png';
 import ifAttribute from './util/ifAttribute';
 import ProfileDesktop from './ProfileDesktop';
+import SingleAccount from './SingleAccount';
+import AccountBubble from './AccountBubble';
 
 export default class Profile extends Component {
   state = {
@@ -27,7 +29,8 @@ export default class Profile extends Component {
       },
     },
     username: '',
-    contacts: [],
+    //contacts: [],
+    accounts: [],
     today: [{ contactsLeft: 0, date: '' }],
   };
 
@@ -41,10 +44,13 @@ export default class Profile extends Component {
 
   fetchData() {
     const options = { decrypt: true };
-    getFile('contacts.json', options).then(file => {
-      const contacts = JSON.parse(file || '[]');
+    //getFile('contacts.json', options).then(file => {
+    getFile('accounts.json', options).then(file => {
+      //const contacts = JSON.parse(file || '[]');
+      const accounts = JSON.parse(file || '[]');
       this.setState({
-        contacts,
+        //contacts
+        accounts,
       });
     });
     getFile('today.json', options).then(file => {
@@ -69,7 +75,8 @@ export default class Profile extends Component {
     const { handleSignOut } = this.props;
     const { person } = this.state;
     const { username } = this.state;
-    const { contacts } = this.state;
+    //const { contacts } = this.state;
+    const { accounts } = this.state;
     const { today } = this.state;
     let AddMoreContactsBlock = null;
     let ContactBlock = null;
@@ -79,24 +86,29 @@ export default class Profile extends Component {
       AddMoreContactsBlock = (
         <div className="w-100 w-75-ns fl tc bg-lightest-blue pa3 br1">
           Add <span className="b">{this.state.today[0].contactsLeft}</span> more
-          people today to your contacts
+          people today to your accounts
         </div>
       );
     }
-    if (ifAttribute(contacts[0])) {
+    //if (ifAttribute(contacts[0])) {
+    if (ifAttribute(accounts[0])) {
       ContactBlock = (
         <div className="w-100 w-75-ns fl ph4 tl">
-          {contacts.map(contact => (
-            <SingleContact contact={contact} key={contact.id} />
+          {accounts.map(account => (
+            <SingleAccount account={account} key={account.id} />
           ))}
         </div>
       );
-      contacts.map(contact => {
+      //contacts.map(contact => {
+      accounts.map(account => {
         if (
-          contact.contactDate === moment().format('l') ||
-          moment().isAfter(moment(contact.contactDate, 'MM/DD/YYYY'))
+          //contact.contactDate === moment().format('l') ||
+          account.contactDate === moment().format('l') ||
+          //moment().isAfter(moment(contact.contactDate, 'MM/DD/YYYY'))
+          moment().isAfter(moment(account.contactDate, 'MM/DD/YYYY'))
         ) {
-          ContactToday.push(contact);
+          //ContactToday.push(contact);
+          ContactToday.push(account);
         }
       });
     } else {
@@ -106,7 +118,7 @@ export default class Profile extends Component {
       NoContactTodayBlock = (
         <div className="w-100">
           <img src={NoOneLeft} className="center h4 db" alt="" />
-          <p className="center center tc b f4">No pending</p>
+          <p className="center center tc b f4">No pending checkins for today</p>
         </div>
       );
     }
@@ -127,23 +139,16 @@ export default class Profile extends Component {
             name={person.name() ? person.name() : 'Nameless Person'}
             username={username}
           />
-
           <div className="w-100 w-75-ns fl ph4 tl">
-            <h1>Your Contacts</h1>
-
-            <div className="w-100 fl db">
-              {ContactToday.map(contact => (
-                <ContactBubble contact={contact} key={contact.id} />
-              ))}
-            </div>
+            <h1>Your Accounts</h1>
           </div>
           {ContactBlock}
           <div className="fr">
             <Link
-              to="/add-contact"
+              to="/add-account"
               className="f4 link dim ph3 pv2 mb2 dib white bg-black b--black"
             >
-              Add Contact
+              Add Account
             </Link>
           </div>
         </div>
