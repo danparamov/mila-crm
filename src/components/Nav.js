@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Logo from '../assets/logo2.png';
-import LogoMobile from '../assets/logo-mobile.png';
+import Logo from '../assets/funnelicon.jpg';
+import LogoMobile from '../assets/funnelicon.jpg';
+import ProfileDesktop from './ProfileDesktop';
 import Menu from './Menu';
 
 export default class Nav extends Component {
@@ -23,6 +24,7 @@ export default class Nav extends Component {
             <img src={Logo} className="" alt="MILA CRM" />
           </Link>
           <div className="">
+          <ProfileDesktop />
             <div className="fl-ns">
               <Link to="/profile" title="MILA CRM">
                 <img
