@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Logo from '../assets/logo2.png';
+import Logo from '../assets/funnelicon.jpg';
 
 export default class NavLoggedOut extends Component {
   state = {
