@@ -13,9 +13,9 @@ const Updates = () => (
         </a>
       </p>
       <p>
-        Here is my{' '}
+        Here is our{' '}
         <a
-          href="https://app.graphitedocs.com/documents/1558268246199"
+          href="https://www.notion.so/milacrm/5f0435f1a0974109b814a640ab664d25?v=e7d2a0ec348548859d2f2f438a46281c"
           className="black"
         >
           Roadmap
