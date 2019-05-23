@@ -11,11 +11,10 @@ export default function LearnMore() {
         <h1>Create accounts, contacts and opportunities knowing that is your data</h1>
       </div>
       <div>
-        <Floating src={Grow} className="mw-100 w-70-m w-40-l" />
+        <Floating src={Plans} className="mw-100 w-70-m w-40-l" />
         <h1>Grow your business where everything is encrypted</h1>
       </div>
       <div>
-        <Floating src={Plans} className="mw-100 w-70-m w-40-l" />
         <h1>Security and privacy come first</h1>
         <p className="mid-gray">
           As we're leveraging the Blockstack network, you get to own and host
