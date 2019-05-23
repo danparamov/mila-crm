@@ -43,7 +43,7 @@ export default function LearnMore() {
         <p className="lh-copy mid-gray">
           Get in touch with us and send us a message on{' '}
           <a
-            href="https://www.twitter.com/danparamov"
+            href="https://www.twitter.com/mila_labs"
             className="black b
             no-underline bg-yellow pv1 ph1 bg-yellow b--black pointer"
           >
