@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function ProfileDesktop(props) {
   return (
-    <div className="w-100 w-25-ns fl pa2 dn dib-m dib-l pb5-l" id="section-2">
+    <div className="w-100 w-75-ns fl pa2 dn dib-m dib-l pb5-l" id="section-2">
       <div>
         <img
           src={props.profileImage}
@@ -11,71 +11,60 @@ function ProfileDesktop(props) {
           id="avatar-image"
           alt=""
         />
-      </div>
-      <p className="f4">
-        <span id="heading-name">{props.name}</span>
         <br />
         <span className="f6 gray">{props.username}</span>
-      </p>
-      <p className="lead">
-      <div className="w-100">
+        <br /><br />
         <Link
           to="/profile"
           className="f6 link dim ph3 pv1 mb2 dib black bg-white ba b--black"
         >
           Dashboard
         </Link>
-      </div>
-      <div className="w-100">
+      
         <Link
           to="/contacts"
           className="f6 link dim ph3 pv1 mb2 dib black bg-white ba b--black"
         >
           Contacts
         </Link>
-      </div>
-      <div className="w-100">
+      
         <Link
           to="/accounts"
           className="f6 link dim ph3 pv1 mb2 dib black bg-white ba b--black"
         >
           Accounts
         </Link>
-      </div>
-      <div className="w-100">
+      
         <Link
           to="/opportunities"
           className="f6 link dim ph3 pv1 mb2 dib black bg-white ba b--black"
         >
           Opportunities
         </Link>
-      </div>
-        <div className="w-100">
-          <Link
-            to="/settings"
-            className="f6 link dim ph3 pv1 mb2 dib black bg-white ba b--black"
-          >
-            Settings
-          </Link>
+      
+        <Link
+          to="/settings"
+          className="f6 link dim ph3 pv1 mb2 dib black bg-white ba b--black"
+         >
+          Settings
+        </Link>
+        
+        <Link
+          to="/updates"
+          className="f6 link dim ph3 pv1 mb2 dib black bg-white ba b--black"
+        >
+          Updates
+        </Link>
+        
+        <a
+          className="pointer f6 link dim ph3 pv1 mb2 dib black bg-white ba b--black"
+          id="signout-button"
+          onClick={props.logout}
+        >
+          Logout
+        </a>
         </div>
-        <div className="w-100">
-          <Link
-            to="/updates"
-            className="f6 link dim ph3 pv1 mb2 dib black bg-white ba b--black"
-          >
-            Updates
-          </Link>
-        </div>
-        <div className="w-100">
-          <a
-            className="pointer f6 link dim ph3 pv1 mb2 dib black bg-white ba b--black"
-            id="signout-button"
-            onClick={props.logout}
-          >
-            Logout
-          </a>
-        </div>
-      </p>
+    
     </div>
   );
 }
