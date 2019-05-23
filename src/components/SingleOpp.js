@@ -21,7 +21,11 @@ export default class SingleOpp extends Component {
             />
           </div>
           <p className="fl w-80 w-90-ns h3 pl3 f4 fw4 black-80">
-            {opp.oppname} {' '}
+            {opp.oppname} {' -- '}
+            {opp.accountname} {' -- $'}
+            {opp.amount} {' -- '}
+            {opp.salesstage} {' -- '}
+            {opp.probability} {'%'}
           </p>
         </Link>
       </div>

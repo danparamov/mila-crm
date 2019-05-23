@@ -21,7 +21,12 @@ export default class SingleAccount extends Component {
             />
           </div>
           <p className="fl w-80 w-90-ns h3 pl3 f4 fw4 black-80">
-            {account.accountname} {' '}
+            {account.accountname} {' -- '}
+            {account.industry} {' -- '}
+            {account.salesstage} {' -- '}
+            {account.email} {' -- '}
+            {account.phoneNumber} {' -- '}
+            {account.country} {' -- '}
             <PriorityLabel priority={account.priority} small />
           </p>
         </Link>

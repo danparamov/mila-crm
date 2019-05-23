@@ -18,7 +18,6 @@ function PriorityLabel(props) {
   if (props.priority === 'C') {
     text = `Contact every ${priorityLabel.C}`;
   }
-
   if (props.priority === 'D') {
     text = `Contact every ${priorityLabel.D}`;
   }
