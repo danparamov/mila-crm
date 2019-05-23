@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { createGlobalStyle } from 'styled-components';
 import { Link } from 'react-router-dom';
-import MilaLogo from '../assets/world-icon.png';
+import MilaLogo from '../assets/funnelicon.jpg';
 import BlockstackLogo from '../assets/blockstack-logo-landscape@2x.png';
 import DefaultButton from './styles/DefaultButton';
 import LearnMore from './LearnMore';
