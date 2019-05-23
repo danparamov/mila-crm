@@ -41,7 +41,7 @@ export default function LearnMore() {
           </a>{' '}
         </p>
         <p className="lh-copy mid-gray">
-          Get in touch with us and send us a message on{' '}
+          Show us some love and send us a message on{' '}
           <a
             href="https://www.twitter.com/mila_labs"
             className="black b
