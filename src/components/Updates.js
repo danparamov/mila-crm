@@ -9,7 +9,7 @@ const Updates = () => (
       <h1>Updates</h1>
       <p>
         Mila CRM is part of a set of sales tools that are being built by Mila Labs which is a product of two 🇪🇨 Ecuadorian brothers,{' '}
-        <a href="https://twitter.com/danparamov" className="black">
+        <a href="https://twitter.com/mila_labs" className="black">
           Daniel Paramo
         </a>
       </p>
