@@ -28,12 +28,14 @@ class EditOppPage extends Component {
     leadsource: '',
     amount: '',
     closingdate: '',
-    contacts: [],
     salesstage: '',
     probability: '',
     description: '',
+    blockstackId: '',
     priority: '',
     created_at: '',
+    //contacts: [],
+    opps: [],
     person: {
       name() {
         return 'Anonymous';
@@ -66,20 +68,20 @@ class EditOppPage extends Component {
       }
       this.setState({
         opps,
-        id: Date.now(),
-        created_at: Date.now(),
-        oppname: this.state.oppname,
-        accountname: this.state.accountname,
-        nextstep: this.state.nextstep,
-        type: this.state.type,
-        leadsource: this.state.leadsource,
-        amount: this.state.amount,
-        closingdate: this.state.closingdate,
-        salesstage: this.state.salestage,
-        blockstackId: this.state.blockstackId,
-        probability: this.state.probability,
-        description: this.state.description,
-        priority: this.state.priority,
+        id: opp[0].id,
+        oppname: opp[0].oppname,
+        accountname: opp[0].accountname,
+        nextstep: opp[0].nextstep,
+        type: opp[0].type,
+        leadsource: opp[0].leadsource,
+        amount: opp[0].amount,
+        closingdate: opp[0].closingdate,
+        salesstage: opp[0].salesstage,
+        blockstackId: opp[0].blockstackId,
+        probability: opp[0].probability,
+        description: opp[0].description,
+        created_at: opp[0].created_at,
+        priority: opp[0].priority,
       });
     });
   }
@@ -100,11 +102,12 @@ class EditOppPage extends Component {
       leadsource: this.state.leadsource,
       amount: this.state.amount,
       closingdate: this.state.closingdate,
-      salesstage: this.state.salestage,
+      salesstage: this.state.salesstage,
       blockstackId: this.state.blockstackId,
       probability: this.state.probability,
       description: this.state.description,
       priority: this.state.priority,
+      created_at: this.state.created_at,
     };
     // delete the contact with the same ID as the edited one
     opps = opps.filter(opp => opp.id !== newContact.id);
@@ -203,10 +206,13 @@ class EditOppPage extends Component {
               <fieldset>
                 <label>
                   Type
-                  <select onChange={this.handleChange} id="type" name="type">
-                    <option value="" defaultChecked>
-                      Select Type..
-                    </option>
+                  <select
+                    type="text"
+                    id="type"
+                    name="type"
+                    value={this.state.type}
+                    onChange={this.handleChange}
+                  >
                     <option value="Existing Business">Existing Business</option>
                     <option value="New Business">New Business</option>
                     <option value="None">-None-</option>
@@ -216,10 +222,13 @@ class EditOppPage extends Component {
               <fieldset>
                 <label>
                   Lead Source
-                  <select onChange={this.handleChange} id="leadsource" name="leadsource">
-                    <option value="" defaultChecked>
-                      Lead Source..
-                    </option>
+                  <select
+                    type="text"
+                    id="leadsource"
+                    name="leadsource"
+                    value={this.state.leadsource}
+                    onChange={this.handleChange}
+                  >
                     <option value="Advertisement">Advertisement</option>
                     <option value="Cold Call">Cold Call</option>
                     <option value="Employee Referral">Employee Referral</option>
@@ -259,10 +268,13 @@ class EditOppPage extends Component {
               <fieldset>
               <label>
                 Sales Stage
-                <select onChange={this.handleChange} id="salesstage" name="salesstage">
-                  <option value="" defaultChecked>
-                    Sales Stage..
-                  </option>
+                <select
+                    type="text"
+                    id="salesstage"
+                    name="salesstage"
+                    value={this.state.salesstage}
+                    onChange={this.handleChange}
+                  >
                   <option value="Qualified">Qualified</option>
                   <option value="Needs Analysis">Needs Analysis</option>
                   <option value="Value Proposition">alue Proposition</option>

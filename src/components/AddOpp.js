@@ -26,11 +26,12 @@ export default class AddOpp extends Component {
     leadsource: '',
     amount: '',
     closingdate: '',
-    contacts: [],
     salesstage: '',
     probability: '',
     description: '',
-    priority: '',
+    blockstackId: '',
+    //contacts: [],
+    opps: [],
     person: {
       name() {
         return 'Anonymous';
@@ -103,11 +104,10 @@ export default class AddOpp extends Component {
       leadsource: this.state.leadsource,
       amount: this.state.amount,
       closingdate: this.state.closingdate,
-      salesstage: this.state.salestage,
-      blockstackId: this.state.blockstackId,
+      salesstage: this.state.salesstage,
       probability: this.state.probability,
       description: this.state.description,
-      priority: this.state.priority,
+      blockstackId: this.state.blockstackId,
       contactDate,
     };
 
@@ -129,9 +129,8 @@ export default class AddOpp extends Component {
       closingdate: '',
       salesstage: '',
       probability: '',
-      blockstackId: '',
       description: '',
-      priority: '',
+      blockstackId: '',
     });
   }
 
@@ -145,7 +144,6 @@ export default class AddOpp extends Component {
     const { handleSignOut } = this.props;
     const { person } = this.state;
     const { username } = this.state;
-    const { opps } = this.state;
     const loading = false;
     const error = false;
     if (this.state.saved) {

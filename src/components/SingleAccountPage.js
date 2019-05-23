@@ -69,7 +69,7 @@ class mySingleAccountPage extends Component {
     const options = { encrypt: true };
     putFile('accounts.json', JSON.stringify(newContactsList), options).then(
       () => {
-        this.props.history.push('/accounts1');
+        this.props.history.push('/accounts');
       }
     );
   }
@@ -86,7 +86,7 @@ class mySingleAccountPage extends Component {
     const options = { encrypt: true };
     putFile('accounts.json', JSON.stringify(newContactsList), options).then(
       () => {
-        this.props.history.push('/accounts1');
+        this.props.history.push('/accounts');
       }
     );
   }
