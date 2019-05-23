@@ -50,6 +50,14 @@ function ProfileDesktop(props) {
           Opportunities
         </Link>
       </div>
+      <div className="w-100">
+        <Link
+          to="/tasks"
+          className="f3 link dim ph3 pv1 mb2 dib gray"
+        >
+          Tasks
+        </Link>
+      </div>
         <div className="w-100">
           <Link
             to="/settings"

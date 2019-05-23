@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 import Nav from './Nav';
 import avatarFallbackImage from '../assets/avatar-placeholder.png';
-import SingleContact from './SingleContact';
+import SingleTask from './SingleTask';
 import ContactBubble from './ContactBubble';
 import NoOneLeft from '../assets/no-one-left.png';
 import ifAttribute from './util/ifAttribute';
@@ -27,7 +27,6 @@ export default class Profile extends Component {
       },
     },
     username: '',
-    contacts: [],
     tasks: [],
     today: [{ contactsLeft: 0, date: '' }],
   };
@@ -42,10 +41,10 @@ export default class Profile extends Component {
 
   fetchData() {
     const options = { decrypt: true };
-    getFile('contacts.json', options).then(file => {
-      const contacts = JSON.parse(file || '[]');
+    getFile('tasks.json', options).then(file => {
+      const tasks = JSON.parse(file || '[]');
       this.setState({
-        contacts,
+        tasks,
       });
     });
     getFile('today.json', options).then(file => {
@@ -70,7 +69,7 @@ export default class Profile extends Component {
     const { handleSignOut } = this.props;
     const { person } = this.state;
     const { username } = this.state;
-    const { contacts } = this.state;
+    const { tasks } = this.state;
     const { today } = this.state;
     let AddMoreContactsBlock = null;
     let ContactBlock = null;
@@ -84,11 +83,11 @@ export default class Profile extends Component {
         </div>
       );
     }*/
-    if (ifAttribute(contacts[0])) {
+    if (ifAttribute(tasks[0])) {
       ContactBlock = (
         <div className="w-100 w-200-ns fl ph4 tl">
-          {contacts.map(contact => (
-            <SingleContact contact={contact} key={contact.id} />
+          {tasks.map(task => (
+            <SingleTask task={task} key={task.id} />
           ))}
         </div>
       );
@@ -121,14 +120,14 @@ export default class Profile extends Component {
         />
         <div className="mw9 center ph3 cf">
           <div className="w-100 w-75-ns fl ph4 tl">
-            <h1> Contacts
+            <h1> Tasks
             <Link
-              to="/add-contact"
+              to="/add-task"
               className="f4 link dim ph3 pv2 mb2 dib white bg-black b--black"
             >
              +
             </Link> </h1>
-            Name -- Email -- Phone Number -- Country -- Priority
+            Name -- Subject -- Date -- Status -- Due Date -- Priority
             <br /> <br /> 
           </div>
           {ContactBlock}
