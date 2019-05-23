@@ -16,48 +16,49 @@ function ProfileDesktop(props) {
         <br /><br />
         <Link
           to="/profile"
-          className="f6 link dim ph3 pv1 mb2 dib black bg-white ba b--black"
+          // className="f6 link dim ph3 pv1 mb2 dib white bg-green ba b--black"
+          className="f6 link dim ph3 pv1 mb2 dib gray"
         >
           Dashboard
         </Link>
 
         <Link
           to="/contacts"
-          className="f6 link dim ph3 pv1 mb2 dib black bg-white ba b--black"
+          className="f6 link dim ph3 pv1 mb2 dib gray"
         >
           Contacts
         </Link>
 
         <Link
           to="/accounts"
-          className="f6 link dim ph3 pv1 mb2 dib black bg-white ba b--black"
+          className="f6 link dim ph3 pv1 mb2 dib gray"
         >
           Accounts
         </Link>
 
         <Link
           to="/opportunities"
-          className="f6 link dim ph3 pv1 mb2 dib black bg-white ba b--black"
+          className="f6 link dim ph3 pv1 mb2 dib gray"
         >
           Opportunities
         </Link>
 
         <Link
           to="/settings"
-          className="f6 link dim ph3 pv1 mb2 dib black bg-white ba b--black"
+          className="f6 link dim ph3 pv1 mb2 dib gray"
          >
           Settings
         </Link>
 
         <Link
           to="/updates"
-          className="f6 link dim ph3 pv1 mb2 dib black bg-white ba b--black"
+          className="f6 link dim ph3 pv1 mb2 dib gray"
         >
           Updates
         </Link>
 
         <a
-          className="pointer f6 link dim ph3 pv1 mb2 dib black bg-white ba b--black"
+          className="pointer f6 link dim ph3 pv1 mb2 dib gray"
           id="signout-button"
           onClick={props.logout}
         >
