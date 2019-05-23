@@ -1,9 +1,10 @@
 import React from 'react';
 import NavLoggedOut from './NavLoggedOut';
+import Nav from './Nav';
 
 const Updates = () => (
   <div>
-    <NavLoggedOut />
+    <Nav />
     <div className="tl ph3 ph5-ns ph7-l">
       <h1>Updates</h1>
       <p>
