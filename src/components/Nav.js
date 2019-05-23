@@ -20,8 +20,7 @@ export default class Nav extends Component {
     return (
       <div>
         <nav className="w-10-ns">
-          <Link to="/" title="MILA CRM">
-            <img src={Logo} className="" alt="MILA CRM" />
+          <Link to="/profile" title="MILA CRM">
           </Link>
           <div className="">
           <ProfileDesktop />
