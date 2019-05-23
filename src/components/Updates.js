@@ -8,7 +8,7 @@ const Updates = () => (
     <div className="tl ph3 ph5-ns ph7-l">
       <h1>Updates</h1>
       <p>
-        Mila is a solo project made in 🇪🇨 Ecuador by me,{' '}
+        Mila CRM is part of a set of sales tools that are being built by Mila Labs which is a product of two 🇪🇨 Ecuadorian brothers,{' '}
         <a href="https://twitter.com/danparamov" className="black">
           Daniel Paramo
         </a>
