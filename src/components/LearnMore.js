@@ -50,6 +50,12 @@ export default function LearnMore() {
             Twitter
           </a>{' '}
         </p>
+        <p className="lh-copy mid-gray">
+          Donate BTC = 1AkBXxeh7iqYvAyvrvUBxkpFQxBDekhx8J{' '}
+        </p>
+        <p className="lh-copy mid-gray">
+          Donate ETH = 0xdFF0fD1067e0420Af947631782aEA28F260376d3{' '}
+        </p>
       </div>
     </div>
   );
