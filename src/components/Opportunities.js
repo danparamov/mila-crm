@@ -133,12 +133,12 @@ export default class Profile extends Component {
             <h1>Opportunities
             <Link
               to="/add-opportunity"
-              className="f2 link dim ph3 pv2 mb2 dib white bg-gray b--black"
-            > 
+              className="f2 link dim ph3 pv2 mb2 dib white bg-green b--black"
+            >
              +
             </Link></h1>
-            Name -- Account -- Amount -- Sales Stage -- Probability 
-            <br /> <br /> 
+            Name -- Account -- Amount -- Sales Stage -- Probability
+            <br /> <br />
           </div>
           {ContactBlock}
         </div>

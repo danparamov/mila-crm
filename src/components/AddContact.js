@@ -19,17 +19,25 @@ import nextContactDate from './util/nextContactDate';
 
 export default class AddContact extends Component {
   state = {
-    name: '',
+    firstname: '',
     lastName: '',
     twitterHandle: '',
+    accountName: '',
+    title: '',
     email: '',
     phoneNumber: '',
+    bestcomm: '',
     birthDate: '',
     country: '',
+    telegramId:'',
+    streetAddress: '',
+    mediumId:'',
+    reachout:'',
     region: '',
     contacts: [],
-    sex: '',
+    leadsource: '',
     blockstackId: '',
+    description: '',
     priority: 'A',
     person: {
       name() {
@@ -91,14 +99,22 @@ export default class AddContact extends Component {
     const newContact = {
       id: Date.now(),
       created_at: Date.now(),
-      name: this.state.name,
+      firstname: this.state.name,
       lastName: this.state.lastName,
+      title: this.state.title,
+      medium: this.state.medium,
+      accountName: this.state.accountName,
       twitterHandle: this.state.twitterHandle,
       email: this.state.email,
+      bestcomm: this.state.bestcomm,
+      reachout: this.state.reachout,
+      telegramId: this.state.telegramId,
       phoneNumber: this.state.phoneNumber,
       country: this.state.country,
       region: this.state.region,
-      sex: this.state.sex,
+      streetAddress: this.state.streetAddress,
+      leadsource: this.state.leadsource,
+      description: this.state.description,
       blockstackId: this.state.blockstackId,
       birthDate: this.state.birthDate,
       priority: this.state.priority,
@@ -113,13 +129,21 @@ export default class AddContact extends Component {
     this.setState({
       country: '',
       region: '',
-      name: '',
+      firstname: '',
       lastName: '',
+      accountName: '',
+      title: '',
+      bestcomm: '',
+      mediumId: '',
+      reachout: '',
       twitterHandle: '',
+      telegramId: '',
+      streetAddress: '',
       email: '',
       phoneNumber: '',
+      description: '',
       birthDate: '',
-      sex: '',
+      leadsource: '',
       blockstackId: '',
       priority: '',
     });
@@ -167,15 +191,16 @@ export default class AddContact extends Component {
               }}
             >
               <Error error={error} />
+              <h3 className="">Contact Information</h3>
               <fieldset>
-                <label htmlFor="name">
-                  Name
+                <label htmlFor="firstname">
+                  First Name
                   <input
                     type="text"
-                    id="name"
-                    name="name"
-                    placeholder="Name.."
-                    value={this.state.name}
+                    id="firstname"
+                    name="firstname"
+                    placeholder=""
+                    value={this.state.firstname}
                     onChange={this.handleChange}
                     required
                   />
@@ -188,34 +213,189 @@ export default class AddContact extends Component {
                     type="text"
                     id="lastName"
                     name="lastName"
-                    placeholder="Last Name.."
+                    placeholder=""
                     value={this.state.lastName}
                     onChange={this.handleChange}
                   />
                 </label>
               </fieldset>
               <fieldset>
+                <label htmlFor="accountName">
+                  Account Name
+                  <input
+                    type="text"
+                    id="accountName"
+                    name="accountName"
+                    placeholder=""
+                    value={this.state.accountName}
+                    onChange={this.handleChange}
+                  />
+                </label>
+              </fieldset>
+              <fieldset>
+                <label htmlFor="title">
+                  Title
+                  <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    placeholder=""
+                    value={this.state.title}
+                    onChange={this.handleChange}
+                  />
+                </label>
+              </fieldset>
+              <fieldset>
                 <label>
-                  Gender
-                  <select onChange={this.handleChange} id="sex" name="sex">
+                  Lead Source
+                  <select onChange={this.handleChange} id="leadsource" name="leadsource">
                     <option value="" defaultChecked>
-                      Select Gender..
+                      Select
                     </option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
+                    <option value="Advertisement">Advertisement</option>
+                    <option value="Cold Call">Cold Call</option>
+                    <option value="Employee Referral">Employee Referral</option>
+                    <option value="External Referral">External Referral</option>
+                    <option value="Partner">Cold Call</option>
+                    <option value="Public Relations">Public Relations</option>
+                    <option value="Trade Show">Trade Show</option>
+                    <option value="Internal Seminar">Internal Seminar</option>
+                  </select>
+                </label>
+              </fieldset>
+              <fieldset>
+                <label htmlFor="email">
+                  Email
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder=""
+                    value={this.state.email}
+                    onChange={this.handleChange}
+                  />
+                </label>
+              </fieldset>
+              <fieldset>
+                <label htmlFor="phoneNumber">
+                  Phone Number
+                  <input
+                    type="text"
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    placeholder=""
+                    value={this.state.phoneNumber}
+                    onChange={this.handleChange}
+                  />
+                </label>
+              </fieldset>
+              <fieldset>
+                <label>
+                  Best Way for Communication
+                  <select onChange={this.handleChange} id="bestcomm" name="bestcomm">
+                    <option value="" defaultChecked>
+                      Select
+                    </option>
+                    <option value="WhastApp">WhatsApp</option>
+                    <option value="WeChat">WeChat</option>
+                    <option value="Skype">Skype</option>
+                    <option value="Call">Call</option>
+                    <option value="Email">Email</option>
+                    <option value="Text">Text</option>
+                    <option value="Telegram">Telegram</option>
+                    <option value="Twitter">Twitter</option>
                   </select>
                 </label>
               </fieldset>
               <fieldset disabled={loading} aria-busy={loading}>
                 <label htmlFor="birthDate">
-                  Birth Date
+                  Date of Birth
                   <input
                     type="date"
                     id="birthDate"
                     name="birthDate"
                     placeholder="Click to select Birthday.."
                     value={this.state.birthDate}
+                    onChange={this.handleChange}
+                  />
+                </label>
+              </fieldset>
+              <fieldset disabled={loading} aria-busy={loading}>
+                <label htmlFor="reachout">
+                  Reach Out Again By
+                  <input
+                    type="date"
+                    id="reachout"
+                    name="reachout"
+                    placeholder=""
+                    value={this.state.reachout}
+                    onChange={this.handleChange}
+                  />
+                </label>
+              </fieldset>
+              <h3 className="">Social</h3>
+              <fieldset disabled={loading} aria-busy={loading}>
+                <label htmlFor="twitterHandle">
+                  Twitter
+                  <input
+                    type="text"
+                    id="twitterHandle"
+                    name="twitterHandle"
+                    placeholder=""
+                    value={this.state.twitterHandle}
+                    onChange={this.handleChange}
+                  />
+                </label>
+              </fieldset>
+              <fieldset disabled={loading} aria-busy={loading}>
+                <label htmlFor="blockstackId">
+                  Blockstack Id
+                  <input
+                    type="text"
+                    id="blockstackId"
+                    name="blockstackId"
+                    placeholder=""
+                    value={this.state.blockstackId}
+                    onChange={this.handleChange}
+                  />
+                </label>
+              </fieldset>
+              <fieldset disabled={loading} aria-busy={loading}>
+                <label htmlFor="telegram">
+                  Telegram ID
+                  <input
+                    type="text"
+                    id="telegramId"
+                    name="telegramId"
+                    placeholder=""
+                    value={this.state.telegramId}
+                    onChange={this.handleChange}
+                  />
+                </label>
+              </fieldset>
+              <fieldset disabled={loading} aria-busy={loading}>
+                <label htmlFor="mediumId">
+                  Medium ID
+                  <input
+                    type="text"
+                    id="mediumId"
+                    name="mediumId"
+                    placeholder=""
+                    value={this.state.mediumId}
+                    onChange={this.handleChange}
+                  />
+                </label>
+              </fieldset>
+              <h3 className="">Addres Information</h3>
+              <fieldset disabled={loading} aria-busy={loading}>
+                <label htmlFor="streetAddress">
+                  Street Address
+                  <input
+                    type="text"
+                    id="streetAddress"
+                    name="streetAddress"
+                    placeholder=""
+                    value={this.state.streetAddress}
                     onChange={this.handleChange}
                   />
                 </label>
@@ -243,73 +423,18 @@ export default class AddContact extends Component {
                   />
                 </label>
               </fieldset>
-              <fieldset>
-                <label htmlFor="email">
-                  Email
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    placeholder="Email.."
-                    value={this.state.email}
-                    onChange={this.handleChange}
-                  />
-                </label>
-              </fieldset>
-              <fieldset>
-                <label htmlFor="phoneNumber">
-                  Phone Number
-                  <input
-                    type="text"
-                    id="phoneNumber"
-                    name="phoneNumber"
-                    placeholder="Phone Number.."
-                    value={this.state.phoneNumber}
-                    onChange={this.handleChange}
-                  />
-                </label>
-              </fieldset>
+              <h3 className="">Description</h3>
               <fieldset disabled={loading} aria-busy={loading}>
-                <label htmlFor="twitterHandle">
-                  Twitter Handle
+                <label htmlFor="description">
+                  Description
                   <input
                     type="text"
-                    id="twitterHandle"
-                    name="twitterHandle"
-                    placeholder="Twitter handle.. (eg. 0xferruccio)"
-                    value={this.state.twitterHandle}
+                    id="description"
+                    name="description"
+                    placeholder=""
+                    value={this.state.description}
                     onChange={this.handleChange}
                   />
-                </label>
-              </fieldset>
-              <fieldset disabled={loading} aria-busy={loading}>
-                <label htmlFor="blockstackId">
-                  Blockstack Id
-                  <input
-                    type="text"
-                    id="blockstackId"
-                    name="blockstackId"
-                    placeholder="Blockstack ID.."
-                    value={this.state.blockstackId}
-                    onChange={this.handleChange}
-                  />
-                </label>
-              </fieldset>
-              <fieldset>
-                <label htmlFor="priority">
-                  Contact Frequency
-                  <select
-                    type="text"
-                    id="priority"
-                    name="priority"
-                    value={this.state.priority}
-                    onChange={this.handleChange}
-                  >
-                    <option value="A">Every two weeks</option>
-                    <option value="B">Every month</option>
-                    <option value="C">Every three months</option>
-                    <option value="D">Every year</option>
-                  </select>
                 </label>
               </fieldset>
               <button type="submit" className="bg-black">

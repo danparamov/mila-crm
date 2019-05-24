@@ -124,12 +124,12 @@ export default class Profile extends Component {
             <h1> Contacts
             <Link
               to="/add-contact"
-              className="f2 link dim ph3 pv2 mb2 dib white bg-gray b--black"
+              className="f2 link dim ph3 pv2 mb2 dib white bg-green b--black"
             >
-             +
+            +
             </Link> </h1>
             Name -- Email -- Phone Number -- Country -- Priority
-            <br /> <br /> 
+            <br /> <br />
           </div>
           {ContactBlock}
         </div>
