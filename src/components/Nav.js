@@ -25,6 +25,7 @@ export default class Nav extends Component {
         return avatarFallbackImage;
       },
     },
+    username: '',
     showMenu: false,
   };
 
@@ -45,26 +46,25 @@ export default class Nav extends Component {
     const { person } = this.state;
     const { username } = this.state;
     //const { handleSignOut } = this.props;
-    return (
+    return !isSignInPending() ? (
       <div>
         <div>
           <Link to="/" title="MILA CRM">
             <img src={Logo} className="w-10" alt="MILA CRM" align="right"/>
           </Link><br /><br />
         </div>
-        <nav className="w-10-ns">
+        <nav className="w-50-ns">
           <div className="">
             <ProfileDesktop
-              //logout={handleSignOut.bind(this)}
-              profileImage={
+            profileImage={
               person.avatarUrl() ? person.avatarUrl() : avatarFallbackImage
-              }
-              username={username}
-            />           
+            }
+            //logout={handleSignOut.bind(this)}
+            />
           </div>
         </nav>
         {this.state.showMenu ? <Menu logout={this.props.logout} /> : null}
       </div>
-    );
+    ) : null;
   }
 }
