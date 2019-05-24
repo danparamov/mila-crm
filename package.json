@@ -1,5 +1,5 @@
 {
-  "name": "kit-crm",
+  "name": "mila-crm",
   "version": "0.0.0",
   "description": "A simple decentralised CRM for your own contacts",
   "main": "index.js",
@@ -15,7 +15,7 @@
   "bugs": {
     "url": "https://github.com/danparamov/mila-crm/issues"
   },
-  "homepage": "https://github.com/danparamov/kit-crm#readme",
+  "homepage": "https://github.com/danparamov/mila-crm#readme",
   "author": "",
   "license": "MIT",
   "devDependencies": {
