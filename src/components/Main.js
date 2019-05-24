@@ -23,10 +23,13 @@ import Settings from './Settings';
 import SingleContactPage from './SingleContactPage';
 import SingleAccountPage from './SingleAccountPage';
 import SingleOppPage from './SingleOppPage';
-
 import Accounts from './Accounts';
 import Opportunities from './Opportunities';
+
 import Tasks from './Tasks';
+import ContactTasks from './ContactTasks';
+import EditContactTask from './EditContactTask';
+import AddContactTask from './AddContactTask';
 
 export default class Main extends Component {
   componentWillMount() {
@@ -65,29 +68,20 @@ export default class Main extends Component {
               path="/contacts"
               component={() => <SignIn handleSignIn={this.handleSignIn} />}
             />
+             <Route
+              path="/add-contact"
+              component={() => <SignIn handleSignIn={this.handleSignIn} />}
+            />
+             <Route
+              path="/edit-contact"
+              component={() => <SignIn handleSignIn={this.handleSignIn} />}
+            />
             <Route
               path="/account"
               component={() => <SignIn handleSignIn={this.handleSignIn} />}
             />
-            <Route
-              path="/opportunity"
-              component={() => <SignIn handleSignIn={this.handleSignIn} />}
-            />
-
-            <Route
-              path="/accounts"
-              component={() => <SignIn handleSignIn={this.handleSignIn} />}
-            />
-            <Route
-              path="/opportunities"
-              component={() => <SignIn handleSignIn={this.handleSignIn} />}
-            />
              <Route
-              path="/tasks"
-              component={() => <SignIn handleSignIn={this.handleSignIn} />}
-            />
-            <Route
-              path="/add-contact"
+              path="/accounts"
               component={() => <SignIn handleSignIn={this.handleSignIn} />}
             />
             <Route
@@ -95,16 +89,20 @@ export default class Main extends Component {
               component={() => <SignIn handleSignIn={this.handleSignIn} />}
             />
             <Route
-              path="/add-opportunity"
-              component={() => <SignIn handleSignIn={this.handleSignIn} />}
-            />
-
-            <Route
-              path="/edit-contact"
-              component={() => <SignIn handleSignIn={this.handleSignIn} />}
-            />
-            <Route
               path="/edit-account"
+              component={() => <SignIn handleSignIn={this.handleSignIn} />}
+            />
+           
+            <Route
+              path="/opportunity"
+              component={() => <SignIn handleSignIn={this.handleSignIn} />}
+            />          
+            <Route
+              path="/opportunities"
+              component={() => <SignIn handleSignIn={this.handleSignIn} />}
+            />
+            <Route
+              path="/add-opportunity"
               component={() => <SignIn handleSignIn={this.handleSignIn} />}
             />
             <Route
@@ -112,6 +110,22 @@ export default class Main extends Component {
               component={() => <SignIn handleSignIn={this.handleSignIn} />}
             />
 
+            <Route
+              path="/tasks"
+              component={() => <SignIn handleSignIn={this.handleSignIn} />}
+            />
+            <Route
+              path="/contacttasks"
+              component={() => <SignIn handleSignIn={this.handleSignIn} />}
+            />
+             <Route
+              path="/edit-contacttask"
+              component={() => <SignIn handleSignIn={this.handleSignIn} />}
+            /> 
+             <Route
+              path="/add-contacttask"
+              component={() => <SignIn handleSignIn={this.handleSignIn} />}
+            />
             <Route
               path="/settings"
               component={() => <SignIn handleSignIn={this.handleSignIn} />}
@@ -124,49 +138,6 @@ export default class Main extends Component {
         ) : (
           <Switch>
             <Route path="/updates" component={Updates} />
-
-            <Route
-              path="/add-contact"
-              component={() => (
-                <AddContact handleSignOut={this.handleSignOut} />
-              )}
-            />
-             <Route
-              path="/add-account"
-              component={() => (
-                <AddAccount handleSignOut={this.handleSignOut} />
-              )}
-            />
-             <Route
-              path="/add-opportunity"
-              component={() => (
-                <AddOpp handleSignOut={this.handleSignOut} />
-              )}
-            />
-
-            <Route
-              path="/edit-contact"
-              component={() => (
-                <EditContact handleSignOut={this.handleSignOut} />
-              )}
-            />
-            <Route
-              path="/edit-account"
-              component={() => (
-                <EditAccount handleSignOut={this.handleSignOut} />
-              )}
-            />
-            <Route
-              path="/edit-opportunity"
-              component={() => (
-                <EditOpp handleSignOut={this.handleSignOut} />
-              )}
-            />
-
-            <Route
-              path="/settings"
-              component={() => <Settings handleSignOut={this.handleSignOut} />}
-            />
             <Route
               path="/contact"
               component={() => (
@@ -180,15 +151,21 @@ export default class Main extends Component {
               )}
             />
             <Route
+              path="/add-contact"
+              component={() => (
+                <AddContact handleSignOut={this.handleSignOut} />
+              )}
+            />
+             <Route
+              path="/edit-contact"
+              component={() => (
+                <EditContact handleSignOut={this.handleSignOut} />
+              )}
+            />
+             <Route
               path="/account"
               component={() => (
                 <SingleAccountPage handleSignOut={this.handleSignOut} />
-              )}
-            />
-            <Route
-              path="/opportunity"
-              component={() => (
-                <SingleOppPage handleSignOut={this.handleSignOut} />
               )}
             />
             <Route
@@ -197,10 +174,40 @@ export default class Main extends Component {
                 <Accounts handleSignOut={this.handleSignOut} />
               )}
             />
+             <Route
+              path="/add-account"
+              component={() => (
+                <AddAccount handleSignOut={this.handleSignOut} />
+              )}
+            />
+            <Route
+              path="/edit-account"
+              component={() => (
+                <EditAccount handleSignOut={this.handleSignOut} />
+              )}
+            />
+            <Route
+              path="/opportunity"
+              component={() => (
+                <SingleOppPage handleSignOut={this.handleSignOut} />
+              )}
+            />            
             <Route
               path="/opportunities"
               component={() => (
                 <Opportunities handleSignOut={this.handleSignOut} />
+              )}
+            />
+             <Route
+              path="/add-opportunity"
+              component={() => (
+                <AddOpp handleSignOut={this.handleSignOut} />
+              )}
+            />
+            <Route
+              path="/edit-opportunity"
+              component={() => (
+                <EditOpp handleSignOut={this.handleSignOut} />
               )}
             />
             <Route
@@ -208,6 +215,28 @@ export default class Main extends Component {
               component={() => (
                 <Tasks handleSignOut={this.handleSignOut} />
               )}
+            />
+            <Route
+              path="/contacttasks"
+              component={() => (
+                <ContactTasks handleSignOut={this.handleSignOut} />
+              )}
+            />
+            <Route
+              path="/edit-contacttask"
+              component={() => (
+                <EditContactTask handleSignOut={this.handleSignOut} />
+              )}
+            /> 
+            <Route
+              path="/add-contacttask"
+              component={() => (
+                <AddContactTask handleSignOut={this.handleSignOut} />
+              )}
+            />
+            <Route
+              path="/settings"
+              component={() => <Settings handleSignOut={this.handleSignOut} />}
             />
             <Route
               path="/"

@@ -32,6 +32,7 @@ export default class AddOpp extends Component {
     blockstackId: '',
     //contacts: [],
     opps: [],
+    accounts: [],
     person: {
       name() {
         return 'Anonymous';
@@ -59,6 +60,14 @@ export default class AddOpp extends Component {
       this.setState({
         //contacts
         opps,
+      });
+    });
+    getFile('accounts.json', options).then(file => {
+      //const contacts = JSON.parse(file || '[]');
+      const accounts = JSON.parse(file || '[]');
+      this.setState({
+        //contacts
+        accounts,
       });
     });
     getFile('today.json', options).then(file => {
@@ -159,14 +168,6 @@ export default class AddOpp extends Component {
           logout={handleSignOut.bind(this)}
         />
         <div className="mw9 center ph3 cf">
-          <ProfileDesktop
-            logout={handleSignOut.bind(this)}
-            profileImage={
-              person.avatarUrl() ? person.avatarUrl() : avatarFallbackImage
-            }
-            name={person.name() ? person.name() : 'Nameless Person'}
-            username={username}
-          />
           <h1 className="f1">Add Opportunity</h1>
           <div className="w-70-l fl">
             <Form
@@ -263,7 +264,7 @@ export default class AddOpp extends Component {
                 <label htmlFor="closingdate">
                   Closing Date
                   <input
-                    type="closingdate"
+                    type="date"
                     id="closingdate"
                     name="closingdate"
                     placeholder="MM/DD/YYY"

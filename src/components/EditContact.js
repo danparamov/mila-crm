@@ -152,14 +152,6 @@ class EditContactPage extends Component {
           logout={handleSignOut.bind(this)}
         />
         <div className="mw9 center ph3 cf">
-          <ProfileDesktop
-            logout={handleSignOut.bind(this)}
-            profileImage={
-              person.avatarUrl() ? person.avatarUrl() : avatarFallbackImage
-            }
-            name={person.name() ? person.name() : 'Nameless Person'}
-            username={username}
-          />
           <h1>Edit Contact</h1>
           <div className="w-70-l fl">
             <Form

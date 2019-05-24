@@ -124,7 +124,7 @@ export default class Profile extends Component {
             <h1> Contacts
             <Link
               to="/add-contact"
-              className="f4 link dim ph3 pv2 mb2 dib white bg-black b--black"
+              className="f2 link dim ph3 pv2 mb2 dib white bg-gray b--black"
             >
              +
             </Link> </h1>

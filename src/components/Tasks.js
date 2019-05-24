@@ -10,7 +10,9 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 import Nav from './Nav';
 import avatarFallbackImage from '../assets/avatar-placeholder.png';
-import SingleTask from './SingleTask';
+import SingleContactTask from './SingleContactTask';
+import SingleAccountTask from './SingleAccountTask';
+import SingleOppTask from './SingleOppTask';
 import ContactBubble from './ContactBubble';
 import NoOneLeft from '../assets/no-one-left.png';
 import ifAttribute from './util/ifAttribute';
@@ -27,7 +29,9 @@ export default class Profile extends Component {
       },
     },
     username: '',
-    tasks: [],
+    contacttasks: [],
+    accounttasks: [],
+    opptasks: [],
     today: [{ contactsLeft: 0, date: '' }],
   };
 
@@ -41,13 +45,26 @@ export default class Profile extends Component {
 
   fetchData() {
     const options = { decrypt: true };
-    getFile('tasks.json', options).then(file => {
-      const tasks = JSON.parse(file || '[]');
+    getFile('contacttasks.json', options).then(file => {
+      const contacttasks = JSON.parse(file || '[]');
       this.setState({
-        tasks,
+        contacttasks,
       });
     });
-    getFile('today.json', options).then(file => {
+    getFile('accounttasks.json', options).then(file => {
+        const accounttasks = JSON.parse(file || '[]');
+        this.setState({
+          accounttasks,
+        });
+    });
+    getFile('opptasks.json', options).then(file => {
+        const opptasks = JSON.parse(file || '[]');
+        this.setState({
+          opptasks,
+        });
+    });
+    
+    /*getFile('today.json', options).then(file => {
       let today = JSON.parse(file || '[]');
       if (today.length === 0) {
         today = [{ date: moment().format('L'), contactsLeft: 3 }];
@@ -62,19 +79,24 @@ export default class Profile extends Component {
       this.setState({
         today,
       });
-    });
+    });*/
   }
 
   render() {
     const { handleSignOut } = this.props;
     const { person } = this.state;
     const { username } = this.state;
-    const { tasks } = this.state;
+    const { contacttasks } = this.state;
+    const { accounttasks } = this.state;
+    const { opptasks } = this.state;
     const { today } = this.state;
     let AddMoreContactsBlock = null;
     let ContactBlock = null;
+    let AccountBlock = null;
+    let OppBlock = null;
     const ContactToday = [];
     let NoContactTodayBlock = null;
+    // Contacts
     /*if (today[0].contactsLeft !== 0) {
       AddMoreContactsBlock = (
         <div className="w-100 w-75-ns fl tc bg-lightest-blue pa3 br1">
@@ -83,11 +105,11 @@ export default class Profile extends Component {
         </div>
       );
     }*/
-    if (ifAttribute(tasks[0])) {
+    if (ifAttribute(contacttasks[0])) {
       ContactBlock = (
-        <div className="w-100 w-200-ns fl ph4 tl">
-          {tasks.map(task => (
-            <SingleTask task={task} key={task.id} />
+        <div className="w-100 w-75-ns fl ph4 tl">
+          {contacttasks.map(contacttask => (
+            <SingleContactTask contacttask={contacttask} key={contacttask.id} />
           ))}
         </div>
       );
@@ -110,6 +132,72 @@ export default class Profile extends Component {
         </div>
       );
     }*/
+
+    // Accounts
+    if (ifAttribute(accounttasks[0])) {
+        AccountBlock = (
+          <div className="w-100 w-75-ns fl ph4 tl">
+            {accounttasks.map(accounttask => (
+              <SingleAccountTask accounttask={accounttask} key={accounttask.id} />
+            ))}
+          </div>
+        );
+        //contacts.map(contact => {
+        /*accounts.map(account => {
+          if (
+            //contact.contactDate === moment().format('l') ||
+            account.contactDate === moment().format('l') ||
+            //moment().isAfter(moment(contact.contactDate, 'MM/DD/YYYY'))
+            moment().isAfter(moment(account.contactDate, 'MM/DD/YYYY'))
+          ) {
+            //ContactToday.push(contact);
+            ContactToday.push(account);
+          }
+        });*/
+    } else {
+        AccountBlock = null;
+    }
+    /*if (ContactToday.length == 0 || ContactToday == null) {
+        NoContactTodayBlock = (
+          <div className="w-100">
+            <img src={NoOneLeft} className="center h4 db" alt="" />
+            <p className="center center tc b f4">No pending checkins for today</p>
+          </div>
+        );
+    }*/
+
+    // Opportunities
+    if (ifAttribute(opptasks[0])) {
+      OppBlock = (
+        <div className="w-100 w-75-ns fl ph4 tl">
+          {opptasks.map(opptask => (
+            <SingleOppTask opptask={opptask} key={opptask.id} />
+          ))}
+        </div>
+      );
+      //contacts.map(contact => {
+      /*opps.map(opp => {
+        if (
+          //contact.contactDate === moment().format('l') ||
+          opp.contactDate === moment().format('l') ||
+          //moment().isAfter(moment(contact.contactDate, 'MM/DD/YYYY'))
+          moment().isAfter(moment(opp.contactDate, 'MM/DD/YYYY'))
+        ) {
+          //ContactToday.push(contact);
+          ContactToday.push(opp);
+        }
+      });*/
+    } else {
+        OppBlock = null;
+    }
+    /*if (ContactToday.length == 0 || ContactToday == null) {
+      NoContactTodayBlock = (
+        <div className="w-100">
+          <img src={NoOneLeft} className="center h4 db" alt="" />
+          <p className="center center tc b f4">No pending checkins for today</p>
+        </div>
+      );
+    }*/
     return !isSignInPending() ? (
       <div>
         <Nav
@@ -120,17 +208,25 @@ export default class Profile extends Component {
         />
         <div className="mw9 center ph3 cf">
           <div className="w-100 w-75-ns fl ph4 tl">
-            <h1> Tasks
+            <h1>
             <Link
-              to="/add-task"
-              className="f4 link dim ph3 pv2 mb2 dib white bg-black b--black"
-            >
-             +
-            </Link> </h1>
-            Name -- Subject -- Date -- Status -- Due Date -- Priority
+              to={{
+                pathname: '/contacttasks',
+              }}
+            > Contacts Tasks 
+            </Link></h1>
+            Contact -- Subject -- Due Date -- Status -- Description -- Rank
             <br /> <br /> 
           </div>
-          {ContactBlock}
+          {ContactBlock}       
+          <div className="w-100 w-75-ns fl ph4 tl">
+            <h1>Accounts Tasks</h1>
+          </div>
+          {AccountBlock}
+          <div className="w-100 w-75-ns fl ph4 tl">
+            <h1>Opportunities Tasks</h1>
+          </div>
+          {OppBlock}
         </div>
       </div>
     ) : null;

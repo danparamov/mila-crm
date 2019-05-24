@@ -15,7 +15,7 @@ function ProfileDesktop(props) {
       <p className="f3">
         <span id="heading-name">{props.name}</span>
         <br />
-        <span className="f3 gray">{props.username}</span>
+        <span className="f4 gray">{props.username}</span>
       </p>
       <p className="lead">
       <div className="w-100">
