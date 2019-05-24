@@ -177,6 +177,7 @@ export default class AddOpp extends Component {
               }}
             >
               <Error error={error} />
+              <h3 className="">Opportunity Information</h3>
               <fieldset>
                 <label htmlFor="oppname">
                   Opportunity Name
@@ -305,6 +306,7 @@ export default class AddOpp extends Component {
                   />
                 </label>
               </fieldset>
+              <h3 className="">Description Information</h3>
               <fieldset>
                 <label htmlFor="description">
                   Description
@@ -314,19 +316,6 @@ export default class AddOpp extends Component {
                     name="description"
                     placeholder="Description.."
                     value={this.state.description}
-                    onChange={this.handleChange}
-                  />
-                </label>
-              </fieldset>
-              <fieldset disabled={loading} aria-busy={loading}>
-                <label htmlFor="blockstackId">
-                  Blockstack Id
-                  <input
-                    type="text"
-                    id="blockstackId"
-                    name="blockstackId"
-                    placeholder="Blockstack ID.."
-                    value={this.state.blockstackId}
                     onChange={this.handleChange}
                   />
                 </label>
