@@ -135,12 +135,12 @@ export default class Profile extends Component {
             <h1>Accounts
             <Link
               to="/add-account"
-              className="f2 link dim ph3 pv2 mb2 dib white bg-gray b--black"
+              className="f2 link dim ph3 pv2 mb2 dib white bg-green b--black"
             >
               +
             </Link></h1>
             Name -- Industry -- Sales Stage -- Email -- Phone Number -- Country -- Priority
-            <br /> <br /> 
+            <br /> <br />
           </div>
           {ContactBlock}
         </div>
