@@ -16,6 +16,7 @@ import Form from './styles/Form';
 import Error from './ErrorMessage';
 import nextContactDate from './util/nextContactDate';
 import ProfileDesktop from './ProfileDesktop';
+import SingleAccount1 from './SingleAccount1';
 
 export default class AddOpp extends Component {
   state = {
@@ -30,7 +31,6 @@ export default class AddOpp extends Component {
     probability: '',
     description: '',
     blockstackId: '',
-    //contacts: [],
     opps: [],
     accounts: [],
     person: {
@@ -53,20 +53,15 @@ export default class AddOpp extends Component {
 
   fetchData() {
     const options = { decrypt: true };
-   // getFile('contacts.json', options).then(file => {
     getFile('opps.json', options).then(file => {
-      //const contacts = JSON.parse(file || '[]');
       const opps = JSON.parse(file || '[]');
       this.setState({
-        //contacts
         opps,
       });
     });
     getFile('accounts.json', options).then(file => {
-      //const contacts = JSON.parse(file || '[]');
       const accounts = JSON.parse(file || '[]');
       this.setState({
-        //contacts
         accounts,
       });
     });
@@ -99,10 +94,8 @@ export default class AddOpp extends Component {
   }
 
   saveNewContact(cb) {
-    //const { contacts } = this.state;
     const { opps } = this.state;
     const contactDate = nextContactDate(this.state.priority);
-    //const newContact = {
     const newOpp = {
       id: Date.now(),
       created_at: Date.now(),
@@ -120,11 +113,8 @@ export default class AddOpp extends Component {
       contactDate,
     };
 
-    //contacts.unshift(newContact);
     opps.unshift(newOpp);
     const options = { encrypt: true };
-    //putFile('contacts.json', JSON.stringify(contacts), options).then(() => {
-     // cb();
     putFile('opps.json', JSON.stringify(opps), options).then(() => {
       cb();
     });
@@ -155,9 +145,13 @@ export default class AddOpp extends Component {
     const { username } = this.state;
     const loading = false;
     const error = false;
+    const { accounts } = this.state;
+    let ContactBlock = null;
     if (this.state.saved) {
       return <Redirect to="/opportunities" />;
     }
+
+   
 
     return !isSignInPending() ? (
       <div>
@@ -194,14 +188,12 @@ export default class AddOpp extends Component {
               <fieldset>
                 <label htmlFor="accountname">
                   Account Name
-                  <input
-                    type="text"
-                    id="accountname"
-                    name="accountname"
-                    placeholder="Account Name.."
-                    value={this.state.accountname}
-                    onChange={this.handleChange}
-                  />
+                  <select onChange={this.handleChange} id="accountname" name="accountname">
+                    <option value="" defaultChecked>
+                      Select Account..
+                    </option>
+                    <option value="None">None</option>
+                  </select>
                 </label>
               </fieldset>
               <fieldset>
