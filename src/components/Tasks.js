@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 import Nav from './Nav';
 import avatarFallbackImage from '../assets/avatar-placeholder.png';
-import SingleContactTask from './SingleContactTask';
+import SingleContactTasks from './SingleContactTasks';
 import SingleAccountTask from './SingleAccountTask';
 import SingleOppTask from './SingleOppTask';
 import ContactBubble from './ContactBubble';
@@ -108,9 +108,9 @@ export default class Profile extends Component {
     if (ifAttribute(contacttasks[0])) {
       ContactBlock = (
         <div className="w-100 w-75-ns fl ph4 tl">
-          {contacttasks.map(contacttask => (
-            <SingleContactTask contacttask={contacttask} key={contacttask.id} />
-          ))}
+             {contacttasks.map(contacttask => (
+             <SingleContactTasks contacttask={contacttask} key={contacttask.id} />
+            ))}
         </div>
       );
       /*contacts.map(contact => {
@@ -215,7 +215,7 @@ export default class Profile extends Component {
               }}
             > Contacts Tasks 
             </Link></h1>
-            Contact -- Subject -- Due Date -- Status -- Description -- Rank
+            Contact -- Subject -- Due Date 
             <br /> <br /> 
           </div>
           {ContactBlock}       
