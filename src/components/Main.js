@@ -30,6 +30,12 @@ import Tasks from './Tasks';
 import ContactTasks from './ContactTasks';
 import EditContactTask from './EditContactTask';
 import AddContactTask from './AddContactTask';
+import AccountTasks from './AccountTasks';
+import EditAccountTask from './EditAccountTask';
+import AddAccountTask from './AddAccountTask';
+import OppTasks from './OppTasks';
+import EditOppTask from './EditOppTask';
+import AddOppTask from './AddOppTask';
 
 export default class Main extends Component {
   componentWillMount() {
@@ -124,6 +130,30 @@ export default class Main extends Component {
             /> 
              <Route
               path="/add-contacttask"
+              component={() => <SignIn handleSignIn={this.handleSignIn} />}
+            />
+            <Route
+              path="/accounttasks"
+              component={() => <SignIn handleSignIn={this.handleSignIn} />}
+            />
+             <Route
+              path="/edit-accounttask"
+              component={() => <SignIn handleSignIn={this.handleSignIn} />}
+            /> 
+             <Route
+              path="/add-accounttask"
+              component={() => <SignIn handleSignIn={this.handleSignIn} />}
+            />
+             <Route
+              path="/opptasks"
+              component={() => <SignIn handleSignIn={this.handleSignIn} />}
+            />
+             <Route
+              path="/edit-opptask"
+              component={() => <SignIn handleSignIn={this.handleSignIn} />}
+            /> 
+             <Route
+              path="/add-opptask"
               component={() => <SignIn handleSignIn={this.handleSignIn} />}
             />
             <Route
@@ -232,6 +262,42 @@ export default class Main extends Component {
               path="/add-contacttask"
               component={() => (
                 <AddContactTask handleSignOut={this.handleSignOut} />
+              )}
+            />
+             <Route
+              path="/accounttasks"
+              component={() => (
+                <AccountTasks handleSignOut={this.handleSignOut} />
+              )}
+            />
+            <Route
+              path="/edit-accounttask"
+              component={() => (
+                <EditAccountTask handleSignOut={this.handleSignOut} />
+              )}
+            /> 
+            <Route
+              path="/add-accounttask"
+              component={() => (
+                <AddAccountTask handleSignOut={this.handleSignOut} />
+              )}
+            />
+             <Route
+              path="/opptasks"
+              component={() => (
+                <OppTasks handleSignOut={this.handleSignOut} />
+              )}
+            />
+            <Route
+              path="/edit-opptask"
+              component={() => (
+                <EditOppTask handleSignOut={this.handleSignOut} />
+              )}
+            /> 
+            <Route
+              path="/add-opptask"
+              component={() => (
+                <AddOppTask handleSignOut={this.handleSignOut} />
               )}
             />
             <Route

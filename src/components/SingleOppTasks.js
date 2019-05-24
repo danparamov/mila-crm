@@ -7,12 +7,6 @@ export default class SingleOppTask extends Component {
     const { opptask } = this.props;
     return (
       <div className="db overflow-x-hidden">
-        <Link
-          to={{
-            pathname: '/edit-opptask',
-            search: `?id=${opptask.id}`,
-          }}
-        >
           <div className="w-20 w-10-ns">
             <img
               src={`https://avatars.io/twitter/${opptask.twitterHandle}`}
@@ -23,12 +17,8 @@ export default class SingleOppTask extends Component {
           <p className="fl w-80 w-90-ns h3 pl3 f4 fw4 black-80">
             {opptask.contactname} {' -- '}
             {opptask.subject} {' -- '}
-            {opptask.duedate} {' -- '}
-            {opptask.status} {' -- '}
-            {opptask.description} {' -- '}
-            {opptask.rank} 
+            {opptask.duedate}
           </p>
-        </Link>
       </div>
     );
   }

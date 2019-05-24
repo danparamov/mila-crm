@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 import Nav from './Nav';
 import avatarFallbackImage from '../assets/avatar-placeholder.png';
-import SingleContactTask from './SingleContactTask';
+import SingleAccountTask from './SingleAccountTask';
 import ContactBubble from './ContactBubble';
 import NoOneLeft from '../assets/no-one-left.png';
 import ifAttribute from './util/ifAttribute';
@@ -27,7 +27,7 @@ export default class Profile extends Component {
       },
     },
     username: '',
-    contacttasks: [],
+    accounttasks: [],
     today: [{ contactsLeft: 0, date: '' }],
   };
 
@@ -41,10 +41,10 @@ export default class Profile extends Component {
 
   fetchData() {
     const options = { decrypt: true };
-    getFile('contacttasks.json', options).then(file => {
-      const contacttasks = JSON.parse(file || '[]');
+    getFile('accounttasks.json', options).then(file => {
+      const accounttasks = JSON.parse(file || '[]');
       this.setState({
-        contacttasks,
+        accounttasks,
       });
     });
     getFile('today.json', options).then(file => {
@@ -69,7 +69,7 @@ export default class Profile extends Component {
     const { handleSignOut } = this.props;
     const { person } = this.state;
     const { username } = this.state;
-    const { contacttasks } = this.state;
+    const { accounttasks } = this.state;
     const { today } = this.state;
     let AddMoreContactsBlock = null;
     let ContactBlock = null;
@@ -83,11 +83,11 @@ export default class Profile extends Component {
         </div>
       );
     }*/
-    if (ifAttribute(contacttasks[0])) {
+    if (ifAttribute(accounttasks[0])) {
         ContactBlock = (
           <div className="w-100 w-200-ns fl ph4 tl">
-            {contacttasks.map(contacttask => (
-              <SingleContactTask contacttask={contacttask} key={contacttask.id} />
+            {accounttasks.map(accounttask => (
+              <SingleAccountTask accounttask={accounttask} key={accounttask.id} />
             ))}
           </div>
         );
@@ -120,14 +120,14 @@ export default class Profile extends Component {
         />
         <div className="mw9 center ph3 cf">
           <div className="w-100 w-75-ns fl ph4 tl">
-            <h1> Contact Tasks 
+            <h1> Account Tasks 
             <Link
-              to="/add-contacttask"
+              to="/add-accounttask"
               className="f2 link dim ph3 pv2 mb2 dib white bg-green b--black"
             >
              +
             </Link> </h1>
-            Contact -- Subject -- Due Date -- Status -- Description -- Rank
+            Account -- Subject -- Due Date -- Status -- Description -- Rank
             <br /> <br /> 
           </div>
           {ContactBlock}

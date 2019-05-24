@@ -26,13 +26,7 @@ export default class Nav extends Component {
       },
     },
     username: '',
-    showMenu: false,
-  };
-
-  toggleMenu = () => {
-    this.setState({
-      showMenu: !this.state.showMenu,
-    });
+    showMenu: true,
   };
 
   componentWillMount() {
@@ -45,7 +39,7 @@ export default class Nav extends Component {
   render() {
     const { person } = this.state;
     const { username } = this.state;
-    //const { handleSignOut } = this.props;
+    const { handleSignOut } = this.props;
     return !isSignInPending() ? (
       <div>
         <div>
@@ -59,11 +53,11 @@ export default class Nav extends Component {
             profileImage={
               person.avatarUrl() ? person.avatarUrl() : avatarFallbackImage
             }
-            //logout={handleSignOut.bind(this)}
+            username={loadUserData().username}
+            logout={this.props.logout}
             />
           </div>
         </nav>
-        {this.state.showMenu ? <Menu logout={this.props.logout} /> : null}
       </div>
     ) : null;
   }

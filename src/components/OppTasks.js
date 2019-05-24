@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 import Nav from './Nav';
 import avatarFallbackImage from '../assets/avatar-placeholder.png';
-import SingleContactTask from './SingleContactTask';
+import SingleOppTask from './SingleOppTask';
 import ContactBubble from './ContactBubble';
 import NoOneLeft from '../assets/no-one-left.png';
 import ifAttribute from './util/ifAttribute';
@@ -27,7 +27,7 @@ export default class Profile extends Component {
       },
     },
     username: '',
-    contacttasks: [],
+    opptasks: [],
     today: [{ contactsLeft: 0, date: '' }],
   };
 
@@ -41,10 +41,10 @@ export default class Profile extends Component {
 
   fetchData() {
     const options = { decrypt: true };
-    getFile('contacttasks.json', options).then(file => {
-      const contacttasks = JSON.parse(file || '[]');
+    getFile('opptasks.json', options).then(file => {
+      const opptasks = JSON.parse(file || '[]');
       this.setState({
-        contacttasks,
+        opptasks,
       });
     });
     getFile('today.json', options).then(file => {
@@ -69,7 +69,7 @@ export default class Profile extends Component {
     const { handleSignOut } = this.props;
     const { person } = this.state;
     const { username } = this.state;
-    const { contacttasks } = this.state;
+    const { opptasks } = this.state;
     const { today } = this.state;
     let AddMoreContactsBlock = null;
     let ContactBlock = null;
@@ -83,11 +83,11 @@ export default class Profile extends Component {
         </div>
       );
     }*/
-    if (ifAttribute(contacttasks[0])) {
+    if (ifAttribute(opptasks[0])) {
         ContactBlock = (
           <div className="w-100 w-200-ns fl ph4 tl">
-            {contacttasks.map(contacttask => (
-              <SingleContactTask contacttask={contacttask} key={contacttask.id} />
+            {opptasks.map(opptask => (
+              <SingleOppTask opptask={opptask} key={opptask.id} />
             ))}
           </div>
         );
@@ -120,14 +120,14 @@ export default class Profile extends Component {
         />
         <div className="mw9 center ph3 cf">
           <div className="w-100 w-75-ns fl ph4 tl">
-            <h1> Contact Tasks 
+            <h1> Opportunity Tasks 
             <Link
-              to="/add-contacttask"
+              to="/add-opptask"
               className="f2 link dim ph3 pv2 mb2 dib white bg-green b--black"
             >
              +
             </Link> </h1>
-            Contact -- Subject -- Due Date -- Status -- Description -- Rank
+            Opportunity -- Subject -- Due Date -- Status -- Description -- Rank
             <br /> <br /> 
           </div>
           {ContactBlock}

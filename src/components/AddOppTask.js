@@ -17,7 +17,7 @@ import Error from './ErrorMessage';
 import ProfileDesktop from './ProfileDesktop';
 import nextContactDate from './util/nextContactDate';
 
-export default class AddAccountTask extends Component {
+export default class AddOppTask extends Component {
   state = {
     contactname: '',
     subject: '',
@@ -25,7 +25,7 @@ export default class AddAccountTask extends Component {
     rank: '',
     status: '',
     description: '',
-    contacttasks: [],
+    opptasks: [],
     priority: 'A',
     person: {
       name() {
@@ -47,10 +47,10 @@ export default class AddAccountTask extends Component {
 
   fetchData() {
     const options = { decrypt: true };
-    getFile('contacttasks.json', options).then(file => {
-      const contacttasks = JSON.parse(file || '[]');
+    getFile('opptasks.json', options).then(file => {
+      const opptasks = JSON.parse(file || '[]');
       this.setState({
-        contacttasks,
+        opptasks,
       });
     });
     getFile('today.json', options).then(file => {
@@ -82,7 +82,7 @@ export default class AddAccountTask extends Component {
   }
 
   saveNewContact(cb) {
-    const { contacttasks } = this.state;
+    const { opptasks } = this.state;
     const contactDate = nextContactDate(this.state.priority);
     const newContact = {
       id: Date.now(),
@@ -96,9 +96,9 @@ export default class AddAccountTask extends Component {
       contactDate,
     };
 
-    contacttasks.unshift(newContact);
+    opptasks.unshift(newContact);
     const options = { encrypt: true };
-    putFile('contacttasks.json', JSON.stringify(contacttasks), options).then(() => {
+    putFile('opptasks.json', JSON.stringify(opptasks), options).then(() => {
       cb();
     });
     this.setState({
@@ -124,7 +124,7 @@ export default class AddAccountTask extends Component {
     const loading = false;
     const error = false;
     if (this.state.saved) {
-      return <Redirect to="/contacttasks" />;
+      return <Redirect to="/opptasks" />;
     }
 
     return !isSignInPending() ? (
@@ -136,7 +136,7 @@ export default class AddAccountTask extends Component {
           logout={handleSignOut.bind(this)}
         />
         <div className="mw9 center ph3 cf">
-          <h1 className="f1">Add Contact Task</h1>
+          <h1 className="f1">Add Opportunity Task</h1>
           <div className="w-70-l fl">
             <Form
               onSubmit={async e => {
@@ -147,12 +147,12 @@ export default class AddAccountTask extends Component {
               <Error error={error} />
               <fieldset>
                 <label htmlFor="contactname">
-                  Contact Name
+                  Opportunity Name
                   <input
                     type="text"
                     id="contactname"
                     name="contactname"
-                    placeholder="Contactname.."
+                    placeholder="Oppname.."
                     value={this.state.contactname}
                     onChange={this.handleChange}
                   />

@@ -25,7 +25,7 @@ export default class AddAccountTask extends Component {
     rank: '',
     status: '',
     description: '',
-    contacttasks: [],
+    accounttasks: [],
     priority: 'A',
     person: {
       name() {
@@ -47,10 +47,10 @@ export default class AddAccountTask extends Component {
 
   fetchData() {
     const options = { decrypt: true };
-    getFile('contacttasks.json', options).then(file => {
-      const contacttasks = JSON.parse(file || '[]');
+    getFile('accounttasks.json', options).then(file => {
+      const accounttasks = JSON.parse(file || '[]');
       this.setState({
-        contacttasks,
+        accounttasks,
       });
     });
     getFile('today.json', options).then(file => {
@@ -82,7 +82,7 @@ export default class AddAccountTask extends Component {
   }
 
   saveNewContact(cb) {
-    const { contacttasks } = this.state;
+    const { accounttasks } = this.state;
     const contactDate = nextContactDate(this.state.priority);
     const newContact = {
       id: Date.now(),
@@ -96,9 +96,9 @@ export default class AddAccountTask extends Component {
       contactDate,
     };
 
-    contacttasks.unshift(newContact);
+    accounttasks.unshift(newContact);
     const options = { encrypt: true };
-    putFile('contacttasks.json', JSON.stringify(contacttasks), options).then(() => {
+    putFile('accounttasks.json', JSON.stringify(accounttasks), options).then(() => {
       cb();
     });
     this.setState({
@@ -124,7 +124,7 @@ export default class AddAccountTask extends Component {
     const loading = false;
     const error = false;
     if (this.state.saved) {
-      return <Redirect to="/contacttasks" />;
+      return <Redirect to="/accounttasks" />;
     }
 
     return !isSignInPending() ? (
@@ -136,7 +136,7 @@ export default class AddAccountTask extends Component {
           logout={handleSignOut.bind(this)}
         />
         <div className="mw9 center ph3 cf">
-          <h1 className="f1">Add Contact Task</h1>
+          <h1 className="f1">Add Account Task</h1>
           <div className="w-70-l fl">
             <Form
               onSubmit={async e => {
@@ -147,12 +147,12 @@ export default class AddAccountTask extends Component {
               <Error error={error} />
               <fieldset>
                 <label htmlFor="contactname">
-                  Contact Name
+                  Account Name
                   <input
                     type="text"
                     id="contactname"
                     name="contactname"
-                    placeholder="Contactname.."
+                    placeholder="Accountname.."
                     value={this.state.contactname}
                     onChange={this.handleChange}
                   />

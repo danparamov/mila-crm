@@ -1,32 +1,35 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import {
   isSignInPending,
   putFile,
   getFile,
-  Person,
   loadUserData,
+  Person,
 } from 'blockstack';
-import moment from 'moment';
-import { Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
+import findObjectBy from './util/findObjectBy';
 import avatarFallbackImage from '../assets/avatar-placeholder.png';
+import ProfileDesktop from './ProfileDesktop';
 import Nav from './Nav';
 import Form from './styles/Form';
 import Error from './ErrorMessage';
-import ProfileDesktop from './ProfileDesktop';
-import nextContactDate from './util/nextContactDate';
 
-export default class AddAccountTask extends Component {
+class EditOppTaskPage extends Component {
   state = {
+    id: '',
     contactname: '',
     subject: '',
     duedate: '',
     rank: '',
     status: '',
     description: '',
-    contacttasks: [],
-    priority: 'A',
+    opptasks: [],
+    contactDate: '',
+    created_at: '',
     person: {
       name() {
         return 'Anonymous';
@@ -36,78 +39,83 @@ export default class AddAccountTask extends Component {
       },
     },
     username: '',
+    saved: false,
   };
 
   componentWillMount() {
     this.setState({
       person: new Person(loadUserData().profile),
+      username: loadUserData().username,
     });
     this.fetchData();
   }
 
   fetchData() {
     const options = { decrypt: true };
-    getFile('contacttasks.json', options).then(file => {
-      const contacttasks = JSON.parse(file || '[]');
-      this.setState({
-        contacttasks,
+    getFile('opptasks.json', options).then(file => {
+      const opptasks = JSON.parse(file || '[]');
+      const opptask = findObjectBy(opptasks, {
+        id: this.props.location.search.substring(4),
       });
-    });
-    getFile('today.json', options).then(file => {
-      let today = JSON.parse(file || '[]');
-      if (today[0].date !== moment().format('L')) {
-        today = [{ date: moment().format('L'), contactsLeft: 3 }];
-        const otherOption = { encrypt: true };
-        putFile('today.json', JSON.stringify(today), otherOption).then();
+      if (!opptask) {
+        this.props.history.push('/opptasks');
       }
       this.setState({
-        today,
+        opptasks,
+        id: opptask[0].id,
+        contactname: opptask[0].contactname,
+        subject: opptask[0].subject,
+        duedate: opptask[0].duedate,
+        rank: opptask[0].rank,
+        status: opptask[0].status,
+        description: opptask[0].description,
+        contactDate: opptask[0].contactDate,
+        created_at: opptask[0].created_at,
+        priority: opptask[0].priority,
       });
     });
   }
 
-  handleNewContactSubmit(event) {
-    event.preventDefault();
-    this.saveNewContact(() => {
-      this.setState({ saved: true });
-    });
-    const today = [
-      {
-        date: this.state.today[0].date,
-        contactsLeft: this.state.today[0].contactsLeft - 1,
-      },
-    ];
+  deleteContact() {
+    const toDelete = this.state.id;
+    const newContactsList = this.state.opptasks.filter(
+        opptask => opptask.id !== toDelete
+    );
     const options = { encrypt: true };
-    putFile('today.json', JSON.stringify(today), options).then();
+    putFile('opptasks.json', JSON.stringify(newContactsList), options).then(
+      () => {
+        this.props.history.push('/opptasks');
+      }
+    );
   }
 
-  saveNewContact(cb) {
-    const { contacttasks } = this.state;
-    const contactDate = nextContactDate(this.state.priority);
+  handleEditContactSubmit(event) {
+    event.preventDefault();
+    this.saveEditedContact();
+  }
+
+  saveEditedContact() {
+    let { opptasks } = this.state;
     const newContact = {
-      id: Date.now(),
-      created_at: Date.now(),
+      id: this.state.id,
       contactname: this.state.contactname,
       subject: this.state.subject,
       duedate: this.state.duedate,
       rank: this.state.rank,
       status: this.state.status,
       description: this.state.description,
-      contactDate,
+      priority: this.state.priority,
+      contactDate: this.state.contactDate,
+      created_at: this.state.created_at,
     };
-
-    contacttasks.unshift(newContact);
+    // delete the contact with the same ID as the edited one
+    opptasks = opptasks.filter(opptask => opptask.id !== newContact.id);
+    // add the edited contact to all contacts
+    opptasks.unshift(newContact);
     const options = { encrypt: true };
-    putFile('contacttasks.json', JSON.stringify(contacttasks), options).then(() => {
-      cb();
-    });
+    putFile('opptasks.json', JSON.stringify(opptasks), options).then(() => {});
     this.setState({
-      contactname: '',
-      subject: '',
-      duedate: '',
-      rank: '',
-      status: '',
-      description: '',
+      saved: true,
     });
   }
 
@@ -118,15 +126,16 @@ export default class AddAccountTask extends Component {
   };
 
   render() {
+    const { opptask } = this.state;
     const { handleSignOut } = this.props;
     const { person } = this.state;
     const { username } = this.state;
     const loading = false;
     const error = false;
     if (this.state.saved) {
-      return <Redirect to="/contacttasks" />;
+      //return <Redirect to={`/contact?id=${this.state.id}`} />;
+      return <Redirect to={`/opptasks`} />;
     }
-
     return !isSignInPending() ? (
       <div>
         <Nav
@@ -136,23 +145,23 @@ export default class AddAccountTask extends Component {
           logout={handleSignOut.bind(this)}
         />
         <div className="mw9 center ph3 cf">
-          <h1 className="f1">Add Contact Task</h1>
+          <h1>Edit Opportunity Task</h1>
           <div className="w-70-l fl">
             <Form
               onSubmit={async e => {
                 e.preventDefault();
-                this.handleNewContactSubmit(e);
+                this.handleEditContactSubmit(e);
               }}
             >
               <Error error={error} />
               <fieldset>
                 <label htmlFor="contactname">
-                  Contact Name
+                  Opportunity Name
                   <input
                     type="text"
                     id="contactname"
                     name="contactname"
-                    placeholder="Contactname.."
+                    placeholder="Oppname.."
                     value={this.state.contactname}
                     onChange={this.handleChange}
                   />
@@ -201,7 +210,7 @@ export default class AddAccountTask extends Component {
                 </label>
               </fieldset>
               <fieldset>
-                <label htmlFor="status"> 
+                <label htmlFor="status">
                   Status
                   <select
                     type="text"
@@ -230,6 +239,14 @@ export default class AddAccountTask extends Component {
                   />
                 </label>
               </fieldset>
+              <a
+                className="pointer link dim ba bw1 ph2 pv2 mb2 dib no-underline ba b--white white mr2 bg-black"
+                onClick={() => {
+                  this.deleteContact();
+                }}
+              >
+                Delete
+              </a>
               <button type="submit" className="bg-black">
                 Submit
               </button>
@@ -240,3 +257,7 @@ export default class AddAccountTask extends Component {
     ) : null;
   }
 }
+
+const EditoppTask = withRouter(EditOppTaskPage);
+
+export default EditoppTask;

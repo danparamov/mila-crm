@@ -11,8 +11,8 @@ import moment from 'moment';
 import Nav from './Nav';
 import avatarFallbackImage from '../assets/avatar-placeholder.png';
 import SingleContactTasks from './SingleContactTasks';
-import SingleAccountTask from './SingleAccountTask';
-import SingleOppTask from './SingleOppTask';
+import SingleAccountTasks from './SingleAccountTasks';
+import SingleOppTasks from './SingleOppTasks';
 import ContactBubble from './ContactBubble';
 import NoOneLeft from '../assets/no-one-left.png';
 import ifAttribute from './util/ifAttribute';
@@ -138,7 +138,7 @@ export default class Profile extends Component {
         AccountBlock = (
           <div className="w-100 w-75-ns fl ph4 tl">
             {accounttasks.map(accounttask => (
-              <SingleAccountTask accounttask={accounttask} key={accounttask.id} />
+              <SingleAccountTasks accounttask={accounttask} key={accounttask.id} />
             ))}
           </div>
         );
@@ -171,7 +171,7 @@ export default class Profile extends Component {
       OppBlock = (
         <div className="w-100 w-75-ns fl ph4 tl">
           {opptasks.map(opptask => (
-            <SingleOppTask opptask={opptask} key={opptask.id} />
+            <SingleOppTasks opptask={opptask} key={opptask.id} />
           ))}
         </div>
       );
@@ -207,24 +207,45 @@ export default class Profile extends Component {
           logout={handleSignOut.bind(this)}
         />
         <div className="mw9 center ph3 cf">
-          <div className="w-100 w-75-ns fl ph4 tl">
-            <h1>
+          <div className="w-100 w-75-ns f4 ph4 tl">
+            <h1> Contacts
             <Link
               to={{
-                pathname: '/contacttasks',
+                pathname: '/contacttasks'
               }}
-            > Contacts Tasks 
+              className="f4 link dim ph3 pv2 mb2 dib white bg-green b--black"
+            > >>  
             </Link></h1>
             Contact -- Subject -- Due Date 
             <br /> <br /> 
           </div>
-          {ContactBlock}       
-          <div className="w-100 w-75-ns fl ph4 tl">
-            <h1>Accounts Tasks</h1>
+          {ContactBlock} 
+          
+          <div className="w-100 w-75-ns f4 ph4 tl">
+            <h1> Account
+            <Link
+              to={{
+                pathname: '/accounttasks',
+              }}
+              className="f4 link dim ph3 pv2 mb2 dib white bg-green b--black"
+            > >>
+            </Link></h1>
+            Account -- Subject -- Due Date 
+            <br /> <br /> 
           </div>
           {AccountBlock}
-          <div className="w-100 w-75-ns fl ph4 tl">
-            <h1>Opportunities Tasks</h1>
+          <br /> <br /> 
+          <div className="w-100 w-75-ns f4 ph4 tl">
+            <h1> Opportunity
+            <Link
+              to={{
+                pathname: '/opptasks',
+              }}
+              className="f4 link dim ph3 pv2 mb2 dib white bg-green b--black"
+            > >>  
+            </Link></h1>
+            Opportunity -- Subject -- Due Date 
+            <br /> <br /> 
           </div>
           {OppBlock}
         </div>

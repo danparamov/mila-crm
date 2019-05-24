@@ -1,32 +1,35 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import {
   isSignInPending,
   putFile,
   getFile,
-  Person,
   loadUserData,
+  Person,
 } from 'blockstack';
-import moment from 'moment';
-import { Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
+import findObjectBy from './util/findObjectBy';
 import avatarFallbackImage from '../assets/avatar-placeholder.png';
+import ProfileDesktop from './ProfileDesktop';
 import Nav from './Nav';
 import Form from './styles/Form';
 import Error from './ErrorMessage';
-import ProfileDesktop from './ProfileDesktop';
-import nextContactDate from './util/nextContactDate';
 
-export default class AddAccountTask extends Component {
+class EditAccountTaskPage extends Component {
   state = {
+    id: '',
     contactname: '',
     subject: '',
     duedate: '',
     rank: '',
     status: '',
     description: '',
-    contacttasks: [],
-    priority: 'A',
+    accounttasks: [],
+    contactDate: '',
+    created_at: '',
     person: {
       name() {
         return 'Anonymous';
@@ -36,78 +39,83 @@ export default class AddAccountTask extends Component {
       },
     },
     username: '',
+    saved: false,
   };
 
   componentWillMount() {
     this.setState({
       person: new Person(loadUserData().profile),
+      username: loadUserData().username,
     });
     this.fetchData();
   }
 
   fetchData() {
     const options = { decrypt: true };
-    getFile('contacttasks.json', options).then(file => {
-      const contacttasks = JSON.parse(file || '[]');
-      this.setState({
-        contacttasks,
+    getFile('accounttasks.json', options).then(file => {
+      const accounttasks = JSON.parse(file || '[]');
+      const accounttask = findObjectBy(accounttasks, {
+        id: this.props.location.search.substring(4),
       });
-    });
-    getFile('today.json', options).then(file => {
-      let today = JSON.parse(file || '[]');
-      if (today[0].date !== moment().format('L')) {
-        today = [{ date: moment().format('L'), contactsLeft: 3 }];
-        const otherOption = { encrypt: true };
-        putFile('today.json', JSON.stringify(today), otherOption).then();
+      if (!accounttask) {
+        this.props.history.push('/accounttasks');
       }
       this.setState({
-        today,
+        accounttasks,
+        id: accounttask[0].id,
+        contactname: accounttask[0].contactname,
+        subject: accounttask[0].subject,
+        duedate: accounttask[0].duedate,
+        rank: accounttask[0].rank,
+        status: accounttask[0].status,
+        description: accounttask[0].description,
+        contactDate: accounttask[0].contactDate,
+        created_at: accounttask[0].created_at,
+        priority: accounttask[0].priority,
       });
     });
   }
 
-  handleNewContactSubmit(event) {
-    event.preventDefault();
-    this.saveNewContact(() => {
-      this.setState({ saved: true });
-    });
-    const today = [
-      {
-        date: this.state.today[0].date,
-        contactsLeft: this.state.today[0].contactsLeft - 1,
-      },
-    ];
+  deleteContact() {
+    const toDelete = this.state.id;
+    const newContactsList = this.state.accounttasks.filter(
+        accounttask => accounttask.id !== toDelete
+    );
     const options = { encrypt: true };
-    putFile('today.json', JSON.stringify(today), options).then();
+    putFile('accounttasks.json', JSON.stringify(newContactsList), options).then(
+      () => {
+        this.props.history.push('/accounttasks');
+      }
+    );
   }
 
-  saveNewContact(cb) {
-    const { contacttasks } = this.state;
-    const contactDate = nextContactDate(this.state.priority);
+  handleEditContactSubmit(event) {
+    event.preventDefault();
+    this.saveEditedContact();
+  }
+
+  saveEditedContact() {
+    let { accounttasks } = this.state;
     const newContact = {
-      id: Date.now(),
-      created_at: Date.now(),
+      id: this.state.id,
       contactname: this.state.contactname,
       subject: this.state.subject,
       duedate: this.state.duedate,
       rank: this.state.rank,
       status: this.state.status,
       description: this.state.description,
-      contactDate,
+      priority: this.state.priority,
+      contactDate: this.state.contactDate,
+      created_at: this.state.created_at,
     };
-
-    contacttasks.unshift(newContact);
+    // delete the contact with the same ID as the edited one
+    accounttasks = accounttasks.filter(accounttask => accounttask.id !== newContact.id);
+    // add the edited contact to all contacts
+    accounttasks.unshift(newContact);
     const options = { encrypt: true };
-    putFile('contacttasks.json', JSON.stringify(contacttasks), options).then(() => {
-      cb();
-    });
+    putFile('accounttasks.json', JSON.stringify(accounttasks), options).then(() => {});
     this.setState({
-      contactname: '',
-      subject: '',
-      duedate: '',
-      rank: '',
-      status: '',
-      description: '',
+      saved: true,
     });
   }
 
@@ -118,15 +126,16 @@ export default class AddAccountTask extends Component {
   };
 
   render() {
+    const { contacttask } = this.state;
     const { handleSignOut } = this.props;
     const { person } = this.state;
     const { username } = this.state;
     const loading = false;
     const error = false;
     if (this.state.saved) {
-      return <Redirect to="/contacttasks" />;
+      //return <Redirect to={`/contact?id=${this.state.id}`} />;
+      return <Redirect to={`/accounttasks`} />;
     }
-
     return !isSignInPending() ? (
       <div>
         <Nav
@@ -136,23 +145,23 @@ export default class AddAccountTask extends Component {
           logout={handleSignOut.bind(this)}
         />
         <div className="mw9 center ph3 cf">
-          <h1 className="f1">Add Contact Task</h1>
+          <h1>Edit Account Task</h1>
           <div className="w-70-l fl">
             <Form
               onSubmit={async e => {
                 e.preventDefault();
-                this.handleNewContactSubmit(e);
+                this.handleEditContactSubmit(e);
               }}
             >
               <Error error={error} />
               <fieldset>
                 <label htmlFor="contactname">
-                  Contact Name
+                  Account Name
                   <input
                     type="text"
                     id="contactname"
                     name="contactname"
-                    placeholder="Contactname.."
+                    placeholder="Accountname.."
                     value={this.state.contactname}
                     onChange={this.handleChange}
                   />
@@ -201,7 +210,7 @@ export default class AddAccountTask extends Component {
                 </label>
               </fieldset>
               <fieldset>
-                <label htmlFor="status"> 
+                <label htmlFor="status">
                   Status
                   <select
                     type="text"
@@ -230,6 +239,14 @@ export default class AddAccountTask extends Component {
                   />
                 </label>
               </fieldset>
+              <a
+                className="pointer link dim ba bw1 ph2 pv2 mb2 dib no-underline ba b--white white mr2 bg-black"
+                onClick={() => {
+                  this.deleteContact();
+                }}
+              >
+                Delete
+              </a>
               <button type="submit" className="bg-black">
                 Submit
               </button>
@@ -240,3 +257,7 @@ export default class AddAccountTask extends Component {
     ) : null;
   }
 }
+
+const EditAccountTask = withRouter(EditAccountTaskPage);
+
+export default EditAccountTask;

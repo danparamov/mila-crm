@@ -7,12 +7,6 @@ export default class SingleAccountTask extends Component {
     const { accounttask } = this.props;
     return (
       <div className="db overflow-x-hidden">
-        <Link
-          to={{
-            pathname: '/edit-accounttask',
-            search: `?id=${accounttask.id}`,
-          }}
-        >
           <div className="w-20 w-10-ns">
             <img
               src={`https://avatars.io/twitter/${accounttask.twitterHandle}`}
@@ -23,12 +17,8 @@ export default class SingleAccountTask extends Component {
           <p className="fl w-80 w-90-ns h3 pl3 f4 fw4 black-80">
             {accounttask.contactname} {' -- '}
             {accounttask.subject} {' -- '}
-            {accounttask.duedate} {' -- '}
-            {accounttask.status} {' -- '}
-            {accounttask.description} {' -- '}
-            {accounttask.rank} 
+            {accounttask.duedate}
           </p>
-        </Link>
       </div>
     );
   }
