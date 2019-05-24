@@ -43,7 +43,7 @@ const Form = styled.form`
   button,
   input[type='submit'] {
     width: auto;
-    background: black;
+    background: green;
     color: white;
     border: 1px;
     font-size: 2rem;
