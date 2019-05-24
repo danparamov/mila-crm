@@ -354,10 +354,10 @@ export default class AddAccount extends Component {
                     value={this.state.priority}
                     onChange={this.handleChange}
                   >
-                  <option value="Every two weeks">Every two weeks</option>
-                  <option value="Every month">Every month</option>
-                  <option value="Every three months">Every three months</option>
-                  <option value="Every year">Every year</option>
+                  <option value="A">Every two weeks</option>
+                  <option value="B">Every month</option>
+                  <option value="C">Every three months</option>
+                  <option value="D">Every year</option>
                   </select>
                 </label>
               </fieldset>

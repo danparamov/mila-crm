@@ -75,14 +75,14 @@ export default class Profile extends Component {
     let ContactBlock = null;
     const ContactToday = [];
     let NoContactTodayBlock = null;
-    if (today[0].contactsLeft !== 0) {
+    /*if (today[0].contactsLeft !== 0) {
       AddMoreContactsBlock = (
         <div className="w-100 w-75-ns fl tc bg-lightest-blue pa3 br1">
           Add <span className="b">{this.state.today[0].contactsLeft}</span> more
           people today to your contacts
         </div>
       );
-    }
+    }*/
     if (ifAttribute(contacts[0])) {
       ContactBlock = (
         <div className="w-100 w-75-ns fl ph4 tl">
@@ -92,25 +92,25 @@ export default class Profile extends Component {
           ))}
         </div>
       );
-      contacts.map(contact => {
+      /*contacts.map(contact => {
         if (
           contact.contactDate === moment().format('l') ||
           moment().isAfter(moment(contact.contactDate, 'MM/DD/YYYY'))
         ) {
           ContactToday.push(contact);
         }
-      });
+      });*/
     } else {
       ContactBlock = null;
     }
-    if (ContactToday.length == 0 || ContactToday == null) {
+    /*if (ContactToday.length == 0 || ContactToday == null) {
       NoContactTodayBlock = (
         <div className="w-100">
           <img src={NoOneLeft} className="center h4 db" alt="" />
           <p className="center center tc b f4">No pending checkin</p>
         </div>
       );
-    }
+    }*/
     return !isSignInPending() ? (
       <div>
         <Nav

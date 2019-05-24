@@ -10,13 +10,11 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 import Nav from './Nav';
 import avatarFallbackImage from '../assets/avatar-placeholder.png';
-//import SingleContact from './SingleContact';
-//import ContactBubble from './ContactBubble';
+import SingleTask from './SingleTask';
+import ContactBubble from './ContactBubble';
 import NoOneLeft from '../assets/no-one-left.png';
 import ifAttribute from './util/ifAttribute';
 import ProfileDesktop from './ProfileDesktop';
-import SingleAccount from './SingleAccount';
-import AccountBubble from './AccountBubble';
 
 export default class Profile extends Component {
   state = {
@@ -29,8 +27,7 @@ export default class Profile extends Component {
       },
     },
     username: '',
-    //contacts: [],
-    accounts: [],
+    tasks: [],
     today: [{ contactsLeft: 0, date: '' }],
   };
 
@@ -44,13 +41,10 @@ export default class Profile extends Component {
 
   fetchData() {
     const options = { decrypt: true };
-    //getFile('contacts.json', options).then(file => {
-    getFile('accounts.json', options).then(file => {
-      //const contacts = JSON.parse(file || '[]');
-      const accounts = JSON.parse(file || '[]');
+    getFile('tasks.json', options).then(file => {
+      const tasks = JSON.parse(file || '[]');
       this.setState({
-        //contacts
-        accounts,
+        tasks,
       });
     });
     getFile('today.json', options).then(file => {
@@ -75,53 +69,47 @@ export default class Profile extends Component {
     const { handleSignOut } = this.props;
     const { person } = this.state;
     const { username } = this.state;
-    //const { contacts } = this.state;
-    const { accounts } = this.state;
+    const { tasks } = this.state;
     const { today } = this.state;
     let AddMoreContactsBlock = null;
     let ContactBlock = null;
     const ContactToday = [];
     let NoContactTodayBlock = null;
-    if (today[0].contactsLeft !== 0) {
+    /*if (today[0].contactsLeft !== 0) {
       AddMoreContactsBlock = (
         <div className="w-100 w-75-ns fl tc bg-lightest-blue pa3 br1">
           Add <span className="b">{this.state.today[0].contactsLeft}</span> more
-          people today to your accounts
+          people today to your contacts
         </div>
       );
-    }
-    //if (ifAttribute(contacts[0])) {
-    if (ifAttribute(accounts[0])) {
+    }*/
+    if (ifAttribute(tasks[0])) {
       ContactBlock = (
-        <div className="w-100 w-75-ns fl ph4 tl">
-          {accounts.map(account => (
-            <SingleAccount account={account} key={account.id} />
+        <div className="w-100 w-200-ns fl ph4 tl">
+          {tasks.map(task => (
+            <SingleTask task={task} key={task.id} />
           ))}
         </div>
       );
-      //contacts.map(contact => {
-      accounts.map(account => {
+      /*contacts.map(contact => {
         if (
-          //contact.contactDate === moment().format('l') ||
-          account.contactDate === moment().format('l') ||
-          //moment().isAfter(moment(contact.contactDate, 'MM/DD/YYYY'))
-          moment().isAfter(moment(account.contactDate, 'MM/DD/YYYY'))
+          contact.contactDate === moment().format('l') ||
+          moment().isAfter(moment(contact.contactDate, 'MM/DD/YYYY'))
         ) {
-          //ContactToday.push(contact);
-          ContactToday.push(account);
+          ContactToday.push(contact);
         }
-      });
+      });*/
     } else {
       ContactBlock = null;
     }
-    if (ContactToday.length == 0 || ContactToday == null) {
+    /*if (ContactToday.length == 0 || ContactToday == null) {
       NoContactTodayBlock = (
         <div className="w-100">
           <img src={NoOneLeft} className="center h4 db" alt="" />
-          <p className="center center tc b f4">No pending checkins for today</p>
+          <p className="center center tc b f4">No pending</p>
         </div>
       );
-    }
+    }*/
     return !isSignInPending() ? (
       <div>
         <Nav
@@ -131,26 +119,18 @@ export default class Profile extends Component {
           logout={handleSignOut.bind(this)}
         />
         <div className="mw9 center ph3 cf">
-          <ProfileDesktop
-            logout={handleSignOut.bind(this)}
-            profileImage={
-              person.avatarUrl() ? person.avatarUrl() : avatarFallbackImage
-            }
-            name={person.name() ? person.name() : 'Nameless Person'}
-            username={username}
-          />
           <div className="w-100 w-75-ns fl ph4 tl">
-            <h1>Your Accounts</h1>
-          </div>
-          {ContactBlock}
-          <div className="fr">
+            <h1> Tasks
             <Link
-              to="/add-account"
+              to="/add-task"
               className="f4 link dim ph3 pv2 mb2 dib white bg-black b--black"
             >
-              Add Account
-            </Link>
+             +
+            </Link> </h1>
+            Name -- Subject -- Date -- Status -- Due Date -- Priority
+            <br /> <br /> 
           </div>
+          {ContactBlock}
         </div>
       </div>
     ) : null;

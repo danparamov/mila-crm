@@ -82,25 +82,25 @@ export default class Profile extends Component {
     let ContactBlock = null;
     const ContactToday = [];
     let NoContactTodayBlock = null;
-    if (today[0].contactsLeft !== 0) {
+    /*if (today[0].contactsLeft !== 0) {
       AddMoreContactsBlock = (
         <div className="w-100 w-75-ns fl tc bg-lightest-blue pa3 br1">
           Add <span className="b">{this.state.today[0].contactsLeft}</span> more
           people today to your accounts
         </div>
       );
-    }
+    }*/
     //if (ifAttribute(contacts[0])) {
     if (ifAttribute(accounts[0])) {
       ContactBlock = (
-        <div className="w-100 w-75-ns fl ph4 tl">
+        <div className="w-100 w-200-ns fl ph4 tl">
           {accounts.map(account => (
             <SingleAccount account={account} key={account.id} />
           ))}
         </div>
       );
       //contacts.map(contact => {
-      accounts.map(account => {
+      /*accounts.map(account => {
         if (
           //contact.contactDate === moment().format('l') ||
           account.contactDate === moment().format('l') ||
@@ -110,18 +110,18 @@ export default class Profile extends Component {
           //ContactToday.push(contact);
           ContactToday.push(account);
         }
-      });
+      });*/
     } else {
       ContactBlock = null;
     }
-    if (ContactToday.length == 0 || ContactToday == null) {
+    /*if (ContactToday.length == 0 || ContactToday == null) {
       NoContactTodayBlock = (
         <div className="w-100">
           <img src={NoOneLeft} className="center h4 db" alt="" />
           <p className="center center tc b f4">No pending checkins for today</p>
         </div>
       );
-    }
+    }*/
     return !isSignInPending() ? (
       <div>
         <Nav
@@ -131,26 +131,18 @@ export default class Profile extends Component {
           logout={handleSignOut.bind(this)}
         />
         <div className="mw9 center ph3 cf">
-          <ProfileDesktop
-            logout={handleSignOut.bind(this)}
-            profileImage={
-              person.avatarUrl() ? person.avatarUrl() : avatarFallbackImage
-            }
-            name={person.name() ? person.name() : 'Nameless Person'}
-            username={username}
-          />
           <div className="w-100 w-75-ns fl ph4 tl">
-            <h1>Your Accounts</h1>
-          </div>
-          {ContactBlock}
-          <div className="fr">
+            <h1>Accounts
             <Link
               to="/add-account"
               className="f4 link dim ph3 pv2 mb2 dib white bg-black b--black"
             >
-              Add Account
-            </Link>
+              +
+            </Link></h1>
+            Name -- Industry -- Sales Stage -- Email -- Phone Number -- Country -- Priority
+            <br /> <br /> 
           </div>
+          {ContactBlock}
         </div>
       </div>
     ) : null;

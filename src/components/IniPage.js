@@ -207,24 +207,16 @@ export default class Profile extends Component {
           logout={handleSignOut.bind(this)}
         />
         <div className="mw9 center ph3 cf">
-          <ProfileDesktop
-            logout={handleSignOut.bind(this)}
-            profileImage={
-              person.avatarUrl() ? person.avatarUrl() : avatarFallbackImage
-            }
-            name={person.name() ? person.name() : 'Nameless Person'}
-            username={username}
-          />
           <div className="w-100 w-75-ns fl ph4 tl">
-            <h1>Your Contacts</h1>
+            <h1>Contacts</h1>
           </div>
           {ContactBlock}       
           <div className="w-100 w-75-ns fl ph4 tl">
-            <h1>Your Accounts</h1>
+            <h1>Accounts</h1>
           </div>
           {AccountBlock}
           <div className="w-100 w-75-ns fl ph4 tl">
-            <h1>Your Opportunities</h1>
+            <h1>Opportunities</h1>
           </div>
           {OppBlock}
         </div>

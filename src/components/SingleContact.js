@@ -21,8 +21,11 @@ export default class SingleContact extends Component {
             />
           </div>
           <p className="fl w-80 w-90-ns h3 pl3 f4 fw4 black-80">
-            {contact.name} {' '}
-            <PriorityLabel priority={contact.priority} small />
+            {contact.name} {' -- '}
+            {contact.email} {' -- '}
+            {contact.phoneNumber} {' -- '}
+            {contact.country} {' -- '}
+            <PriorityLabel priority={contact.priority} small/>
           </p>
         </Link>
       </div>

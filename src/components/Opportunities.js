@@ -82,25 +82,25 @@ export default class Profile extends Component {
     let ContactBlock = null;
     const ContactToday = [];
     let NoContactTodayBlock = null;
-    if (today[0].contactsLeft !== 0) {
+    /*if (today[0].contactsLeft !== 0) {
       AddMoreContactsBlock = (
         <div className="w-100 w-75-ns fl tc bg-lightest-blue pa3 br1">
           Add <span className="b">{this.state.today[0].contactsLeft}</span> more
           people today to your Opportunities
         </div>
       );
-    }
+    }*/
     //if (ifAttribute(contacts[0])) {
     if (ifAttribute(opps[0])) {
       ContactBlock = (
-        <div className="w-100 w-75-ns fl ph4 tl">
+        <div className="w-100 w-200-ns fl ph4 tl">
           {opps.map(opp => (
             <SingleOpp opp={opp} key={opp.id} />
           ))}
         </div>
       );
       //contacts.map(contact => {
-      opps.map(opp => {
+      /*opps.map(opp => {
         if (
           //contact.contactDate === moment().format('l') ||
           opp.contactDate === moment().format('l') ||
@@ -110,18 +110,18 @@ export default class Profile extends Component {
           //ContactToday.push(contact);
           ContactToday.push(opp);
         }
-      });
+      });*/
     } else {
       ContactBlock = null;
     }
-    if (ContactToday.length == 0 || ContactToday == null) {
+    /*if (ContactToday.length == 0 || ContactToday == null) {
       NoContactTodayBlock = (
         <div className="w-100">
           <img src={NoOneLeft} className="center h4 db" alt="" />
           <p className="center center tc b f4">No pending checkins for today</p>
         </div>
       );
-    }
+    }*/
     return !isSignInPending() ? (
       <div>
         <Nav
@@ -132,22 +132,17 @@ export default class Profile extends Component {
         />
         <div className="mw9 center ph3 cf">
           <div className="w-100 w-75-ns fl ph4 tl">
-            <h1>Your Opportunities</h1>
-            <div className="w-100 fl db">
-              {ContactToday.map(opp => (
-                <OppBubble opp={opp} key={opp.id} />
-              ))}
-            </div>
-          </div>
-          {ContactBlock}
-          <div className="fr">
+            <h1>Opportunities
             <Link
               to="/add-opportunity"
               className="f4 link dim ph3 pv2 mb2 dib white bg-black b--black"
-            >
-              Add Opportunity
-            </Link>
+            > 
+             +
+            </Link></h1>
+            Name -- Account -- Amount -- Sales Stage -- Probability 
+            <br /> <br /> 
           </div>
+          {ContactBlock}
         </div>
       </div>
     ) : null;

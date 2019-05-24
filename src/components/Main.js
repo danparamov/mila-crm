@@ -23,8 +23,10 @@ import Settings from './Settings';
 import SingleContactPage from './SingleContactPage';
 import SingleAccountPage from './SingleAccountPage';
 import SingleOppPage from './SingleOppPage';
+
 import Accounts from './Accounts';
 import Opportunities from './Opportunities';
+import Tasks from './Tasks';
 
 export default class Main extends Component {
   componentWillMount() {
@@ -80,7 +82,10 @@ export default class Main extends Component {
               path="/opportunities"
               component={() => <SignIn handleSignIn={this.handleSignIn} />}
             />
-
+             <Route
+              path="/tasks"
+              component={() => <SignIn handleSignIn={this.handleSignIn} />}
+            />
             <Route
               path="/add-contact"
               component={() => <SignIn handleSignIn={this.handleSignIn} />}
@@ -186,7 +191,6 @@ export default class Main extends Component {
                 <SingleOppPage handleSignOut={this.handleSignOut} />
               )}
             />
-
             <Route
               path="/accounts"
               component={() => (
@@ -199,7 +203,12 @@ export default class Main extends Component {
                 <Opportunities handleSignOut={this.handleSignOut} />
               )}
             />
-
+            <Route
+              path="/tasks"
+              component={() => (
+                <Tasks handleSignOut={this.handleSignOut} />
+              )}
+            />
             <Route
               path="/"
               //component={() => <Profile handleSignOut={this.handleSignOut} />}
