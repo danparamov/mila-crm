@@ -15,6 +15,7 @@ import ContactBubble from './ContactBubble';
 import NoOneLeft from '../assets/no-one-left.png';
 import ifAttribute from './util/ifAttribute';
 import ProfileDesktop from './ProfileDesktop';
+import'./Styles/Table.css';
 
 export default class Profile extends Component {
   state = {
@@ -128,8 +129,18 @@ export default class Profile extends Component {
             >
             +
             </Link> </h1>
-            Name -- Email -- Phone Number -- Country -- Priority
-            <br /> <br />
+            <table className="Table f3">
+              <tbody>
+                <th>
+                  <td className="Cell1">Link</td>
+                  <td className="Cell1">Name</td>
+                  <td className="Cell1">E-mail</td>
+                  <td className="Cell1">Phone#</td> 
+                  <td className="Cell1">Country</td>
+                  <td className="Cell1">Priority</td>
+                </th>
+              </tbody>
+            </table>   
           </div>
           {ContactBlock}
         </div>

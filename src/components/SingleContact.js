@@ -1,33 +1,37 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PriorityLabel from './PriorityLabel';
+import'./Styles/Table.css';
 
 export default class SingleContact extends Component {
   render() {
     const { contact } = this.props;
+    
     return (
       <div className="db overflow-x-hidden">
-        <Link
-          to={{
-            pathname: '/contact',
-            search: `?id=${contact.id}`,
-          }}
-        >
-          <div className="w-20 w-10-ns">
-            <img
-              src={`https://avatars.io/twitter/${contact.twitterHandle}`}
-              className="fl br-100 w3 mt2-m mt0-l w-100 w-70-l"
-              alt=""
-            />
-          </div>
-          <p className="fl w-80 w-90-ns h3 pl3 f4 fw4 black-80">
-            {contact.name} {' -- '}
-            {contact.email} {' -- '}
-            {contact.phoneNumber} {' -- '}
-            {contact.country} {' -- '}
-            <PriorityLabel priority={contact.priority} small/>
-          </p>
-        </Link>
+       
+          <table className="Table f3">
+            <tbody>
+            <tr>
+              <td className="Cell"><Link
+                to={{
+                pathname: '/contact',
+                search: `?id=${contact.id}`,
+              }}
+              className="f4 link dim ph3 pv2 mb2 dib white bg-green b--black br-100 w3"> >>>
+              </Link>
+              </td>
+              <td className="Cell"><img className="fl br-100 w3"
+                  src={`https://avatars.io/twitter/${contact.twitterHandle}`}/></td>
+              <td className="Cell">{contact.name}</td>
+              <td className="Cell">{contact.email}</td>
+              <td className="Cell">{contact.phoneNumber}</td> 
+              <td className="Cell">{contact.country}</td>
+              <td className="Cell"><PriorityLabel priority={contact.priority} small/></td>
+            </tr>
+            </tbody>
+          </table>
+        
       </div>
     );
   }
