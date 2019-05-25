@@ -26,7 +26,7 @@ export default class Nav extends Component {
       },
     },
     username: '',
-    showMenu: true,
+    showMenu: false,
   };
 
   componentWillMount() {

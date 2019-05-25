@@ -222,7 +222,7 @@ export default class Profile extends Component {
           {ContactBlock} 
           
           <div className="w-100 w-75-ns f4 ph4 tl">
-            <h1> Account
+            <h1> Accounts
             <Link
               to={{
                 pathname: '/accounttasks',
@@ -236,7 +236,7 @@ export default class Profile extends Component {
           {AccountBlock}
           <br /> <br /> 
           <div className="w-100 w-75-ns f4 ph4 tl">
-            <h1> Opportunity
+            <h1> Opportunities
             <Link
               to={{
                 pathname: '/opptasks',

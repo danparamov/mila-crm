@@ -64,8 +64,6 @@ export default class Main extends Component {
       <main className="sans-serif">
         {!isUserSignedIn() ? (
           <Switch>
-            <Route path="/updates" component={Updates} />
-
             <Route
               path="/contact"
               component={() => <SignIn handleSignIn={this.handleSignIn} />}
@@ -161,13 +159,16 @@ export default class Main extends Component {
               component={() => <SignIn handleSignIn={this.handleSignIn} />}
             />
             <Route
+              path="/updates"
+              component={() => <SignIn handleSignIn={this.handleSignIn} />}
+            />
+            <Route
               path="/"
               component={() => <SignIn handleSignIn={this.handleSignIn} />}
             />
           </Switch>
         ) : (
           <Switch>
-            <Route path="/updates" component={Updates} />
             <Route
               path="/contact"
               component={() => (
@@ -303,6 +304,10 @@ export default class Main extends Component {
             <Route
               path="/settings"
               component={() => <Settings handleSignOut={this.handleSignOut} />}
+            />
+            <Route
+              path="/updates"
+              component={() => <Updates handleSignOut={this.handleSignOut} />}
             />
             <Route
               path="/"
