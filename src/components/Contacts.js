@@ -121,7 +121,7 @@ export default class Profile extends Component {
           logout={handleSignOut.bind(this)}
         />
         <div className="mw9 center ph3 cf">
-          <div className="w-100 w-75-ns fl ph4 tl">
+          <div className="w-100 w-200-ns fl ph4 tl">
             <h1> Contacts
             <Link
               to="/add-contact"
@@ -132,12 +132,6 @@ export default class Profile extends Component {
             <table className="Table f3">
               <tbody>
                 <th>
-                  <td className="Cell1">Link</td>
-                  <td className="Cell1">Name</td>
-                  <td className="Cell1">E-mail</td>
-                  <td className="Cell1">Phone#</td> 
-                  <td className="Cell1">Country</td>
-                  <td className="Cell1">Priority</td>
                 </th>
               </tbody>
             </table>   

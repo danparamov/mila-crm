@@ -1,35 +1,34 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PriorityLabel from './PriorityLabel';
+import'./Styles/Table.css';
 
 export default class SingleAccount extends Component {
   render() {
     const { account } = this.props;
     return (
-      <div className="db overflow-x-hidden">
-        <Link
-          to={{
-            pathname: '/account',
-            search: `?id=${account.id}`,
-          }}
-        >
-          <div className="w-20 w-10-ns">
-            <img
-              src={`https://avatars.io/twitter/${account.twitterHandle}`}
-              className="fl br-100 w3 mt2-m mt0-l w-100 w-70-l"
-              alt=""
-            />
-          </div>
-          <p className="fl w-80 w-90-ns h3 pl3 f4 fw4 black-80">
-            {account.accountname} {' -- '}
-            {account.industry} {' -- '}
-            {account.salesstage} {' -- '}
-            {account.email} {' -- '}
-            {account.phoneNumber} {' -- '}
-            {account.country} {' -- '}
-            <PriorityLabel priority={account.priority} small />
-          </p>
-        </Link>
+      <div className="">
+        <table className="Table f3">
+           <tbody>
+            <tr>
+              <td className="Cell" style={{width:1000}}><Link
+                to={{
+                pathname: '/account',
+                search: `?id=${account.id}`,
+              }}
+              className="f4 link dim ph3 pv2 mb2 dib white bg-yellow b--black br-100 w3"> >>>
+              </Link>
+              </td>
+              <td className="Cell" style={{width:2000}}>{account.accountname}</td>
+              <td className="Cell" style={{width:2000}}>{account.industry}</td>
+              <td className="Cell" style={{width:1000}}>{account.salesstage}</td> 
+              <td className="Cell" style={{width:1000}}>{account.email}</td>
+              <td className="Cell" style={{width:1000}}>{account.phoneNumber}</td>
+              <td className="Cell" style={{width:1000}}>{account.country}</td>
+              <td className="Cell" style={{width:1000}}><PriorityLabel priority={account.priority} small/></td>
+            </tr>
+           </tbody>
+        </table>
       </div>
     );
   }

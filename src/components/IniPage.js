@@ -107,7 +107,7 @@ export default class Profile extends Component {
     }*/
     if (ifAttribute(contacts[0])) {
       ContactBlock = (
-        <div className="w-100 w-75-ns fl ph4 tl">
+        <div className="w-100 w-200-ns fl ph4 tl">
           {contacts.map(contact => (
             <SingleContact contact={contact} key={contact.id} />
           ))}
@@ -136,7 +136,7 @@ export default class Profile extends Component {
     // Accounts
     if (ifAttribute(accounts[0])) {
         AccountBlock = (
-          <div className="w-100 w-75-ns fl ph4 tl">
+          <div className="w-100 w-200-ns fl ph4 tl">
             {accounts.map(account => (
               <SingleAccount account={account} key={account.id} />
             ))}
@@ -169,7 +169,7 @@ export default class Profile extends Component {
     // Opportunities
     if (ifAttribute(opps[0])) {
       OppBlock = (
-        <div className="w-100 w-75-ns fl ph4 tl">
+        <div className="w-100 w-200-ns fl ph4 tl">
           {opps.map(opp => (
             <SingleOpp opp={opp} key={opp.id} />
           ))}
@@ -207,15 +207,15 @@ export default class Profile extends Component {
           logout={handleSignOut.bind(this)}
         />
         <div className="mw9 center ph3 cf">
-          <div className="w-100 w-75-ns fl ph4 tl">
+          <div className="w-100 w-200-ns fl ph4 tl">
             <h1>Contacts</h1>
           </div>
           {ContactBlock}       
-          <div className="w-100 w-75-ns fl ph4 tl">
+          <div className="w-100 w-200-ns fl ph4 tl">
             <h1>Accounts</h1>
           </div>
           {AccountBlock}
-          <div className="w-100 w-75-ns fl ph4 tl">
+          <div className="w-100 w-200-ns fl ph4 tl">
             <h1>Opportunities</h1>
           </div>
           {OppBlock}

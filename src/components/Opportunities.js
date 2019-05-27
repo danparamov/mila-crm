@@ -129,16 +129,14 @@ export default class Profile extends Component {
           logout={handleSignOut.bind(this)}
         />
         <div className="mw9 center ph3 cf">
-          <div className="w-100 w-75-ns fl ph4 tl">
+          <div className="w-100 w-200-ns fl ph4 tl">
             <h1>Opportunities
             <Link
               to="/add-opportunity"
-              className="f2 link dim ph3 pv2 mb2 dib white bg-green b--black"
+              className="f2 link dim ph3 pv2 mb2 dib white bg-blue b--black"
             >
              +
             </Link></h1>
-            Name -- Account -- Amount -- Sales Stage -- Probability
-            <br /> <br />
           </div>
           {ContactBlock}
         </div>
