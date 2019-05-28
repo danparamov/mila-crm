@@ -1,7 +1,6 @@
 import React from 'react';
 import Floating from './styles/Floating';
 import Grow from '../assets/funnelicon.jpg';
-import Create from '../assets/play.jpg';
 import Plans from '../assets/buildings.jpg';
 
 export default function LearnMore() {
