@@ -17,7 +17,7 @@ import Error from './ErrorMessage';
 import ProfileDesktop from './ProfileDesktop';
 import nextContactDate from './util/nextContactDate';
 
-export default class AddAccountTask extends Component {
+export default class AddContactTask extends Component {
   state = {
     contactname: '',
     subject: '',

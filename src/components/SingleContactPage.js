@@ -15,11 +15,14 @@ import ifAttribute from './util/ifAttribute';
 import Nav from './Nav';
 import PriorityLabel from './PriorityLabel';
 import nextContactDate from './util/nextContactDate';
+import SingleContactTask from './SingleContactTask';
 
 class mySingleContactPage extends Component {
   state = {
     contact: [],
     contacts: [],
+    contacttask: [],
+    contacttasks: [],
     person: {
       name() {
         return 'Anonymous';
@@ -51,6 +54,19 @@ class mySingleContactPage extends Component {
         contacts,
       });
     });
+    getFile('contacttasks.json', options).then(file => {
+      const name = this.state.contact[0].name 
+      const contact_name = name.concat(' ',this.state.contact[0].lastName)
+      const contacttasks = JSON.parse(file || '[]');
+      const contacttask = findObjectBy(contacttasks, {
+        contactname: contact_name,
+      })
+ 
+      this.setState({
+        contacttask,
+        contacttasks,
+      });
+    });
   }
 
   deleteContact() {
@@ -58,6 +74,7 @@ class mySingleContactPage extends Component {
     const newContactsList = this.state.contacts.filter(
       contact => contact.id !== toDelete
     );
+
     const options = { encrypt: true };
     putFile('contacts.json', JSON.stringify(newContactsList), options).then(
       () => {
@@ -85,6 +102,7 @@ class mySingleContactPage extends Component {
 
   render() {
     const { contact } = this.state;
+    const { contacttask } = this.state;
     const { handleSignOut } = this.props;
     const { person } = this.state;
     let UserCountryBlock;
@@ -95,6 +113,9 @@ class mySingleContactPage extends Component {
     let BlockstackBlock;
     let TwitterBlock;
     let ContactDateBlock;
+    let TaskBlock = null;
+    let ContactTaskBlock;
+
     let contactDate = null;
     if (contact[0]) {
       if (ifAttribute(contact[0].contactDate)) {
@@ -172,6 +193,19 @@ class mySingleContactPage extends Component {
         } else BlockstackBlock = null;
       }
     }
+    if (contacttask[0]) {
+      TaskBlock = <h2>Tasks</h2>;
+      if (ifAttribute(contacttask[0].contactname)) {
+        ContactTaskBlock = (
+          <div className="mt2">
+            {contacttask.map(contacttask => (
+            <SingleContactTask contacttask={contacttask} key={contacttask.id} />
+            ))}
+          </div>
+        );
+      } else ContactTaskBlock = null;
+    }
+
     return !isSignInPending() ? (
       <div>
         <Nav
@@ -210,6 +244,9 @@ class mySingleContactPage extends Component {
                     {TwitterBlock}
                     <br />
                     {BlockstackBlock}
+                    <br />
+                    {TaskBlock}
+                    {ContactTaskBlock}
                   </div>
                 </div>
               </div>
@@ -232,7 +269,14 @@ class mySingleContactPage extends Component {
               >
                 ✏️️️ Edit Contact
               </Link>
-
+              <Link
+                to={{
+                  pathname: '/add-contacttask',
+                }}
+                className="link dim ba bw1 ph2 pv2 mb2 dib no-underline black mr2"
+              >
+                ✏️️️ Add Contact Task
+              </Link>
               <a
                 className="pointer link dim ba bw1 ph2 pv2 mb2 dib no-underline bg-black b--black white"
                 onClick={() => {
