@@ -16,4 +16,4 @@ To run the app locally, follow these steps:
 * Install the app `npm install`
 * Run it `npm run dev`
 
-Want to help? PRs are welcome :)
+Want to help? Please get in contact with us :)
