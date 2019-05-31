@@ -16,7 +16,6 @@ import Form from './styles/Form';
 import Error from './ErrorMessage';
 import nextContactDate from './util/nextContactDate';
 import ProfileDesktop from './ProfileDesktop';
-import SingleAccount1 from './SingleAccount1';
 
 export default class AddOpp extends Component {
   state = {
@@ -33,6 +32,8 @@ export default class AddOpp extends Component {
     blockstackId: '',
     opps: [],
     accounts: [],
+    accountsnames: [],
+  
     person: {
       name() {
         return 'Anonymous';
@@ -61,8 +62,11 @@ export default class AddOpp extends Component {
     });
     getFile('accounts.json', options).then(file => {
       const accounts = JSON.parse(file || '[]');
+      const accountsnames = accounts.map((account) => account.accountname);
+      //console.log(accountsnames); 
       this.setState({
         accounts,
+        accountsnames,
       });
     });
     getFile('today.json', options).then(file => {
@@ -146,12 +150,12 @@ export default class AddOpp extends Component {
     const loading = false;
     const error = false;
     const { accounts } = this.state;
+    const {accountsnames} = this.state;
     let ContactBlock = null;
-    if (this.state.saved) {
-      return <Redirect to="/opportunities" />;
-    }
 
-   
+    if (this.state.saved) {
+      return <Redirect to="/opportunities"/>;
+    }
 
     return !isSignInPending() ? (
       <div>
@@ -189,12 +193,16 @@ export default class AddOpp extends Component {
               <fieldset>
                 <label htmlFor="accountname">
                   Account Name
-                  <select onChange={this.handleChange} id="accountname" name="accountname">
-                    <option value="" defaultChecked>
+                 <select onChange={this.handleChange} id="accountname" name="accountname" required>
+                  <option value="" defaultChecked>
                       Select Account..
-                    </option>
-                    <option value="None">None</option>
-                  </select>
+                  </option>
+                   {
+                    accountsnames.map(function(X) {
+                    return <option>{X}</option>;
+                    })
+                   }  
+                 </select>
                 </label>
               </fieldset>
               <fieldset>
