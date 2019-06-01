@@ -193,7 +193,7 @@ class mySingleContactPage extends Component {
       }
     }
     if (contacttask[0]) {
-      TaskBlock = <h2>Tasks</h2>;
+      TaskBlock = <h2>Tasks -- click on each task to edit it</h2>;
       if (ifAttribute(contacttask[0].contactname)) {
         ContactTaskBlock = (
           <div className="mt2">

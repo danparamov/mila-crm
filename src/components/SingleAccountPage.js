@@ -191,7 +191,7 @@ class mySingleAccountPage extends Component {
         } else BlockstackBlock = null;
       }
       if (accounttask[0]) {
-        TaskBlock = <h2>Tasks</h2>;
+        TaskBlock = <h2>Tasks -- click on each task to edit it</h2>;
         if (ifAttribute(accounttask[0].contactname)) {
           AccountTaskBlock = (
             <div className="mt2">

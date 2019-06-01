@@ -199,7 +199,7 @@ export default class AddAccountTask extends Component {
               </fieldset>
               <fieldset>
                 <label htmlFor="rank">
-                  Contact Frequency
+                  Priority
                   <select
                     type="text"
                     id="rank"

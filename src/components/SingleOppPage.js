@@ -192,7 +192,7 @@ class mySingleOppPage extends Component {
         } else BlockstackBlock = null;
       }
       if (opptask[0]) {
-        TaskBlock = <h2>Tasks</h2>;
+        TaskBlock = <h2>Tasks -- click on each task to edit it</h2>;
         if (ifAttribute(opptask[0].contactname)) {
           OppTaskBlock = (
             <div className="mt2">
