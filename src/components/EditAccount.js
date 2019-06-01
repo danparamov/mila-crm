@@ -21,24 +21,26 @@ import Error from './ErrorMessage';
 class EditAccountPage extends Component {
   state = {
     id: '',
-    //name: '',
-    //lastName: '',
     accountname: '',
     website: '',
     industry: '',
     salesstage: '',
     description: '',
+    accounttype: '',
     country: '',
     region: '',
     email: '',
     phoneNumber: '',
+    annualRevenue: '',
+    employees: '',
     twitterHandle: '',
-    //birthDate: '',
-    //sex: '',
+    telegramId: '',
+    slack: '',
+    addressStreet: '',
     blockstackId: '',
+    priority: 'A',
     contactDate: '',
     created_at: '',
-    //contacts: [],
     accounts: [],
     person: {
       name() {
@@ -72,21 +74,23 @@ class EditAccountPage extends Component {
       }
       this.setState({
         accounts,
-        //accountname: account[0].name,
         accountname: account[0].accountname,
         id: account[0].id,
-        //lastname: account[0].lastname,
         website: account[0].website,
         industry: account[0].industry,
         salesstage: account[0].salesstage,
+        accounttype: account[0].accounttype,
+        slack: account[0].slack,
         description: account[0].description,
+        employees: account[0].employees,
         country: account[0].country,
+        telegramId: account[0].telegramId,
+        addressStreet: account[0].addressStreet,
         region: account[0].region,
+        annualRevenue: account[0].annualRevenue,
         email: account[0].email,
         phoneNumber: account[0].phoneNumber,
         twitterHandle: account[0].twitterHandle,
-        //birthDate: account[0].birthDate,
-        //sex: account[0].sex,
         blockstackId: account[0].blockstackId,
         contactDate: account[0].contactDate,
         created_at: account[0].created_at,
@@ -104,21 +108,22 @@ class EditAccountPage extends Component {
     let { accounts } = this.state;
     const newContact = {
       id: this.state.id,
-      //name: this.state.name,
-      //lastName: this.state.lastName,
       accountname: this.state.accountname,
       website:this.state.website,
       industry: this.state.industry,
       salesstage: this.state.salesstage,
+      accounttype: this.state.accounttype,
+      slack: this.state.slack,
       description: this.state.description,
+      employees: this.state.employees,
       country: this.state.country,
+      telegramId: this.state.telegramId,
+      addressStreet: this.state.addressStreet,
       region: this.state.region,
+      annualRevenue: this.state.annualRevenue,
       email: this.state.email,
       phoneNumber: this.state.phoneNumber,
       twitterHandle: this.state.twitterHandle,
-      //birthDate: this.state.birthDate,
-      //sex: this.state.sex,
-     
       blockstackId: this.state.blockstackId,
       priority: this.state.priority,
       contactDate: this.state.contactDate,
@@ -195,7 +200,7 @@ class EditAccountPage extends Component {
               </fieldset>
               <fieldset>
                 <label htmlFor="website">
-                  Website
+                  Account Website
                   <input
                     type="text"
                     id="website"
@@ -225,7 +230,7 @@ class EditAccountPage extends Component {
               </fieldset>
               <fieldset>
                 <label>
-                  Sales Stage
+                  Rating
                   <select
                     type="text"
                     id="salesstage"
@@ -241,41 +246,54 @@ class EditAccountPage extends Component {
                 </label>
               </fieldset>
               <fieldset>
-                <label htmlFor="description">
-                  Description
+                <label>
+                  Account Type
+                  <select onChange={this.handleChange} id="accounttype" name="accounttype">
+                    <option value="" defaultChecked>
+                      Select
+                    </option>
+                    <option value="Analyst">Analyst</option>
+                    <option value="Competitor">Competitor</option>
+                    <option value="Customer">Customer</option>
+                    <option value="Distributor">Distributor</option>
+                    <option value="Integrator">Integrator</option>
+                    <option value="Investor">Investor</option>
+                    <option value="Partner">Partner</option>
+                    <option value="Press">Press</option>
+                    <option value="Prospects">Prospects</option>
+                    <option value="Reseller">Reseller</option>
+                    <option value="Supplier">Supplier</option>
+                    <option value="Vendor">Vendor</option>
+                  </select>
+                </label>
+              </fieldset>
+              <fieldset>
+                <label htmlFor="employees">
+                  Employees
                   <input
-                    type="description"
-                    id="description"
-                    name="description"
-                    placeholder="Description.."
-                    value={this.state.description}
+                    type="text"
+                    id="employees"
+                    name="employees"
+                    placeholder=""
+                    value={this.state.employees}
                     onChange={this.handleChange}
                   />
                 </label>
               </fieldset>
               <fieldset>
-                <label htmlFor="country">
-                  Country
-                  <CountryDropdown
-                    name="country"
-                    id="country"
-                    value={this.state.country}
-                    onChange={val => this.selectCountry(val)}
+                <label htmlFor="annualRevenue">
+                  Annual Revenue
+                  <input
+                    type="text"
+                    id="annualRevenue"
+                    name="annualRevenue"
+                    placeholder="$"
+                    value={this.state.annualRevenue}
+                    onChange={this.handleChange}
                   />
                 </label>
               </fieldset>
-              <fieldset>
-                <label htmlFor="region">
-                  Region
-                  <RegionDropdown
-                    name="region"
-                    id="region"
-                    country={this.state.country}
-                    value={this.state.region}
-                    onChange={val => this.selectRegion(val)}
-                  />
-                </label>
-              </fieldset>
+              <h3 className="">Social</h3>
               <fieldset>
                 <label htmlFor="email">
                   Email
@@ -309,7 +327,7 @@ class EditAccountPage extends Component {
                     type="text"
                     id="twitterHandle"
                     name="twitterHandle"
-                    placeholder="Twitter handle.. (eg. danparamov)"
+                    placeholder=""
                     value={this.state.twitterHandle}
                     onChange={this.handleChange}
                   />
@@ -317,7 +335,7 @@ class EditAccountPage extends Component {
               </fieldset>
               <fieldset disabled={loading} aria-busy={loading}>
                 <label htmlFor="blockstackId">
-                  Blockstack Id
+                  Blockstack ID
                   <input
                     type="text"
                     id="blockstackId"
@@ -325,6 +343,69 @@ class EditAccountPage extends Component {
                     placeholder="Blockstack ID.."
                     value={this.state.blockstackId}
                     onChange={this.handleChange}
+                  />
+                </label>
+              </fieldset>
+              <fieldset disabled={loading} aria-busy={loading}>
+                <label htmlFor="telegramId">
+                  Telegram ID
+                  <input
+                    type="text"
+                    id="telegramId"
+                    name="telegramId"
+                    placeholder=""
+                    value={this.state.blockstackId}
+                    onChange={this.handleChange}
+                  />
+                </label>
+              </fieldset>
+              <fieldset disabled={loading} aria-busy={loading}>
+                <label htmlFor="Slack">
+                  Slack
+                  <input
+                    type="text"
+                    id="slack"
+                    name="slack"
+                    placeholder=""
+                    value={this.state.slack}
+                    onChange={this.handleChange}
+                  />
+                </label>
+              </fieldset>
+              <h3 className="">Address Information</h3>
+              <fieldset disabled={loading} aria-busy={loading}>
+                <label htmlFor="addressStreet">
+                  Address Street
+                  <input
+                    type="text"
+                    id="addressStreet"
+                    name="addressStreet"
+                    placeholder=""
+                    value={this.state.addressStreet}
+                    onChange={this.handleChange}
+                  />
+                </label>
+              </fieldset>
+              <fieldset>
+                <label htmlFor="country">
+                  Country
+                  <CountryDropdown
+                    name="country"
+                    id="country"
+                    value={this.state.country}
+                    onChange={val => this.selectCountry(val)}
+                  />
+                </label>
+              </fieldset>
+              <fieldset>
+                <label htmlFor="region">
+                  Region
+                  <RegionDropdown
+                    name="region"
+                    id="region"
+                    country={this.state.country}
+                    value={this.state.region}
+                    onChange={val => this.selectRegion(val)}
                   />
                 </label>
               </fieldset>
@@ -343,6 +424,20 @@ class EditAccountPage extends Component {
                   <option value="C">Every three months</option>
                   <option value="D">Every year</option>
                   </select>
+                </label>
+              </fieldset>
+              <h3 className="">Description Information</h3>
+              <fieldset>
+                <label htmlFor="description">
+                  Description
+                  <input
+                    type="description"
+                    id="description"
+                    name="description"
+                    placeholder=""
+                    value={this.state.description}
+                    onChange={this.handleChange}
+                  />
                 </label>
               </fieldset>
               <button type="submit" className="bg-black">

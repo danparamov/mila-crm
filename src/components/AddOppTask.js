@@ -27,6 +27,8 @@ export default class AddOppTask extends Component {
     description: '',
     opptasks: [],
     priority: 'A',
+    opps: [],
+    oppsnames: [],
     person: {
       name() {
         return 'Anonymous';
@@ -51,6 +53,14 @@ export default class AddOppTask extends Component {
       const opptasks = JSON.parse(file || '[]');
       this.setState({
         opptasks,
+      });
+    });
+    getFile('opps.json', options).then(file => {
+      const opps = JSON.parse(file || '[]');
+      const oppsnames = opps.map((opp) => opp.oppname);
+      this.setState({
+        opps,
+        oppsnames,
       });
     });
     getFile('today.json', options).then(file => {
@@ -121,6 +131,7 @@ export default class AddOppTask extends Component {
     const { handleSignOut } = this.props;
     const { person } = this.state;
     const { username } = this.state;
+    const {oppsnames} = this.state;
     const loading = false;
     const error = false;
     if (this.state.saved) {
@@ -148,14 +159,16 @@ export default class AddOppTask extends Component {
               <fieldset>
                 <label htmlFor="contactname">
                   Opportunity Name
-                  <input
-                    type="text"
-                    id="contactname"
-                    name="contactname"
-                    placeholder="Oppname.."
-                    value={this.state.contactname}
-                    onChange={this.handleChange}
-                  />
+                  <select onChange={this.handleChange} id="contactname" name="contactname" required>
+                  <option value="" defaultChecked>
+                    Select Opportunity..
+                  </option>
+                   {
+                    oppsnames.map(function(X) {
+                    return <option>{X}</option>;
+                    })
+                   }  
+                  </select>
                 </label>
               </fieldset>
               <fieldset>

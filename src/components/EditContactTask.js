@@ -30,6 +30,8 @@ class EditContactTaskPage extends Component {
     contacttasks: [],
     contactDate: '',
     created_at: '',
+    contacts: [],
+    contactsnames: [],
     person: {
       name() {
         return 'Anonymous';
@@ -72,6 +74,14 @@ class EditContactTaskPage extends Component {
         contactDate: contacttask[0].contactDate,
         created_at: contacttask[0].created_at,
         priority: contacttask[0].priority,
+      });
+    });
+    getFile('contacts.json', options).then(file => {
+      const contacts = JSON.parse(file || '[]');
+      const contactsnames = contacts.map((contact) => contact.name);
+      this.setState({
+        contacts,
+        contactsnames,
       });
     });
   }
@@ -129,6 +139,7 @@ class EditContactTaskPage extends Component {
     const { contacttask } = this.state;
     const { handleSignOut } = this.props;
     const { person } = this.state;
+    const {contactsnames} = this.state;
     const { username } = this.state;
     const loading = false;
     const error = false;
@@ -157,14 +168,16 @@ class EditContactTaskPage extends Component {
               <fieldset>
                 <label htmlFor="contactname">
                   Contact Name
-                  <input
-                    type="text"
-                    id="contactname"
-                    name="contactname"
-                    placeholder="Contactname.."
-                    value={this.state.contactname}
-                    onChange={this.handleChange}
-                  />
+                  <select onChange={this.handleChange} id="contactname" name="contactname">
+                  <option value="">
+                    {this.state.contactname}
+                  </option>
+                   {
+                    contactsnames.map(function(X) {
+                    return <option>{X}</option>;
+                    })
+                   }  
+                 </select>
                 </label>
               </fieldset>
               <fieldset>

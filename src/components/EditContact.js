@@ -23,17 +23,30 @@ class EditContactPage extends Component {
     id: '',
     name: '',
     lastName: '',
+    accountname: '',
     twitterHandle: '',
+    title: '',
     email: '',
     phoneNumber: '',
+    bestcomm: '',
     birthDate: '',
     country: '',
+    telegramId:'',
+    streetAddress: '',
+    mediumId:'',
+    reachout:'',
     region: '',
     contacts: [],
+    leadsource: '',
     sex: '',
     blockstackId: '',
+    description: '',
+    priority: 'A',
     contactDate: '',
     created_at: '',
+    accounts: [],
+    accountsnames: [],
+
     person: {
       name() {
         return 'Anonymous';
@@ -66,20 +79,35 @@ class EditContactPage extends Component {
       }
       this.setState({
         contacts,
-        name: contact[0].name,
         id: contact[0].id,
-        lastName: contact[0].lastName,
+        name: contact[0].name,
+        accountname: contact[0].accountname,
+        title: contact[0].title,
+        medium: contact[0].medium,
         twitterHandle: contact[0].twitterHandle,
         email: contact[0].email,
+        bestcomm: contact[0].bestcomm,
+        reachout: contact[0].reachout,
+        telegramId: contact[0].telegramId,
         phoneNumber: contact[0].phoneNumber,
         birthDate: contact[0].birthDate,
         country: contact[0].country,
         region: contact[0].region,
-        sex: contact[0].sex,
+        streetAddress: contact[0].streetAddress,
+        leadsource: contact[0].leadsource,
+        description: contact[0].description,
         blockstackId: contact[0].blockstackId,
         contactDate: contact[0].contactDate,
         created_at: contact[0].created_at,
         priority: contact[0].priority,
+      });
+    });
+    getFile('accounts.json', options).then(file => {
+      const accounts = JSON.parse(file || '[]');
+      const accountsnames = accounts.map((account) => account.accountname);
+      this.setState({
+        accounts,
+        accountsnames,
       });
     });
   }
@@ -94,13 +122,20 @@ class EditContactPage extends Component {
     const newContact = {
       id: this.state.id,
       name: this.state.name,
-      lastName: this.state.lastName,
+      accountname: this.state.accountname,
+      title: this.state.title,
+      medium: this.state.medium,
       twitterHandle: this.state.twitterHandle,
       email: this.state.email,
+      bestcomm: this.state.bestcomm,
+      reachout: this.state.reachout,
+      telegramId: this.state.telegramId,
       phoneNumber: this.state.phoneNumber,
       country: this.state.country,
       region: this.state.region,
-      sex: this.state.sex,
+      streetAddress: this.state.streetAddress,
+      leadsource: this.state.leadsource,
+      description: this.state.description,
       blockstackId: this.state.blockstackId,
       birthDate: this.state.birthDate,
       priority: this.state.priority,
@@ -137,6 +172,7 @@ class EditContactPage extends Component {
     const { handleSignOut } = this.props;
     const { person } = this.state;
     const { username } = this.state;
+    const {accountsnames} = this.state;
     const loading = false;
     const error = false;
     if (this.state.saved) {
@@ -175,32 +211,35 @@ class EditContactPage extends Component {
                 </label>
               </fieldset>
               <fieldset>
-                <label htmlFor="lastName">
-                  Last Name
-                  <input
-                    type="text"
-                    id="lastName"
-                    name="lastName"
-                    placeholder="Last Name.."
-                    value={this.state.lastName}
-                    onChange={this.handleChange}
-                  />
+                <label htmlFor="accountname">
+                  Account Name
+                  <select onChange={this.handleChange} id="accountname" name="accountname">
+                  <option value="">
+                    {this.state.accountname}
+                  </option>
+                   {
+                    accountsnames.map(function(X) {
+                    return <option>{X}</option>;
+                    })
+                   }  
+                 </select>
                 </label>
               </fieldset>
               <fieldset>
-                <label htmlFor="priority">
-                  Contact Frequency
-                  <select
-                    type="text"
-                    id="priority"
-                    name="priority"
-                    value={this.state.priority}
-                    onChange={this.handleChange}
-                  >
-                    <option value="A">A - Every two weeks</option>
-                    <option value="B">B - Every month</option>
-                    <option value="C">C - Every three months</option>
-                    <option value="D">D - Every year</option>
+                <label>
+                  Lead Source
+                  <select onChange={this.handleChange} id="leadsource" name="leadsource">
+                    <option value="" defaultChecked>
+                      Select
+                    </option>
+                    <option value="Advertisement">Advertisement</option>
+                    <option value="Cold Call">Cold Call</option>
+                    <option value="Employee Referral">Employee Referral</option>
+                    <option value="External Referral">External Referral</option>
+                    <option value="Partner">Cold Call</option>
+                    <option value="Public Relations">Public Relations</option>
+                    <option value="Trade Show">Trade Show</option>
+                    <option value="Internal Seminar">Internal Seminar</option>
                   </select>
                 </label>
               </fieldset>
@@ -232,25 +271,51 @@ class EditContactPage extends Component {
               </fieldset>
               <fieldset>
                 <label>
-                  Gender
-                  <select
-                    onChange={this.handleChange}
-                    id="sex"
-                    name="sex"
-                    value={this.state.sex}
-                  >
+                  Best Way for Communication
+                  <select onChange={this.handleChange} id="bestcomm" name="bestcomm">
                     <option value="" defaultChecked>
-                      Select Gender..
+                      Select
                     </option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
+                    <option value="WhastApp">WhatsApp</option>
+                    <option value="WeChat">WeChat</option>
+                    <option value="Skype">Skype</option>
+                    <option value="Call">Call</option>
+                    <option value="Email">Email</option>
+                    <option value="Text">Text</option>
+                    <option value="Telegram">Telegram</option>
+                    <option value="Twitter">Twitter</option>
                   </select>
                 </label>
               </fieldset>
               <fieldset disabled={loading} aria-busy={loading}>
+                <label htmlFor="birthDate">
+                  Date of Birth
+                  <input
+                    type="date"
+                    id="birthDate"
+                    name="birthDate"
+                    placeholder="Click to select Birthday.."
+                    value={this.state.birthDate}
+                    onChange={this.handleChange}
+                  />
+                </label>
+              </fieldset>
+              <fieldset disabled={loading} aria-busy={loading}>
+                <label htmlFor="reachout">
+                  Reach Out Again By
+                  <input
+                    type="date"
+                    id="reachout"
+                    name="reachout"
+                    placeholder=""
+                    value={this.state.reachout}
+                    onChange={this.handleChange}
+                  />
+                </label>
+              </fieldset>
+              <fieldset disabled={loading} aria-busy={loading}>
                 <label htmlFor="twitterHandle">
-                  Twitter Handle
+                  Twitter 
                   <input
                     type="text"
                     id="twitterHandle"
@@ -262,14 +327,54 @@ class EditContactPage extends Component {
                 </label>
               </fieldset>
               <fieldset disabled={loading} aria-busy={loading}>
-                <label htmlFor="birthDate">
-                  Birth Date
+                <label htmlFor="blockstackId">
+                  Blockstack Id
                   <input
-                    type="date"
-                    id="birthDate"
-                    name="birthDate"
-                    placeholder="Click to select Birthday.."
-                    value={this.state.birthDate}
+                    type="text"
+                    id="blockstackId"
+                    name="blockstackId"
+                    placeholder="Blockstack ID.."
+                    value={this.state.blockstackId}
+                    onChange={this.handleChange}
+                  />
+                </label>
+              </fieldset>
+              <fieldset disabled={loading} aria-busy={loading}>
+                <label htmlFor="telegram">
+                  Telegram ID
+                  <input
+                    type="text"
+                    id="telegramId"
+                    name="telegramId"
+                    placeholder=""
+                    value={this.state.telegramId}
+                    onChange={this.handleChange}
+                  />
+                </label>
+              </fieldset>
+              <fieldset disabled={loading} aria-busy={loading}>
+                <label htmlFor="mediumId">
+                  Medium ID
+                  <input
+                    type="text"
+                    id="mediumId"
+                    name="mediumId"
+                    placeholder=""
+                    value={this.state.mediumId}
+                    onChange={this.handleChange}
+                  />
+                </label>
+              </fieldset>
+              <h3 className="">Address Information</h3>
+              <fieldset disabled={loading} aria-busy={loading}>
+                <label htmlFor="streetAddress">
+                  Street Address
+                  <input
+                    type="text"
+                    id="streetAddress"
+                    name="streetAddress"
+                    placeholder=""
+                    value={this.state.streetAddress}
                     onChange={this.handleChange}
                   />
                 </label>
@@ -297,15 +402,16 @@ class EditContactPage extends Component {
                   />
                 </label>
               </fieldset>
+              <h3 className="">Description</h3>
               <fieldset disabled={loading} aria-busy={loading}>
-                <label htmlFor="blockstackId">
-                  Blockstack Id
+                <label htmlFor="description">
+                  Description
                   <input
                     type="text"
-                    id="blockstackId"
-                    name="blockstackId"
-                    placeholder="Blockstack ID.."
-                    value={this.state.blockstackId}
+                    id="description"
+                    name="description"
+                    placeholder=""
+                    value={this.state.description}
                     onChange={this.handleChange}
                   />
                 </label>

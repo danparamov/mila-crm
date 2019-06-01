@@ -15,14 +15,14 @@ import ifAttribute from './util/ifAttribute';
 import Nav from './Nav';
 import PriorityLabel from './PriorityLabel';
 import nextContactDate from './util/nextContactDate';
+import SingleOppTask from './SingleOppTask';
 
-//class mySingleContactPage extends Component {
 class mySingleOppPage extends Component {
   state = {
-    //contact: [],
     opp: [],
-    //contacts: [],
     opps: [],
+    opptask: [],
+    opptasks: [],
     person: {
       name() {
         return 'Anonymous';
@@ -44,10 +44,7 @@ class mySingleOppPage extends Component {
 
   fetchData() {
     const options = { decrypt: true };
-    //getFile('contacts.json', options).then(file => {
     getFile('opps.json', options).then(file => {
-      //const contacts = JSON.parse(file || '[]');
-      //const contact = findObjectBy(contacts, {
       const opps = JSON.parse(file || '[]');
       const opp = findObjectBy(opps, {
         id: this.props.location.search.substring(4),
@@ -55,12 +52,23 @@ class mySingleOppPage extends Component {
       this.setState({
         opp,
         opps,
-        //contact,
-        //contacts,
+      });
+    });
+    getFile('opptasks.json', options).then(file => {
+      const name = this.state.opp[0].oppname 
+      const opp_name = name
+      const opptasks = JSON.parse(file || '[]');
+      const opptask = findObjectBy(opptasks, {
+        contactname: opp_name,
+      })
+ 
+      this.setState({
+        opptask,
+        opptasks,
       });
     });
   }
-  //
+  
   deleteOpp() {
     const toDelete = this.state.opp[0].id;
     const newContactsList = this.state.opps.filter(
@@ -93,6 +101,7 @@ class mySingleOppPage extends Component {
 
   render() {
     const { opp } = this.state;
+    const { opptask } = this.state;
     const { handleSignOut } = this.props;
     const { person } = this.state;
     let UserCountryBlock;
@@ -103,6 +112,8 @@ class mySingleOppPage extends Component {
     let BlockstackBlock;
     let TwitterBlock;
     let ContactDateBlock;
+    let TaskBlock = null;
+    let OppTaskBlock;
     let contactDate = null;
     if (opp[0]) {
       /*if (ifAttribute(opp[0].contactDate)) {
@@ -180,6 +191,18 @@ class mySingleOppPage extends Component {
           );
         } else BlockstackBlock = null;
       }
+      if (opptask[0]) {
+        TaskBlock = <h2>Tasks</h2>;
+        if (ifAttribute(opptask[0].contactname)) {
+          OppTaskBlock = (
+            <div className="mt2">
+              {opptask.map(opptask => (
+              <SingleOppTask opptask={opptask} key={opptask.id} />
+              ))}
+            </div>
+          );
+        } else OppTaskBlock = null;
+      }
     }
     return !isSignInPending() ? (
       <div>
@@ -218,6 +241,9 @@ class mySingleOppPage extends Component {
                     {TwitterBlock}
                     <br />
                     {BlockstackBlock}
+                    <br />
+                    {TaskBlock}
+                    {OppTaskBlock}
                   </div>
                 </div>
               </div>
@@ -240,7 +266,14 @@ class mySingleOppPage extends Component {
               >
                 ✏️️️ Edit Opportunity
               </Link>
-
+              <Link
+                to={{
+                  pathname: '/add-opptask',
+                }}
+                className="link dim ba bw1 ph2 pv2 mb2 dib no-underline black mr2"
+              >
+                ✏️️️ Add Opportunity Task
+              </Link>
               <a
                 className="pointer link dim ba bw1 ph2 pv2 mb2 dib no-underline bg-black b--black white"
                 onClick={() => {

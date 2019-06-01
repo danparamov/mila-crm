@@ -15,14 +15,14 @@ import ifAttribute from './util/ifAttribute';
 import Nav from './Nav';
 import PriorityLabel from './PriorityLabel';
 import nextContactDate from './util/nextContactDate';
+import SingleAccountTask from './SingleAccountTask';
 
-//class mySingleContactPage extends Component {
 class mySingleAccountPage extends Component {
   state = {
-    //contact: [],
     account: [],
-    //contacts: [],
     accounts: [],
+    accounttask: [],
+    accounttasks: [],
     person: {
       name() {
         return 'Anonymous';
@@ -44,10 +44,7 @@ class mySingleAccountPage extends Component {
 
   fetchData() {
     const options = { decrypt: true };
-    //getFile('contacts.json', options).then(file => {
     getFile('accounts.json', options).then(file => {
-      //const contacts = JSON.parse(file || '[]');
-      //const contact = findObjectBy(contacts, {
       const accounts = JSON.parse(file || '[]');
       const account = findObjectBy(accounts, {
         id: this.props.location.search.substring(4),
@@ -55,8 +52,19 @@ class mySingleAccountPage extends Component {
       this.setState({
         account,
         accounts,
-        //contact,
-        //contacts,
+      });
+    });
+    getFile('accounttasks.json', options).then(file => {
+      const name = this.state.account[0].accountname 
+      const account_name = name
+      const accounttasks = JSON.parse(file || '[]');
+      const accounttask = findObjectBy(accounttasks, {
+        contactname: account_name,
+      })
+ 
+      this.setState({
+        accounttask,
+        accounttasks,
       });
     });
   }
@@ -93,6 +101,7 @@ class mySingleAccountPage extends Component {
 
   render() {
     const { account } = this.state;
+    const { accounttask } = this.state;
     const { handleSignOut } = this.props;
     const { person } = this.state;
     let UserCountryBlock;
@@ -103,6 +112,8 @@ class mySingleAccountPage extends Component {
     let BlockstackBlock;
     let TwitterBlock;
     let ContactDateBlock;
+    let TaskBlock = null;
+    let AccountTaskBlock;
     let contactDate = null;
     if (account[0]) {
       if (ifAttribute(account[0].contactDate)) {
@@ -179,6 +190,18 @@ class mySingleAccountPage extends Component {
           );
         } else BlockstackBlock = null;
       }
+      if (accounttask[0]) {
+        TaskBlock = <h2>Tasks</h2>;
+        if (ifAttribute(accounttask[0].contactname)) {
+          AccountTaskBlock = (
+            <div className="mt2">
+              {accounttask.map(accounttask => (
+              <SingleAccountTask accounttask={accounttask} key={accounttask.id} />
+              ))}
+            </div>
+          );
+        } else AccountTaskBlock = null;
+      }
     }
     return !isSignInPending() ? (
       <div>
@@ -218,6 +241,9 @@ class mySingleAccountPage extends Component {
                     {TwitterBlock}
                     <br />
                     {BlockstackBlock}
+                    <br />
+                    {TaskBlock}
+                    {AccountTaskBlock}
                   </div>
                 </div>
               </div>
@@ -240,7 +266,14 @@ class mySingleAccountPage extends Component {
               >
                 ✏️️️ Edit Account
               </Link>
-
+              <Link
+                to={{
+                  pathname: '/add-accounttask',
+                }}
+                className="link dim ba bw1 ph2 pv2 mb2 dib no-underline black mr2"
+              >
+                ✏️️️ Add Account Task
+              </Link>
               <a
                 className="pointer link dim ba bw1 ph2 pv2 mb2 dib no-underline bg-black b--black white"
                 onClick={() => {

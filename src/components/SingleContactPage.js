@@ -56,7 +56,7 @@ class mySingleContactPage extends Component {
     });
     getFile('contacttasks.json', options).then(file => {
       const name = this.state.contact[0].name 
-      const contact_name = name.concat(' ',this.state.contact[0].lastName)
+      const contact_name = name
       const contacttasks = JSON.parse(file || '[]');
       const contacttask = findObjectBy(contacttasks, {
         contactname: contact_name,
@@ -115,7 +115,6 @@ class mySingleContactPage extends Component {
     let ContactDateBlock;
     let TaskBlock = null;
     let ContactTaskBlock;
-
     let contactDate = null;
     if (contact[0]) {
       if (ifAttribute(contact[0].contactDate)) {
@@ -228,7 +227,6 @@ class mySingleContactPage extends Component {
                 <div className="w-100 w-80-ns center fl-ns">
                   <h1 className="f3 f1-ns">
                     {contact.name} {contact.lastName}{' '}
-                    <PriorityLabel priority={contact.priority} />
                   </h1>
                 </div>
                 <div className="center w-80 w-40-ns pt6-ns">

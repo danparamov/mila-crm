@@ -19,10 +19,9 @@ import nextContactDate from './util/nextContactDate';
 
 export default class AddContact extends Component {
   state = {
-    firstname: '',
-    lastName: '',
+    name: '',
     twitterHandle: '',
-    accountName: '',
+    accountname: '',
     title: '',
     email: '',
     phoneNumber: '',
@@ -39,6 +38,8 @@ export default class AddContact extends Component {
     blockstackId: '',
     description: '',
     priority: 'A',
+    accounts: [],
+    accountsnames: [],
     person: {
       name() {
         return 'Anonymous';
@@ -52,7 +53,7 @@ export default class AddContact extends Component {
 
   componentWillMount() {
     this.setState({
-      person: new Person(loadUserData().profile),
+      person: new Person(loadUserData().profile)  ,
     });
     this.fetchData();
   }
@@ -63,6 +64,14 @@ export default class AddContact extends Component {
       const contacts = JSON.parse(file || '[]');
       this.setState({
         contacts,
+      });
+    });
+    getFile('accounts.json', options).then(file => {
+      const accounts = JSON.parse(file || '[]');
+      const accountsnames = accounts.map((account) => account.accountname);
+      this.setState({
+        accounts,
+        accountsnames,
       });
     });
     getFile('today.json', options).then(file => {
@@ -99,11 +108,10 @@ export default class AddContact extends Component {
     const newContact = {
       id: Date.now(),
       created_at: Date.now(),
-      firstname: this.state.name,
-      lastName: this.state.lastName,
+      name: this.state.name,
+      accountname: this.state.accountname,
       title: this.state.title,
       medium: this.state.medium,
-      accountName: this.state.accountName,
       twitterHandle: this.state.twitterHandle,
       email: this.state.email,
       bestcomm: this.state.bestcomm,
@@ -131,7 +139,7 @@ export default class AddContact extends Component {
       region: '',
       firstname: '',
       lastName: '',
-      accountName: '',
+      accountname: '',
       title: '',
       bestcomm: '',
       mediumId: '',
@@ -169,6 +177,8 @@ export default class AddContact extends Component {
     const { username } = this.state;
     const loading = false;
     const error = false;
+    const {accountsnames} = this.state;
+
     if (this.state.saved) {
       return <Redirect to="/contacts" />;
     }
@@ -193,43 +203,32 @@ export default class AddContact extends Component {
               <Error error={error} />
               <h3 className="">Contact Information</h3>
               <fieldset>
-                <label htmlFor="firstname">
-                  First Name
+                <label htmlFor="name">
+                  Name
                   <input
                     type="text"
-                    id="firstname"
-                    name="firstname"
+                    id="name"
+                    name="name"
                     placeholder=""
-                    value={this.state.firstname}
+                    value={this.state.name}
                     onChange={this.handleChange}
                     required
                   />
                 </label>
               </fieldset>
               <fieldset>
-                <label htmlFor="lastName">
-                  Last Name
-                  <input
-                    type="text"
-                    id="lastName"
-                    name="lastName"
-                    placeholder=""
-                    value={this.state.lastName}
-                    onChange={this.handleChange}
-                  />
-                </label>
-              </fieldset>
-              <fieldset>
-                <label htmlFor="accountName">
+                <label htmlFor="accountname">
                   Account Name
-                  <input
-                    type="text"
-                    id="accountName"
-                    name="accountName"
-                    placeholder=""
-                    value={this.state.accountName}
-                    onChange={this.handleChange}
-                  />
+                  <select onChange={this.handleChange} id="accountname" name="accountname" required>
+                  <option value="" defaultChecked>
+                      Select Account..
+                  </option>
+                   {
+                    accountsnames.map(function(X) {
+                    return <option>{X}</option>;
+                    })
+                   }  
+                  </select>
                 </label>
               </fieldset>
               <fieldset>
@@ -386,7 +385,7 @@ export default class AddContact extends Component {
                   />
                 </label>
               </fieldset>
-              <h3 className="">Addres Information</h3>
+              <h3 className="">Address Information</h3>
               <fieldset disabled={loading} aria-busy={loading}>
                 <label htmlFor="streetAddress">
                   Street Address

@@ -34,8 +34,10 @@ class EditOppPage extends Component {
     blockstackId: '',
     priority: '',
     created_at: '',
-    //contacts: [],
     opps: [],
+    accounts: [],
+    accountsnames: [],
+
     person: {
       name() {
         return 'Anonymous';
@@ -82,6 +84,14 @@ class EditOppPage extends Component {
         description: opp[0].description,
         created_at: opp[0].created_at,
         priority: opp[0].priority,
+      });
+    });
+    getFile('accounts.json', options).then(file => {
+      const accounts = JSON.parse(file || '[]');
+      const accountsnames = accounts.map((account) => account.accountname);
+      this.setState({
+        accounts,
+        accountsnames,
       });
     });
   }
@@ -131,6 +141,7 @@ class EditOppPage extends Component {
     const { handleSignOut } = this.props;
     const { person } = this.state;
     const { username } = this.state;
+    const {accountsnames} = this.state;
     const loading = false;
     const error = false;
     if (this.state.saved) {
@@ -172,14 +183,16 @@ class EditOppPage extends Component {
               <fieldset>
                 <label htmlFor="accountname">
                   Account Name
-                  <input
-                    type="text"
-                    id="accountname"
-                    name="accountname"
-                    placeholder="Account Name.."
-                    value={this.state.accountname}
-                    onChange={this.handleChange}
-                  />
+                  <select onChange={this.handleChange} id="accountname" name="accountname">
+                  <option value="">
+                    {this.state.accountname}
+                  </option>
+                   {
+                    accountsnames.map(function(X) {
+                    return <option>{X}</option>;
+                    })
+                   }  
+                 </select>
                 </label>
               </fieldset>
               <fieldset>

@@ -30,6 +30,8 @@ class EditAccountTaskPage extends Component {
     accounttasks: [],
     contactDate: '',
     created_at: '',
+    accounts: [],
+    accountsnames: [],
     person: {
       name() {
         return 'Anonymous';
@@ -72,6 +74,14 @@ class EditAccountTaskPage extends Component {
         contactDate: accounttask[0].contactDate,
         created_at: accounttask[0].created_at,
         priority: accounttask[0].priority,
+      });
+    });
+    getFile('accounts.json', options).then(file => {
+      const accounts = JSON.parse(file || '[]');
+      const accountsnames = accounts.map((account) => account.accountname);
+      this.setState({
+        accounts,
+        accountsnames,
       });
     });
   }
@@ -129,6 +139,7 @@ class EditAccountTaskPage extends Component {
     const { contacttask } = this.state;
     const { handleSignOut } = this.props;
     const { person } = this.state;
+    const {accountsnames} = this.state;
     const { username } = this.state;
     const loading = false;
     const error = false;
@@ -157,14 +168,16 @@ class EditAccountTaskPage extends Component {
               <fieldset>
                 <label htmlFor="contactname">
                   Account Name
-                  <input
-                    type="text"
-                    id="contactname"
-                    name="contactname"
-                    placeholder="Accountname.."
-                    value={this.state.contactname}
-                    onChange={this.handleChange}
-                  />
+                  <select onChange={this.handleChange} id="contactname" name="contactname">
+                  <option value="">
+                    {this.state.contactname}
+                  </option>
+                   {
+                    accountsnames.map(function(X) {
+                    return <option>{X}</option>;
+                    })
+                   }  
+                 </select>
                 </label>
               </fieldset>
               <fieldset>

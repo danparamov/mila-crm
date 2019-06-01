@@ -24,7 +24,6 @@ export default class SingleContact extends Component {
               <td className="Cell" style={{width:2000}}>{contact.email}</td>
               <td className="Cell" style={{width:1000}}>{contact.phoneNumber}</td> 
               <td className="Cell" style={{width:1000}}>{contact.country}</td>
-              <td className="Cell" style={{width:1000}}><PriorityLabel priority={contact.priority} small/></td>
             </tr>
            </tbody>
           </table>

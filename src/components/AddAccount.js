@@ -19,14 +19,12 @@ import nextContactDate from './util/nextContactDate';
 
 export default class AddAccount extends Component {
   state = {
-    //name: '',
-    //lastName: '',
     accountname: '',
     website: '',
     industry: '',
     salesstage: '',
     description: '',
-    accountType: '',
+    accounttype: '',
     country: '',
     region: '',
     email: '',
@@ -37,11 +35,8 @@ export default class AddAccount extends Component {
     telegramId: '',
     slack: '',
     addressStreet: '',
-    //birthDate: '',
-    //sex: '',
     blockstackId: '',
     priority: 'A',
-    //contacts: [],
     accounts: [],
     person: {
       name() {
@@ -108,14 +103,12 @@ export default class AddAccount extends Component {
     const newAccount = {
       id: Date.now(),
       created_at: Date.now(),
-      //name: this.state.name,
-      //lastName: this.state.lastName,
       accountname: this.state.accountname,
       website: this.state.website,
       industry: this.state.industry,
       salesstage: this.state.salesstage,
-      accountType: this.state.accountType,
-      slack: this.state.accountType,
+      accounttype: this.state.accounttype,
+      slack: this.state.slack,
       description: this.state.description,
       employees: this.state.employees,
       country: this.state.country,
@@ -126,9 +119,7 @@ export default class AddAccount extends Component {
       email: this.state.email,
       phoneNumber: this.state.phoneNumber,
       twitterHandle: this.state.twitterHandle,
-      //sex: this.state.sex,
       blockstackId: this.state.blockstackId,
-      //birthDate: this.state.birthDate,
       priority: this.state.priority,
       contactDate,
     };
@@ -146,11 +137,9 @@ export default class AddAccount extends Component {
       website: '',
       industry: '',
       salesstage: '',
-      //name: '',
-      //lastName: '',
       description: '',
       employees: '',
-      accountType: '',
+      accounttype: '',
       addressStreet: '',
       slack: '',
       telegramId: '',
@@ -160,8 +149,6 @@ export default class AddAccount extends Component {
       phoneNumber: '',
       annualRevenue: '',
       twitterHandle: '',
-      //birthDate: '',
-      //sex: '',
       blockstackId: '',
       priority: '',
     });
@@ -270,7 +257,7 @@ export default class AddAccount extends Component {
               <fieldset>
                 <label>
                   Account Type
-                  <select onChange={this.handleChange} id="accountType" name="accountType">
+                  <select onChange={this.handleChange} id="accounttype" name="accounttype">
                     <option value="" defaultChecked>
                       Select
                     </option>

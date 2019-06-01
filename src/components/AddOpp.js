@@ -63,7 +63,6 @@ export default class AddOpp extends Component {
     getFile('accounts.json', options).then(file => {
       const accounts = JSON.parse(file || '[]');
       const accountsnames = accounts.map((account) => account.accountname);
-      //console.log(accountsnames); 
       this.setState({
         accounts,
         accountsnames,

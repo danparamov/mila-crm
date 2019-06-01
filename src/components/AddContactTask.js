@@ -27,6 +27,8 @@ export default class AddContactTask extends Component {
     description: '',
     contacttasks: [],
     priority: 'A',
+    contacts: [],
+    contactsnames: [],
     person: {
       name() {
         return 'Anonymous';
@@ -51,6 +53,14 @@ export default class AddContactTask extends Component {
       const contacttasks = JSON.parse(file || '[]');
       this.setState({
         contacttasks,
+      });
+    });
+    getFile('contacts.json', options).then(file => {
+      const contacts = JSON.parse(file || '[]');
+      const contactsnames = contacts.map((contact) => contact.name);
+      this.setState({
+        contacts,
+        contactsnames,
       });
     });
     getFile('today.json', options).then(file => {
@@ -121,6 +131,7 @@ export default class AddContactTask extends Component {
     const { handleSignOut } = this.props;
     const { person } = this.state;
     const { username } = this.state;
+    const {contactsnames} = this.state;
     const loading = false;
     const error = false;
     if (this.state.saved) {
@@ -148,14 +159,16 @@ export default class AddContactTask extends Component {
               <fieldset>
                 <label htmlFor="contactname">
                   Contact Name
-                  <input
-                    type="text"
-                    id="contactname"
-                    name="contactname"
-                    placeholder="Contactname.."
-                    value={this.state.contactname}
-                    onChange={this.handleChange}
-                  />
+                  <select onChange={this.handleChange} id="contactname" name="contactname" required>
+                  <option value="" defaultChecked>
+                    Select Contact..
+                  </option>
+                   {
+                    contactsnames.map(function(X) {
+                    return <option>{X}</option>;
+                    })
+                   }  
+                  </select>
                 </label>
               </fieldset>
               <fieldset>
