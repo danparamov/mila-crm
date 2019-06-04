@@ -14,6 +14,7 @@ import SingleContact from './SingleContact';
 import ContactBubble from './ContactBubble';
 import NoOneLeft from '../assets/no-one-left.png';
 import ifAttribute from './util/ifAttribute';
+import TableContacts from './TableContacts';
 import ProfileDesktop from './ProfileDesktop';
 import'./Styles/Table.css';
 
@@ -129,12 +130,13 @@ export default class Profile extends Component {
             >
             +
             </Link> </h1>
+            <TableContacts />
             <table className="Table f3">
               <tbody>
                 <th>
                 </th>
               </tbody>
-            </table>   
+            </table>
           </div>
           {ContactBlock}
         </div>
