@@ -6,7 +6,7 @@ import'./Styles/Table.css';
 export default class SingleContact extends Component {
   render() {
     const { contact } = this.props;
-    
+
     return (
       <div className="">
           <table className="Table f3">
@@ -22,7 +22,7 @@ export default class SingleContact extends Component {
               </td>
               <td className="Cell" style={{width:2000}}>{contact.name}</td>
               <td className="Cell" style={{width:2000}}>{contact.email}</td>
-              <td className="Cell" style={{width:1000}}>{contact.phoneNumber}</td> 
+              <td className="Cell" style={{width:1000}}>{contact.phoneNumber}</td>
               <td className="Cell" style={{width:1000}}>{contact.country}</td>
             </tr>
            </tbody>
