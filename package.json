@@ -23,6 +23,7 @@
     "@babel/plugin-proposal-class-properties": "^7.2.1",
     "@babel/preset-env": "^7.2.3",
     "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.3.3",
     "babel-loader": "^8.0.4",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^1.0.1",
@@ -37,8 +38,11 @@
     "webpack-dev-server": "^3.1.14"
   },
   "dependencies": {
+    "@material-ui/core": "^4.0.1",
+    "@material-ui/icons": "^4.0.1",
     "babel-polyfill": "^6.26.0",
     "blockstack": "^19.0.1",
+    "material-ui": "^0.20.2",
     "moment": "^2.23.0",
     "react": "^16.8.1",
     "react-country-region-selector": "^1.4.1",
