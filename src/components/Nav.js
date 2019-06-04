@@ -47,7 +47,7 @@ export default class Nav extends Component {
             <img src={Logo} className="w-10" alt="MILA CRM" align="right"/>
           </Link><br /><br />
         </div>
-        <nav className="w-50-ns">
+        <nav className="">
           <div className="">
             <ProfileDesktop
             profileImage={
