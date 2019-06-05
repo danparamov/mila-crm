@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import Logo from '../assets/funnelicon.jpg';
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import {
   isSignInPending,
@@ -111,6 +113,11 @@ export default class Settings extends Component {
           }
           logout={handleSignOut.bind(this)}
         />
+        <div>
+          <Link to="/" title="MILA CRM">
+            <img src={Logo} className="w-10" alt="MILA CRM" align="right"/>
+          </Link><br /><br />
+        </div>
         <h1>Manage Contacts</h1>
         <h3>Import Contacts</h3>
         <form onSubmit={this.importContacts}>
