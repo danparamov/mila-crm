@@ -42,11 +42,6 @@ export default class Nav extends Component {
     const { handleSignOut } = this.props;
     return !isSignInPending() ? (
       <div>
-        <div>
-          <Link to="/" title="MILA CRM">
-            <img src={Logo} className="w-10" alt="MILA CRM" align="right"/>
-          </Link><br /><br />
-        </div>
         <nav className="">
           <div className="">
             <ProfileDesktop
