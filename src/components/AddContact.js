@@ -137,8 +137,7 @@ export default class AddContact extends Component {
     this.setState({
       country: '',
       region: '',
-      firstname: '',
-      lastName: '',
+      name: '',
       accountname: '',
       title: '',
       bestcomm: '',
