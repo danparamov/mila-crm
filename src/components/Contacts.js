@@ -130,7 +130,7 @@ export default class Profile extends Component {
             >
             +
             </Link> </h1>
-            <TableContacts />
+           
             <table className="Table f3">
               <tbody>
                 <th>
