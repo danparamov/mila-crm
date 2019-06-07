@@ -200,7 +200,7 @@ export default class SignIn extends Component {
                         <img class="number" src="https://res.cloudinary.com/phlab/image/upload/v1557198500/echo/img/icon04_picstv.png" alt=""/>
                         <h3>Grow Your Opportunities</h3>
                         <p>You can create sales opportunities showing the value of the deal, set and update the probability of the sale and also add weighted values. As a result, our intuitive CRM system will help you create more accurate forecasts and predict what is likely to close. </p>
-                        <a href="contact" class="btn_hover agency_banner_btn mt_30">Get in Touch →</a>
+                        <a href="/#contact" class="btn_hover agency_banner_btn mt_30">Get in Touch →</a>
                      </div>
                   </div>
                </div>
@@ -331,13 +331,16 @@ export default class SignIn extends Component {
             <div class="row">
                <div class="col-lg-3 pr-0">
                   <div class="contact_info_item">
-                     <h6 class="f_p f_size_20 t_color3 f_500 mb_20">With Love From</h6>
-                     <p class="f_400 f_size_15">Ecuador</p>
+                     <h6 class="f_p f_size_20 t_color3 f_500 mb_20">Get to know us</h6>
+                     <a class="f_400 f_size_15" href="https://www.notion.so/milacrm/8498353e92374913a0431647f519607f?v=d5f3659989474fd8893c3f4819c2ca16">MILA CRM Roadmap</a>
                   </div>
                   <div class="contact_info_item">
                      <h6 class="f_p f_size_20 t_color3 f_500 mb_20">Let's be Partners</h6>
-                     <p class="f_400 f_size_15"><span class="f_400 t_color3">Phone:</span> <a href="tel:817-500-7283">+817-500-7283</a></p>
                      <p class="f_400 f_size_15"><span class="f_400 t_color3">Email:</span> <a href="mailto:admin@milalabs.org">admin@milalabs.org</a></p>
+                  </div>
+                  <div class="contact_info_item">
+                     <h6 class="f_p f_size_20 t_color3 f_500 mb_20">Donations are Welcome</h6>
+                     <p class="f_400 f_size_15"><span class="f_400 t_color3">BTC:</span> <span>AkBXxeh7iqYvAyvrvUBxkpFQxBDekhx8J</span></p>
                   </div>
                </div>
                <div class="col-lg-8 offset-lg-1">
