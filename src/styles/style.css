@@ -660,6 +660,7 @@
 
 	.header_area {
 		position: fixed;
+		height: 15%;
 		width: 100%;
 		left: 0;
 		z-index: 20;
