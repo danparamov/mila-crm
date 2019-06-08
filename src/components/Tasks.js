@@ -216,8 +216,6 @@ export default class Profile extends Component {
               className="f4 link dim ph3 pv2 mb2 dib white bg-green b--black"
             > >>  
             </Link></h1>
-            Contact -- Subject -- Due Date 
-            <br /> <br /> 
           </div>
           {ContactBlock} 
           
@@ -229,9 +227,7 @@ export default class Profile extends Component {
               }}
               className="f4 link dim ph3 pv2 mb2 dib white bg-green b--black"
             > >>
-            </Link></h1>
-            Account -- Subject -- Due Date 
-            <br /> <br /> 
+            </Link></h1> 
           </div>
           {AccountBlock}
           <br /> <br /> 
@@ -243,9 +239,7 @@ export default class Profile extends Component {
               }}
               className="f4 link dim ph3 pv2 mb2 dib white bg-green b--black"
             > >>  
-            </Link></h1>
-            Opportunity -- Subject -- Due Date 
-            <br /> <br /> 
+            </Link></h1> 
           </div>
           {OppBlock}
         </div>

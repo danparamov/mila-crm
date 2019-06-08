@@ -2,32 +2,48 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PriorityLabel from './PriorityLabel';
 import'./Styles/Table.css';
+import { makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper'
 
 export default class SingleOpp extends Component {
   render() {
     const { opp } = this.props;
+    const classes = makeStyles(theme => ({
+      root: {
+        width: '100%',
+        marginTop: theme.spacing(3),
+        overflowX: 'auto',
+      },
+      table: {
+        minWidth: 650,
+      },
+    }));
+
     return (
-      <div className="">
-        <table className="Table f3">
-           <tbody>
-            <tr>
-              <td className="Cell" style={{width:1000}}><Link
-                to={{
-                pathname: '/opportunity',
-                search: `?id=${opp.id}`,
-              }}
-              className="f4 link dim ph3 pv2 mb2 dib white bg-blue b--black br-100 w3"> >>>
-              </Link>
-              </td>
-              <td className="Cell" style={{width:2000}}>{opp.oppname}</td>
-              <td className="Cell" style={{width:2000}}>{opp.accountname}</td>
-              <td className="Cell" style={{width:1000}}>{opp.amount}</td> 
-              <td className="Cell" style={{width:1000}}>{opp.salesstage}</td>
-              <td className="Cell" style={{width:1000}}>{opp.probability}</td>
-            </tr>
-           </tbody>
-          </table>
-      </div>
+      <Paper className={classes.root}>
+        <Table className={classes.table}>
+          <TableHead></TableHead>
+            <TableBody>
+              <TableRow>
+                <TableCell component="th" scope="opp">
+                <Link
+                  to={{
+                  pathname: '/opportunity',
+                  search: `?id=${opp.id}`,
+                }}>{opp.oppname}
+                </Link>
+                </TableCell>
+                <TableCell align="right">{opp.leadsource}</TableCell>
+                <TableCell align="right">{opp.amount}</TableCell>
+              </TableRow>
+            </TableBody>
+        </Table>
+      </Paper> 
     );
   }
 }

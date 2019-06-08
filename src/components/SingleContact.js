@@ -26,10 +26,10 @@ export default class SingleContact extends Component {
     }));
 
     return (
-          <Paper className={classes.root}>
-            <Table className={classes.table}>
-              <TableHead></TableHead>
-              <TableBody>
+      <Paper className={classes.root}>
+        <Table className={classes.table}>
+          <TableHead></TableHead>
+            <TableBody>
               <TableRow>
                 <TableCell component="th" scope="contact">
                 <Link
@@ -42,9 +42,9 @@ export default class SingleContact extends Component {
                 <TableCell align="right">{contact.email}</TableCell>
                 <TableCell align="right">{contact.country}</TableCell>
               </TableRow>
-              </TableBody>
-            </Table>
-          </Paper> 
+            </TableBody>
+        </Table>
+      </Paper> 
     );
   }
 }

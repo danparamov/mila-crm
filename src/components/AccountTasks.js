@@ -127,7 +127,6 @@ export default class Profile extends Component {
             >
              +
             </Link> </h1>
-            Account -- Subject -- Due Date -- Status -- Description -- Rank
             <br /> <br /> 
           </div>
           {ContactBlock}
