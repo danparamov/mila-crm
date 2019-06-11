@@ -16,6 +16,7 @@ import NoOneLeft from '../assets/no-one-left.png';
 import ifAttribute from './util/ifAttribute';
 import TableContacts from './TableContacts';
 import ProfileDesktop from './ProfileDesktop';
+import csvToJSON from './util/csvToJSON';
 import'./Styles/Table.css';
 
 export default class Profile extends Component {
@@ -66,6 +67,17 @@ export default class Profile extends Component {
         today,
       });
     });
+  }
+
+  async exportContacts() {
+    const columns = Object.keys(this.state.contacts[0]).join(',');
+    const rows = this.state.contacts
+      .map(c => Object.values(c).join(','))
+      .join('\n');
+    const csv = `${columns}\n${rows}`;
+    const url = await putFile('contacts.csv', csv, { encrypt: false });
+    console.log(url);
+    window.open(url);
   }
 
   render() {
@@ -130,13 +142,12 @@ export default class Profile extends Component {
             >
             +
             </Link> </h1>
-           
-            <table className="Table f3">
-              <tbody>
-                <th>
-                </th>
-              </tbody>
-            </table>
+            <div
+              className="f6 link dim ph2 pv1 mb2 dib white bg-green b--black pointer"
+              onClick={async () => await this.exportContacts()}
+            >
+              Export as CSV
+            </div>
           </div>
           {ContactBlock}
         </div>

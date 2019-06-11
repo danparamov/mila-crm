@@ -226,7 +226,7 @@ class mySingleContactPage extends Component {
                 </div>
                 <div className="w-100 w-80-ns center fl-ns">
                   <h1 className="f3 f1-ns">
-                    {contact.name} {contact.lastName}{' '}
+                    {contact.name}{' '}
                   </h1>
                 </div>
                 <div className="center w-80 w-40-ns pt6-ns">

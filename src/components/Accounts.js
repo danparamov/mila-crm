@@ -71,6 +71,17 @@ export default class Profile extends Component {
     });
   }
 
+  async exportContacts() {
+    const columns = Object.keys(this.state.accounts[0]).join(',');
+    const rows = this.state.accounts
+      .map(c => Object.values(c).join(','))
+      .join('\n');
+    const csv = `${columns}\n${rows}`;
+    const url = await putFile('accounts.csv', csv, { encrypt: false });
+    console.log(url);
+    window.open(url);
+  }
+
   render() {
     const { handleSignOut } = this.props;
     const { person } = this.state;
@@ -139,10 +150,12 @@ export default class Profile extends Component {
             >
               +
             </Link></h1>
-            <tbody>
-                <th>
-                </th>
-            </tbody>
+            <div
+              className="f6 link dim ph2 pv1 mb2 dib white bg-yellow b--black pointer"
+              onClick={async () => await this.exportContacts()}
+            >
+              Export as CSV
+            </div>
           </div>
           {ContactBlock}
         </div>

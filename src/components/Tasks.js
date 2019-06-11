@@ -213,8 +213,8 @@ export default class Profile extends Component {
               to={{
                 pathname: '/contacttasks'
               }}
-              className="f4 link dim ph3 pv2 mb2 dib white bg-green b--black"
-            > >>  
+              className="f2 link dim ph3 pv2 mb2 dib white bg-green b--black"
+            > > 
             </Link></h1>
           </div>
           {ContactBlock} 
@@ -225,8 +225,8 @@ export default class Profile extends Component {
               to={{
                 pathname: '/accounttasks',
               }}
-              className="f4 link dim ph3 pv2 mb2 dib white bg-green b--black"
-            > >>
+              className="f2 link dim ph3 pv2 mb2 dib white bg-yellow b--black"
+            > >
             </Link></h1> 
           </div>
           {AccountBlock}
@@ -237,8 +237,8 @@ export default class Profile extends Component {
               to={{
                 pathname: '/opptasks',
               }}
-              className="f4 link dim ph3 pv2 mb2 dib white bg-green b--black"
-            > >>  
+              className="f2 link dim ph3 pv2 mb2 dib white bg-blue b--black"
+            > >  
             </Link></h1> 
           </div>
           {OppBlock}

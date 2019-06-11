@@ -1,29 +1,25 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import Logo from '../assets/funnelicon.jpg';
-import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
+import { withRouter, Link } from 'react-router-dom';
 import {
   isSignInPending,
-  putFile,
-  getFile,
-  Person,
   loadUserData,
+  Person,
+  getFile,
+  putFile,
 } from 'blockstack';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.min.css';
-import Nav from './Nav';
+import moment from 'moment';
+import BlockstackLogo from '../assets/blockstack-icon.svg';
 import avatarFallbackImage from '../assets/avatar-placeholder.png';
-import Error from './ErrorMessage';
-import csvToJSON from './util/csvToJSON';
+import findObjectBy from './util/findObjectBy';
+import ifAttribute from './util/ifAttribute';
+import Nav from './Nav';
+import PriorityLabel from './PriorityLabel';
+import nextContactDate from './util/nextContactDate';
 
-export default class Settings extends Component {
-  constructor(props) {
-    super(props);
-    this.importContacts = this.importContacts.bind(this);
-    this.importContact = React.createRef();
-  }
+class mySingleUserPage extends Component {
   state = {
-    contacts: [],
+    users: [],
+ 
     person: {
       name() {
         return 'Anonymous';
@@ -32,79 +28,103 @@ export default class Settings extends Component {
         return avatarFallbackImage;
       },
     },
+    username: '',
   };
 
   componentWillMount() {
     this.setState({
       person: new Person(loadUserData().profile),
+      username: loadUserData().username,
     });
     this.fetchData();
   }
 
   fetchData() {
     const options = { decrypt: true };
-    getFile('contacts.json', options).then(file => {
-      const contacts = JSON.parse(file || '[]');
+    getFile('users.json', options).then(file => {
+      const users = JSON.parse(file || '[]');
+     
       this.setState({
-        contacts,
+        users,
       });
     });
-  }
-
-  deleteAllContacts() {
-    const contacts = [];
-    const options = { encrypt: true };
-    putFile('contacts.json', JSON.stringify(contacts), options).then(() => {
-      toast(`Deleted all your Contacts successfully 😢`, {
-        className: 'toast-notification',
-      });
-    });
-  }
-
-  importContacts(event) {
-    event.preventDefault(event);
-    const newJSON = this.importContact.current.files[0];
-    const p = new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        resolve(reader);
-      };
-      reader.onerror = function(e) {
-        reject(new Error(`Error reading${newJSON.name}`));
-      };
-      reader.readAsText(newJSON);
-    });
-    p.then(reader => {
-      const newContactList = csvToJSON(reader.result);
-      const options = { encrypt: true };
-      putFile('contacts.json', newContactList, options).then(() => {
-        toast(`Contacts imported successfully 🚀`, {
-          className: 'toast-notification',
-        });
-      });
-    });
-  }
-
-  async exportContacts() {
-    const columns = Object.keys(this.state.contacts[0]).join(',');
-    const rows = this.state.contacts
-      .map(c => Object.values(c).join(','))
-      .join('\n');
-    const csv = `${columns}\n${rows}`;
-    const url = await putFile('contacts.csv', csv, { encrypt: false });
-    console.log(url);
-    window.open(url);
-  }
-
-  async deleteExportContacts() {
-    const blank = '';
-    const url = await putFile('contacts.csv', blank, { encrypt: false });
-    window.open(url);
   }
 
   render() {
+    const { users } = this.state;
     const { handleSignOut } = this.props;
     const { person } = this.state;
+    const { user } = this.state;
+    let UserCountryBlock;
+    let SocialBlock = null;
+    let TwitterBlock;
+    let NameBlock;
+    let LanguageBlock;
+    let userid;
+    let usertwitter;
+
+    if (ifAttribute(users[0])) {
+      if (ifAttribute(users[0].country)) {
+        UserCountryBlock = (
+          <div className="mt2">
+            <span className="b">Country:</span> {users[0].country}
+          </div>
+        );
+      } else
+        UserCountryBlock = (
+          <div className="mt2">
+            <span className="b">Country:</span>
+            🌎
+          </div>
+        );
+      
+      if (
+        ifAttribute(users[0].twitterHandle) 
+      ) {
+        SocialBlock = <h2>Social</h2>;
+        if (ifAttribute(users[0].twitterHandle)) {
+          TwitterBlock = (
+            <a
+              href={`https://twitter.com/${users[0].twitterHandle}`}
+              className="no-underline black"
+            >
+              <div className="inline-flex justify-center items-center">
+                <i className="fa fa-twitter" />
+                <span className="ml2">{users[0].twitterHandle}</span>
+              </div>
+            </a>
+          );
+        } else TwitterBlock = null;
+      }
+    
+      if (ifAttribute(users[0].name)) {
+        NameBlock = (
+          <div className="mt2">
+            <span className="b"></span> {users[0].name}
+          </div>
+        );
+      } else
+        UserCountryBlock = (
+          <div className="mt2">
+          </div>
+        );
+
+      if (ifAttribute(users[0].language)) {
+        LanguageBlock = (
+            <div className="mt2">
+              <span className="b">Language:</span> {users[0].language}
+            </div>
+          );
+        } else
+        LanguageBlock = (
+            <div className="mt2">
+            </div>
+          );
+        
+      userid = users[0].id;
+      usertwitter = users[0].twitterHandle;
+    }
+    
     return !isSignInPending() ? (
       <div>
         <Nav
@@ -113,53 +133,62 @@ export default class Settings extends Component {
           }
           logout={handleSignOut.bind(this)}
         />
-        <div>
-          <Link to="/" title="MILA CRM">
-            <img src={Logo} className="w-10" alt="MILA CRM" align="right"/>
-          </Link><br /><br />
-        </div>
-        <h1>Manage Contacts</h1>
-        <h3>Import Contacts</h3>
-        <form onSubmit={this.importContacts}>
-          <label htmlFor="fileupload" className="black b f5 db">
-            Import from CSV
-          </label>
-          <input
-            type="file"
-            name="fileupload"
-            className="mt3 db center"
-            ref={this.importContact}
-          />
-          <input
-            type="submit"
-            value="Import"
-            className="mt3 db center f6 link dim ph2 pv1 mb2 dib white bg-black b--black pointer"
-          />
-        </form>
-        <h3>Export Contacts</h3>
-        <a
-          className="f6 link dim ph2 pv1 mb2 dib white bg-black b--black pointer"
-          onClick={async () => await this.exportContacts()}
-        >
-          Export as CSV
-        </a>
-        <a
-          className="f6 link dim ph2 pv1 mb2 dib white bg-black b--black pointer ml2"
-          onClick={async () => await this.deleteExportContacts()}
-        >
-          Delete Export
-        </a>
-        <h3>Delete Contacts</h3>
-        <a
-          onClick={() => {
-            this.deleteAllContacts();
-          }}
-          className="pointer f6 link dim ph2 pv1 mb2 dib white bg-black b--black"
-        >
-          Delete all Contacts
-        </a>
-        <ToastContainer closeButton={false} hideProgressBar />
+         
+          <div>
+            <div className="w-100 w-70-l center">
+              <div className="">
+                <div className="w-100 w-20-ns center fl-ns">
+                  <img
+                      src={`https://avatars.io/twitter/${usertwitter}`}
+                      className="center fl-ns br-100 h4 ml3-ns mt0-l mt3"
+                      alt=""
+                    />
+                </div>
+                <div className="w-100 w-80-ns center fl-ns">
+                  <h1 className="f3 f1-ns">
+                    {NameBlock}
+                  </h1>
+                </div>
+                <div className="center w-80 w-40-ns pt6-ns">
+                  <div className="tl">
+                    {UserCountryBlock}
+                    {LanguageBlock}
+                  </div>
+                  <div className="tl">
+                    {SocialBlock}
+                    {TwitterBlock}
+                    <br />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="mt3 right-ns tr pr4">
+            <Link
+                to={{
+                  pathname: '/edit-user',
+                  search: `?id=${userid}`,
+                }}
+                className="link dim ba bw1 ph2 pv2 mb2 dib no-underline black mr2"
+              >
+                ✏️️️ Edit User
+            </Link>
+            <Link
+                to={{
+                  pathname: '/add-user',
+                 
+                }}
+                className="link dim ba bw1 ph2 pv2 mb2 dib no-underline black mr2"
+              >
+                ✏️️️ Add User
+            </Link>
+            </div>
+          </div>
+        
       </div>
     ) : null;
   }
 }
+
+const SingleUserPage = withRouter(mySingleUserPage);
+
+export default SingleUserPage;
