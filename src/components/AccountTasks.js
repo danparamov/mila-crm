@@ -120,14 +120,14 @@ export default class Profile extends Component {
         />
         <div className="mw9 center ph3 cf">
           <div className="w-100 w-75-ns fl ph4 tl">
-            <h1> Account Tasks 
+            <h1> Account Tasks
             <Link
               to="/add-accounttask"
               className="f2 link dim ph3 pv2 mb2 dib white bg-green b--black"
             >
              +
             </Link> </h1>
-            <br /> <br /> 
+            <br /> <br />
           </div>
           {ContactBlock}
         </div>
