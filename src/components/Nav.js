@@ -40,6 +40,7 @@ export default class Nav extends Component {
     const { person } = this.state;
     const { username } = this.state;
     const { handleSignOut } = this.props;
+
     return !isSignInPending() ? (
       <div>
         <nav className="">
