@@ -27,6 +27,11 @@ import Opportunities from '@material-ui/icons/Favorite';
 import Updates from '@material-ui/icons/Update';
 import Logout from '@material-ui/icons/Power';
 import { withStyles } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Divider from '@material-ui/core/Divider';
+
+const drawerWidth = "relevant";
 
 const StyledMenu = withStyles({
   paper: {
@@ -61,7 +66,24 @@ const StyledMenuItem = withStyles(theme => ({
 
 const useStyles = makeStyles(theme => ({
   root: {
+  display: 'flex',
+  },
+  appBar: {
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: drawerWidth,
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+  },
+  drawerPaper: {
+    width: drawerWidth,
+  },
+  toolbar: theme.mixins.toolbar,
+  content: {
     flexGrow: 1,
+    backgroundColor: theme.palette.background.default,
+    padding: theme.spacing(3),
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -132,24 +154,17 @@ function ProfileDesktop(props) {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <CssBaseline />
+      <AppBar position="relative" className={classes.appBar}>
         <Toolbar>
-        <Button
-          aria-controls="customized-menu"
-          aria-haspopup="true"
-          variant="contained"
-          color="primary"
-          onClick={handleClick}
-        >
-          Menu
-        </Button>
-        <StyledMenu
-          id="customized-menu"
-          anchorEl={anchorEl}
-          keepMounted
-          open={Boolean(anchorEl)}
-          onClose={handleClose}
-        >
+          <Drawer
+          className={classes.drawer}
+          variant="permanent"
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+          anchor="left"
+          >
           <StyledMenuItem>
             <ListItemIcon>
             <Link
@@ -276,7 +291,7 @@ function ProfileDesktop(props) {
             </Typography>
             </a>
           </StyledMenuItem>
-        </StyledMenu>
+        </Drawer>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon/>
