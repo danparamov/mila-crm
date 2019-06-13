@@ -167,7 +167,7 @@ export default class AddOppTask extends Component {
                     oppsnames.map(function(X) {
                     return <option>{X}</option>;
                     })
-                   }  
+                   }
                   </select>
                 </label>
               </fieldset>
@@ -214,7 +214,7 @@ export default class AddOppTask extends Component {
                 </label>
               </fieldset>
               <fieldset>
-                <label htmlFor="status"> 
+                <label htmlFor="status">
                   Status
                   <select
                     type="text"
