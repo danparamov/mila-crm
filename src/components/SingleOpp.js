@@ -29,6 +29,13 @@ export default class SingleOpp extends Component {
         <Table className={classes.table}>
           <TableHead></TableHead>
             <TableBody>
+                <TableRow>
+                  <TableCell align="relevant">Opportunity</TableCell>
+                  <TableCell align="relevant">Lead Source</TableCell>
+                  <TableCell align="relevant">Account</TableCell>
+                  <TableCell align="relevant">Amount</TableCell>
+                  <TableCell align="relevant">Closing Date</TableCell>
+                </TableRow>
               <TableRow>
                 <TableCell component="th" scope="opp">
                 <Link
@@ -38,12 +45,14 @@ export default class SingleOpp extends Component {
                 }}>{opp.oppname}
                 </Link>
                 </TableCell>
-                <TableCell align="right">{opp.leadsource}</TableCell>
-                <TableCell align="right">{opp.amount}</TableCell>
+                <TableCell align="relavant">{opp.leadsource}</TableCell>
+                <TableCell align="relevant">{opp.accountname}</TableCell>
+                <TableCell align="relevant">${opp.amount}</TableCell>
+                <TableCell align="relevant">{opp.closingdate}</TableCell>
               </TableRow>
             </TableBody>
         </Table>
-      </Paper> 
+      </Paper>
     );
   }
 }
