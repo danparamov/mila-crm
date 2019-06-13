@@ -55,20 +55,20 @@ class mySingleOppPage extends Component {
       });
     });
     getFile('opptasks.json', options).then(file => {
-      const name = this.state.opp[0].oppname 
+      const name = this.state.opp[0].oppname
       const opp_name = name
       const opptasks = JSON.parse(file || '[]');
       const opptask = findObjectBy(opptasks, {
         contactname: opp_name,
       })
- 
+
       this.setState({
         opptask,
         opptasks,
       });
     });
   }
-  
+
   deleteOpp() {
     const toDelete = this.state.opp[0].id;
     const newContactsList = this.state.opps.filter(
@@ -214,9 +214,9 @@ class mySingleOppPage extends Component {
         />
         {opp.map(opp => (
           <div>
-            <div className="w-100 w-70-l center">
+            <div class="section_container_dash">
               <div className="">
-                <div className="w-100 w-20-ns center fl-ns">
+                <div className="">
                   <img
                     src={`https://avatars.io/twitter/${opp.twitterHandle}`}
                     className="center fl-ns br-100 h4 ml3-ns mt0-l mt3"
