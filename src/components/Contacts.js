@@ -18,6 +18,7 @@ import TableContacts from './TableContacts';
 import ProfileDesktop from './ProfileDesktop';
 import csvToJSON from './util/csvToJSON';
 import'./Styles/Table.css';
+import AddContactIcon from '@material-ui/icons/personadd';
 
 export default class Profile extends Component {
   state = {
@@ -140,7 +141,7 @@ export default class Profile extends Component {
               to="/add-contact"
               className="f2 link dim ph3 pv2 mb2 dib white bg-green b--black"
             >
-            +
+            <AddContactIcon />
             </Link> </h1>
             <div
               className="f6 link dim ph2 pv1 mb2 dib white bg-green b--black pointer"
