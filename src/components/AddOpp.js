@@ -33,7 +33,7 @@ export default class AddOpp extends Component {
     opps: [],
     accounts: [],
     accountsnames: [],
-  
+
     person: {
       name() {
         return 'Anonymous';
@@ -200,7 +200,7 @@ export default class AddOpp extends Component {
                     accountsnames.map(function(X) {
                     return <option>{X}</option>;
                     })
-                   }  
+                   }
                  </select>
                 </label>
               </fieldset>
