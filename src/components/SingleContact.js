@@ -11,7 +11,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper'
 
 export default class SingleContact extends Component {
- 
+
   render() {
     const { contact } = this.props;
     const classes = makeStyles(theme => ({
@@ -31,6 +31,13 @@ export default class SingleContact extends Component {
           <TableHead></TableHead>
             <TableBody>
               <TableRow>
+                <TableCell align="relative">Contact</TableCell>
+                <TableCell align="relative">Account Name</TableCell>
+                <TableCell align="relative">Email</TableCell>
+                <TableCell align="relative">Country</TableCell>
+                <TableCell align="relative">Twitter</TableCell>
+              </TableRow>
+              <TableRow>
                 <TableCell component="th" scope="contact">
                 <Link
                   to={{
@@ -39,14 +46,14 @@ export default class SingleContact extends Component {
                 }}>{contact.name}
                 </Link>
                 </TableCell>
-                <TableCell align="right">{contact.email}</TableCell>
-                <TableCell align="right">{contact.country}</TableCell>
+                <TableCell align="relative">{contact.accountname}</TableCell>
+                <TableCell align="relative">{contact.email}</TableCell>
+                <TableCell align="relative">{contact.country}</TableCell>
+                <TableCell margin="relative">@{contact.twitterHandle}</TableCell>
               </TableRow>
             </TableBody>
         </Table>
-      </Paper> 
+      </Paper>
     );
   }
 }
-
-
