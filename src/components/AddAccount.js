@@ -189,7 +189,7 @@ export default class AddAccount extends Component {
           logout={handleSignOut.bind(this)}
         />
         <div className="mw9 center ph3 cf">
-          <h1 className="f2">Add Account</h1>
+          <h1 className="f1">Add Account</h1>
           <div className="w-70-l fl">
             <Form
               onSubmit={async e => {
