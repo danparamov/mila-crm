@@ -1739,6 +1739,10 @@
 		height: 100vh
 	}
 
+	.section_container_dash {
+		margin-left: 200px			
+	}
+
 	.section_container .intro {
 		height: 53%;
 		width: 100%;
