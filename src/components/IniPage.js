@@ -63,7 +63,7 @@ export default class Profile extends Component {
           opps,
         });
     });
-    
+
     /*getFile('today.json', options).then(file => {
       let today = JSON.parse(file || '[]');
       if (today.length === 0) {
@@ -206,11 +206,11 @@ export default class Profile extends Component {
           }
           logout={handleSignOut.bind(this)}
         />
-        <div className="mw9 center ph3 cf">
+        <div class="w9 center ph3 cf">
           <div className="w-100 w-200-ns fl ph4 tl">
             <h1>Contacts</h1>
           </div>
-          {ContactBlock}       
+          {ContactBlock}
           <div className="w-100 w-200-ns fl ph4 tl">
             <h1>Accounts</h1>
           </div>
