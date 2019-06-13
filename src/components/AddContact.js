@@ -16,6 +16,8 @@ import Form from './styles/Form';
 import Error from './ErrorMessage';
 import ProfileDesktop from './ProfileDesktop';
 import nextContactDate from './util/nextContactDate';
+import AppBar from '@material-ui/core/AppBar';
+
 
 export default class AddContact extends Component {
   state = {
@@ -226,7 +228,7 @@ export default class AddContact extends Component {
                     accountsnames.map(function(X) {
                     return <option>{X}</option>;
                     })
-                   }  
+                   }
                   </select>
                 </label>
               </fieldset>
