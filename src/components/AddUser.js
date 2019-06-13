@@ -171,7 +171,7 @@ export default class AddUser extends Component {
               </fieldset>
               <fieldset disabled={loading} aria-busy={loading}>
                 <label htmlFor="twitterHandle">
-                  Twitter 
+                  Twitter
                   <input
                     type="text"
                     id="twitterHandle"
