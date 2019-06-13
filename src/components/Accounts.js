@@ -17,6 +17,7 @@ import ifAttribute from './util/ifAttribute';
 import ProfileDesktop from './ProfileDesktop';
 import SingleAccount from './SingleAccount';
 import AccountBubble from './AccountBubble';
+import AddAccountIcon from '@material-ui/icons/addtophotos';
 
 export default class Profile extends Component {
   state = {
@@ -146,12 +147,12 @@ export default class Profile extends Component {
             <h1>Accounts
             <Link
               to="/add-account"
-              className="f2 link dim ph3 pv2 mb2 dib white bg-yellow b--black"
+              className="f2 link dim ph3 pv2 mb2 dib white bg-red b--black"
             >
-              +
+            <AddAccountIcon />
             </Link></h1>
             <div
-              className="f6 link dim ph2 pv1 mb2 dib white bg-yellow b--black pointer"
+              className="f6 link dim ph2 pv1 mb2 dib white bg-red b--black pointer"
               onClick={async () => await this.exportContacts()}
             >
               Export as CSV
