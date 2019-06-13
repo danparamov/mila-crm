@@ -64,7 +64,7 @@ export default class Main extends Component {
 
   render() {
     return (
-      <main className="sans-serif">
+      <main class="section_container_dash">
         {!isUserSignedIn() ? (
           <Switch>
             <Route
@@ -99,11 +99,11 @@ export default class Main extends Component {
               path="/edit-account"
               component={() => <SignIn handleSignIn={this.handleSignIn} />}
             />
-           
+
             <Route
               path="/opportunity"
               component={() => <SignIn handleSignIn={this.handleSignIn} />}
-            />          
+            />
             <Route
               path="/opportunities"
               component={() => <SignIn handleSignIn={this.handleSignIn} />}
@@ -128,7 +128,7 @@ export default class Main extends Component {
              <Route
               path="/edit-contacttask"
               component={() => <SignIn handleSignIn={this.handleSignIn} />}
-            /> 
+            />
              <Route
               path="/add-contacttask"
               component={() => <SignIn handleSignIn={this.handleSignIn} />}
@@ -140,7 +140,7 @@ export default class Main extends Component {
              <Route
               path="/edit-accounttask"
               component={() => <SignIn handleSignIn={this.handleSignIn} />}
-            /> 
+            />
              <Route
               path="/add-accounttask"
               component={() => <SignIn handleSignIn={this.handleSignIn} />}
@@ -152,7 +152,7 @@ export default class Main extends Component {
              <Route
               path="/edit-opptask"
               component={() => <SignIn handleSignIn={this.handleSignIn} />}
-            /> 
+            />
              <Route
               path="/add-opptask"
               component={() => <SignIn handleSignIn={this.handleSignIn} />}
@@ -233,7 +233,7 @@ export default class Main extends Component {
               component={() => (
                 <SingleOppPage handleSignOut={this.handleSignOut} />
               )}
-            />            
+            />
             <Route
               path="/opportunities"
               component={() => (
@@ -269,7 +269,7 @@ export default class Main extends Component {
               component={() => (
                 <EditContactTask handleSignOut={this.handleSignOut} />
               )}
-            /> 
+            />
             <Route
               path="/add-contacttask"
               component={() => (
@@ -287,7 +287,7 @@ export default class Main extends Component {
               component={() => (
                 <EditAccountTask handleSignOut={this.handleSignOut} />
               )}
-            /> 
+            />
             <Route
               path="/add-accounttask"
               component={() => (
@@ -305,7 +305,7 @@ export default class Main extends Component {
               component={() => (
                 <EditOppTask handleSignOut={this.handleSignOut} />
               )}
-            /> 
+            />
             <Route
               path="/add-opptask"
               component={() => (
