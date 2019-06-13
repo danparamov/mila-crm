@@ -167,7 +167,7 @@ export default class AddAccountTask extends Component {
                     accountsnames.map(function(X) {
                     return <option>{X}</option>;
                     })
-                   }  
+                   }
                   </select>
                 </label>
               </fieldset>
@@ -214,7 +214,7 @@ export default class AddAccountTask extends Component {
                 </label>
               </fieldset>
               <fieldset>
-                <label htmlFor="status"> 
+                <label htmlFor="status">
                   Status
                   <select
                     type="text"
