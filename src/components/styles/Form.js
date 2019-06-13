@@ -14,6 +14,9 @@ const Form = styled.form`
   background: rgba(0, 0, 0, 0.02);
   border: 5px solid white;
   padding: 20px;
+  display: flex-grow;
+  height:600px;
+  align-content: align-items;
   font-size: 1.5rem;
   line-height: 1.5;
   font-weight: 600;
@@ -28,7 +31,7 @@ const Form = styled.form`
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    width: 25%;
+    width: 100%;
     padding: 1rem;
     margin-top: 0.5rem;
     font-size: 1rem;
