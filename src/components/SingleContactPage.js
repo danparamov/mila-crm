@@ -55,13 +55,13 @@ class mySingleContactPage extends Component {
       });
     });
     getFile('contacttasks.json', options).then(file => {
-      const name = this.state.contact[0].name 
+      const name = this.state.contact[0].name
       const contact_name = name
       const contacttasks = JSON.parse(file || '[]');
       const contacttask = findObjectBy(contacttasks, {
         contactname: contact_name,
       })
- 
+
       this.setState({
         contacttask,
         contacttasks,
@@ -215,9 +215,9 @@ class mySingleContactPage extends Component {
         />
         {contact.map(contact => (
           <div>
-            <div className="w-100 w-70-l center">
+            <div class="section_container_dash">
               <div className="">
-                <div className="w-100 w-20-ns center fl-ns">
+                <div className="">
                   <img
                     src={`https://avatars.io/twitter/${contact.twitterHandle}`}
                     className="center fl-ns br-100 h4 ml3-ns mt0-l mt3"
