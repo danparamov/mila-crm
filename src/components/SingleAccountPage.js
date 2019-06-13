@@ -55,13 +55,13 @@ class mySingleAccountPage extends Component {
       });
     });
     getFile('accounttasks.json', options).then(file => {
-      const name = this.state.account[0].accountname 
+      const name = this.state.account[0].accountname
       const account_name = name
       const accounttasks = JSON.parse(file || '[]');
       const accounttask = findObjectBy(accounttasks, {
         contactname: account_name,
       })
- 
+
       this.setState({
         accounttask,
         accounttasks,
@@ -213,7 +213,7 @@ class mySingleAccountPage extends Component {
         />
         {account.map(account => (
           <div>
-            <div className="w-100 w-70-l center">
+            <div class="section_container_dash">
               <div className="">
                 <div className="w-100 w-20-ns center fl-ns">
                   <img
