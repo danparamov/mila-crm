@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import {
   isSignInPending,
   putFile,
@@ -9,11 +8,9 @@ import {
   Person,
 } from 'blockstack';
 import { Redirect } from 'react-router';
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import findObjectBy from './util/findObjectBy';
 import avatarFallbackImage from '../assets/avatar-placeholder.png';
-import ProfileDesktop from './ProfileDesktop';
 import Nav from './Nav';
 import Form from './styles/Form';
 import Error from './ErrorMessage';
@@ -86,7 +83,7 @@ class EditAccountTaskPage extends Component {
     });
   }
 
-  deleteContact() {
+  deleteAccountTask() {
     const toDelete = this.state.id;
     const newContactsList = this.state.accounttasks.filter(
         accounttask => accounttask.id !== toDelete
@@ -99,14 +96,14 @@ class EditAccountTaskPage extends Component {
     );
   }
 
-  handleEditContactSubmit(event) {
+  handleEditAccountTaskSubmit(event) {
     event.preventDefault();
-    this.saveEditedContact();
+    this.saveEditedAccountTask();
   }
 
-  saveEditedContact() {
+  saveEditedAccountTask() {
     let { accounttasks } = this.state;
-    const newContact = {
+    const newAccountTask = {
       id: this.state.id,
       contactname: this.state.contactname,
       subject: this.state.subject,
@@ -118,10 +115,9 @@ class EditAccountTaskPage extends Component {
       contactDate: this.state.contactDate,
       created_at: this.state.created_at,
     };
-    // delete the contact with the same ID as the edited one
-    accounttasks = accounttasks.filter(accounttask => accounttask.id !== newContact.id);
-    // add the edited contact to all contacts
-    accounttasks.unshift(newContact);
+
+    accounttasks = accounttasks.filter(accounttask => accounttask.id !== newAccountTask.id);
+    accounttasks.unshift(newAccountTask);
     const options = { encrypt: true };
     putFile('accounttasks.json', JSON.stringify(accounttasks), options).then(() => {});
     this.setState({
@@ -136,13 +132,11 @@ class EditAccountTaskPage extends Component {
   };
 
   render() {
-    const { contacttask } = this.state;
     const { handleSignOut } = this.props;
     const { person } = this.state;
     const {accountsnames} = this.state;
-    const { username } = this.state;
-    const loading = false;
     const error = false;
+
     if (this.state.saved) {
       //return <Redirect to={`/contact?id=${this.state.id}`} />;
       return <Redirect to={`/accounttasks`} />;
@@ -161,7 +155,7 @@ class EditAccountTaskPage extends Component {
             <Form
               onSubmit={async e => {
                 e.preventDefault();
-                this.handleEditContactSubmit(e);
+                this.handleEditAccountTaskSubmit(e);
               }}
             >
               <Error error={error} />
@@ -253,9 +247,9 @@ class EditAccountTaskPage extends Component {
                 </label>
               </fieldset>
               <a
-                className="pointer link dim ba bw1 ph2 pv2 mb2 dib no-underline ba b--white white mr2 bg-black"
+                className="pointer link dim ba bw1 ph2 pv2 mb2 dib no-underline ba b--white white mr2 bg-green"
                 onClick={() => {
-                  this.deleteContact();
+                  this.deleteAccountTask();
                 }}
               >
                 Delete

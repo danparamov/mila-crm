@@ -9,11 +9,9 @@ import {
   Person,
 } from 'blockstack';
 import { Redirect } from 'react-router';
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import findObjectBy from './util/findObjectBy';
 import avatarFallbackImage from '../assets/avatar-placeholder.png';
-import ProfileDesktop from './ProfileDesktop';
 import Nav from './Nav';
 import Form from './styles/Form';
 import Error from './ErrorMessage';
@@ -168,13 +166,12 @@ class EditContactPage extends Component {
   };
 
   render() {
-    const { contact } = this.state;
     const { handleSignOut } = this.props;
     const { person } = this.state;
-    const { username } = this.state;
     const {accountsnames} = this.state;
     const loading = false;
     const error = false;
+    
     if (this.state.saved) {
       //return <Redirect to={`/contact?id=${this.state.id}`} />;
       return <Redirect to={`/contacts`} />;
@@ -402,7 +399,7 @@ class EditContactPage extends Component {
                   />
                 </label>
               </fieldset>
-              <h3 className="">Description</h3>
+              <h3 className="">Description Information</h3>
               <fieldset disabled={loading} aria-busy={loading}>
                 <label htmlFor="description">
                   Description

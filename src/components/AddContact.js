@@ -14,10 +14,7 @@ import avatarFallbackImage from '../assets/avatar-placeholder.png';
 import Nav from './Nav';
 import Form from './styles/Form';
 import Error from './ErrorMessage';
-import ProfileDesktop from './ProfileDesktop';
 import nextContactDate from './util/nextContactDate';
-import AppBar from '@material-ui/core/AppBar';
-
 
 export default class AddContact extends Component {
   state = {
@@ -107,6 +104,7 @@ export default class AddContact extends Component {
   saveNewContact(cb) {
     const { contacts } = this.state;
     const contactDate = nextContactDate(this.state.priority);
+    
     const newContact = {
       id: Date.now(),
       created_at: Date.now(),
@@ -175,7 +173,6 @@ export default class AddContact extends Component {
   render() {
     const { handleSignOut } = this.props;
     const { person } = this.state;
-    const { username } = this.state;
     const loading = false;
     const error = false;
     const {accountsnames} = this.state;
@@ -423,7 +420,7 @@ export default class AddContact extends Component {
                   />
                 </label>
               </fieldset>
-              <h3 className="">Description</h3>
+              <h3 className="">Description Information</h3>
               <fieldset disabled={loading} aria-busy={loading}>
                 <label htmlFor="description">
                   Description

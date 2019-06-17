@@ -13,7 +13,6 @@ import EditOpp from './EditOpp';
 import EditUser from './EditUser';
 
 import IniPage from './IniPage';
-import Profile from './Profile';
 import SignIn from './SignIn';
 import Contacts from './Contacts';
 import Updates from './Updates';
@@ -336,7 +335,6 @@ export default class Main extends Component {
             />
             <Route
               path="/"
-              //component={() => <Profile handleSignOut={this.handleSignOut} />}
               component={() => <IniPage handleSignOut={this.handleSignOut} />}
             />
           </Switch>

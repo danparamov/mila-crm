@@ -15,7 +15,6 @@ import Nav from './Nav';
 import Form from './styles/Form';
 import Error from './ErrorMessage';
 import nextContactDate from './util/nextContactDate';
-import ProfileDesktop from './ProfileDesktop';
 
 export default class AddOpp extends Component {
   state = {
@@ -81,9 +80,9 @@ export default class AddOpp extends Component {
     });
   }
 
-  handleNewContactSubmit(event) {
+  handleNewOppSubmit(event) {
     event.preventDefault();
-    this.saveNewContact(() => {
+    this.saveNewOpp(() => {
       this.setState({ saved: true });
     });
     const today = [
@@ -96,9 +95,10 @@ export default class AddOpp extends Component {
     putFile('today.json', JSON.stringify(today), options).then();
   }
 
-  saveNewContact(cb) {
+  saveNewOpp(cb) {
     const { opps } = this.state;
     const contactDate = nextContactDate(this.state.priority);
+    
     const newOpp = {
       id: Date.now(),
       created_at: Date.now(),
@@ -145,13 +145,10 @@ export default class AddOpp extends Component {
   render() {
     const { handleSignOut } = this.props;
     const { person } = this.state;
-    const { username } = this.state;
     const loading = false;
     const error = false;
-    const { accounts } = this.state;
     const {accountsnames} = this.state;
-    let ContactBlock = null;
-
+    
     if (this.state.saved) {
       return <Redirect to="/opportunities"/>;
     }
@@ -170,7 +167,7 @@ export default class AddOpp extends Component {
             <Form
               onSubmit={async e => {
                 e.preventDefault();
-                this.handleNewContactSubmit(e);
+                this.handleNewOppSubmit(e);
               }}
             >
               <Error error={error} />

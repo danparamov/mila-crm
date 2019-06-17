@@ -191,7 +191,7 @@ function ProfileDesktop(props) {
               <Dashboard />
             </ListItemIcon>
               <Link
-                to="/profile"
+                to="/"
                 className="link dim dib green"
               >
                 <Typography>

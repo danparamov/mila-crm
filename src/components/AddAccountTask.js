@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import {
   isSignInPending,
   putFile,
@@ -14,7 +13,6 @@ import avatarFallbackImage from '../assets/avatar-placeholder.png';
 import Nav from './Nav';
 import Form from './styles/Form';
 import Error from './ErrorMessage';
-import ProfileDesktop from './ProfileDesktop';
 import nextContactDate from './util/nextContactDate';
 
 export default class AddAccountTask extends Component {
@@ -76,9 +74,9 @@ export default class AddAccountTask extends Component {
     });
   }
 
-  handleNewContactSubmit(event) {
+  handleNewAccountTaskSubmit(event) {
     event.preventDefault();
-    this.saveNewContact(() => {
+    this.saveNewAccountTask(() => {
       this.setState({ saved: true });
     });
     const today = [
@@ -91,10 +89,10 @@ export default class AddAccountTask extends Component {
     putFile('today.json', JSON.stringify(today), options).then();
   }
 
-  saveNewContact(cb) {
+  saveNewAccountTask(cb) {
     const { accounttasks } = this.state;
     const contactDate = nextContactDate(this.state.priority);
-    const newContact = {
+    const newAccountTask = {
       id: Date.now(),
       created_at: Date.now(),
       contactname: this.state.contactname,
@@ -106,7 +104,7 @@ export default class AddAccountTask extends Component {
       contactDate,
     };
 
-    accounttasks.unshift(newContact);
+    accounttasks.unshift(newAccountTask);
     const options = { encrypt: true };
     putFile('accounttasks.json', JSON.stringify(accounttasks), options).then(() => {
       cb();
@@ -130,9 +128,7 @@ export default class AddAccountTask extends Component {
   render() {
     const { handleSignOut } = this.props;
     const { person } = this.state;
-    const { username } = this.state;
     const {accountsnames} = this.state;
-    const loading = false;
     const error = false;
     if (this.state.saved) {
       return <Redirect to="/accounttasks" />;
@@ -152,7 +148,7 @@ export default class AddAccountTask extends Component {
             <Form
               onSubmit={async e => {
                 e.preventDefault();
-                this.handleNewContactSubmit(e);
+                this.handleNewAccountTaskSubmit(e);
               }}
             >
               <Error error={error} />

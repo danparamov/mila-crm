@@ -7,14 +7,9 @@ import {
   getFile,
   putFile,
 } from 'blockstack';
-import moment from 'moment';
-import BlockstackLogo from '../assets/blockstack-icon.svg';
 import avatarFallbackImage from '../assets/avatar-placeholder.png';
-import findObjectBy from './util/findObjectBy';
 import ifAttribute from './util/ifAttribute';
 import Nav from './Nav';
-import PriorityLabel from './PriorityLabel';
-import nextContactDate from './util/nextContactDate';
 
 class mySingleUserPage extends Component {
   state = {
@@ -54,7 +49,6 @@ class mySingleUserPage extends Component {
     const { users } = this.state;
     const { handleSignOut } = this.props;
     const { person } = this.state;
-    const { user } = this.state;
     let UserCountryBlock;
     let SocialBlock = null;
     let TwitterBlock;
