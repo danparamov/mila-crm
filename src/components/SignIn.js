@@ -262,56 +262,15 @@ export default class SignIn extends Component {
          <div class="container">
             <div class="sec_title text-center align-center mb_70">
                <h2 class="f_size_30 f_600 t_color3 l_height40 text-center mb_60">Who loves our CRM?</h2>
+               <h2 class="f_500 t_color3 f_size_18">Coming Soon</h2>
             </div>
-         <div class="partner_logo">
-            <div class="p_logo_item wow fadeInLeft" data-wow-delay="0.3s">
-               <a target="_blank" href="https://lamoncogroup.com/" rel="noopener"><img src="https://res.cloudinary.com/phlab/image/upload/v1557198495/echo/clients/lam_ljlsb1.svg" alt="Lam logo"/></a>
-            </div>
-            <div class="p_logo_item wow fadeInLeft" data-wow-delay="0.3s">
-               <a target="_blank" href="https://blockstack.org/" rel="noopener"><img src="https://res.cloudinary.com/phlab/image/upload/v1557199610/echo/clients/blockstack_szzg6x.png" alt="Blockstack logo"/></a>
-            </div>
-            <div class="p_logo_item wow fadeInLeft" data-wow-delay="0.3s">
-               <a target="_blank" href="https://xertify.co/" rel="noopener"><img src="https://res.cloudinary.com/phlab/image/upload/v1557199882/echo/clients/xertify_eos39w.png" alt="Xertify logo"/></a>
-            </div>
-            <div class="p_logo_item wow fadeInLeft" data-wow-delay="0.2s">
-               <a target="_blank" href="https://blockchainacademy.mx/" rel="noopener"><img src="https://res.cloudinary.com/phlab/image/upload/v1557198494/echo/allies/bacademy_sp92mz.svg" alt="Blockchain academy logo"/></a>
-            </div>
-            <div class="p_logo_item wow fadeInLeft" data-wow-delay="0.4s">
-               <a target="_blank" href="https://blockchainespana.com/" rel="noopener"><img src="https://res.cloudinary.com/phlab/image/upload/v1557198495/echo/allies/bespana_wdnsft.png" alt="Blockchain espana logo"/></a>
-            </div>
-         </div>
-      </div>
+          </div>
       </section>
 
       <section class="agency_testimonial_area bg_color sec_pad">
          <div class="container">
             <h2 class="f_size_30 f_600 t_color3 l_height40 text-center mb_60">What people are saying..</h2>
-            <div class="agency_testimonial_info">
-               <div class="testimonial_slider owl-carousel">
-                  <div class="testimonial_item text-center left">
-                     <div class="author_img"><img src="https://res.cloudinary.com/phlab/image/upload/v1557198494/echo/test/01_bhlznw.png" alt="Adam davis"/></div>
-                     <div class="author_description">
-                        <h4 class="f_500 t_color3 f_size_18">Adam Davis</h4>
-                        <h6>Strategy Manager - LAM</h6>
-                     </div>
-                     <p>Daniel from ECHO Intelligent Solutions, has been a great resource for creating new business.
-                     ECHO has provided high quality work, helping us understand the market and how to access it efficiently.
-                     ECHO facilities and streamlines business development and we look forward to continuing our work together.</p>
-                  </div>
-                  <div class="testimonial_item text-center center">
-                     <div class="author_img"><img src="https://res.cloudinary.com/phlab/image/upload/v1557198494/echo/test/02_wdid88.png" alt="Joseph akintolayo"/></div>
-                     <div class="author_description">
-                        <h4 class="f_500 t_color3 f_size_18">Joseph Akintola</h4>
-                        <h6>CEO/Founder - Philanthrolab</h6>
-                     </div>
-                     <p>I have had the pleasure of working with Daniel on many projects.
-                     He has been an excellent resource and diligent in his approach to finding the best solutions to challenging problems.
-                     He really raises the bar with his commincation and overall motivation.
-                     He’s been indispensable and a major part of our client success.
-                     I could not rate him higher</p>
-                  </div>
-               </div>
-            </div>
+            <h2 class="f_500 t_color3 f_size_18 text-center">Coming Soon</h2>
          </div>
       </section>
 
@@ -345,8 +304,8 @@ export default class SignIn extends Component {
                </div>
                <div class="col-lg-8 offset-lg-1">
                   <div class="contact_form">
-                     <form action="https://formspree.io/contact@echoisolutions.com" class="contact_form_box" method="post" id="contactForm">
-                        <input type="hidden" name="_subject" value="Echoisolutions Contact Form"/>
+                     <form action="https://formspree.io/admin@milalabs.org" class="contact_form_box" method="post" id="contactForm">
+                        <input type="hidden" name="_subject" value="Mila CRM Contact Form"/>
                         <div class="row">
                            <div class="col-lg-6">
                               <div class="form-group text_box">
