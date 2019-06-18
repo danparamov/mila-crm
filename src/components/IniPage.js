@@ -27,6 +27,7 @@ export default class Profile extends Component {
     contacts: [],
     accounts: [],
     opps: [],
+    oppsamount: [], 
     today: [{ contactsLeft: 0, date: '' }],
   };
 
@@ -54,8 +55,11 @@ export default class Profile extends Component {
     });
     getFile('opps.json', options).then(file => {
         const opps = JSON.parse(file || '[]');
+        const oppsamount = opps.map((opp) => parseFloat(opp.amount));
+        console.log(oppsamount)
         this.setState({
           opps,
+          oppsamount,
         });
     });
   }
@@ -69,7 +73,13 @@ export default class Profile extends Component {
     let ContactBlock = null;
     let AccountBlock = null;
     let OppBlock = null;
-   
+    const {oppsamount} = this.state;
+    let oppstotal;
+    let numOr0 = n => isNaN(n) ? 0 : n
+    const reducer = (accumulator, currentValue) => numOr0(accumulator) +  numOr0(currentValue);
+
+    console.log(oppstotal = oppsamount.reduce(reducer,0));
+
     if (ifAttribute(contacts[0])) {
       ContactBlock = (
         <div className="w-100 w-200-ns fl ph4 tl">
@@ -124,7 +134,8 @@ export default class Profile extends Component {
           </div>
           {AccountBlock}
           <div className="w-100 w-200-ns fl ph4 tl">
-            <h1>Opportunities</h1>
+            <h1>Opportunities</h1> 
+            <div className="f2 green">Total Opp Amount: ${oppstotal}</div>
           </div>
           {OppBlock}
         </div>

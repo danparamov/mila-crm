@@ -124,7 +124,7 @@ export default class AddUser extends Component {
     const error = false;
 
     if (this.state.saved) {
-      return <Redirect to="/settings" />;
+      return <Redirect to={'/profile'} />;
     }
 
     return !isSignInPending() ? (
@@ -136,7 +136,7 @@ export default class AddUser extends Component {
           logout={handleSignOut.bind(this)}
         />
         <div className="mw9 center ph3 cf">
-          <h1 className="f2">Add User</h1>
+          <h1 className="f2">Add Info</h1>
           <div className="w-70-l fl">
             <Form
               onSubmit={async e => {

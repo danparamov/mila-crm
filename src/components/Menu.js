@@ -17,10 +17,10 @@ export default function Menu(props) {
         Opportunities
       </Link>
       <Link
-        to="/settings"
+        to="/profile"
         className="db bg-white black no-underline b pt3 pb3 w-100 tr pr3"
       >
-        Settings
+        Profile
       </Link>
       <Link to="/updates" className="db white no-underline b pt3 pb3 tr mr3">
         📰 Updates

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter, Link } from 'react-router-dom';
 import {
   isSignInPending,
   loadUserData,
@@ -6,17 +7,14 @@ import {
   getFile,
   putFile,
 } from 'blockstack';
-import { Link } from 'react-router-dom';
-import moment from 'moment';
-import Nav from './Nav';
 import avatarFallbackImage from '../assets/avatar-placeholder.png';
-import SingleContact from './SingleContact';
-import ContactBubble from './ContactBubble';
 import ifAttribute from './util/ifAttribute';
-import ProfileDesktop from './ProfileDesktop';
+import Nav from './Nav';
 
-export default class Profile extends Component {
+class mySingleUserPage extends Component {
   state = {
+    users: [],
+ 
     person: {
       name() {
         return 'Anonymous';
@@ -26,8 +24,6 @@ export default class Profile extends Component {
       },
     },
     username: '',
-    contacts: [],
-    today: [{ contactsLeft: 0, date: '' }],
   };
 
   componentWillMount() {
@@ -40,54 +36,102 @@ export default class Profile extends Component {
 
   fetchData() {
     const options = { decrypt: true };
-    getFile('contacts.json', options).then(file => {
-      const contacts = JSON.parse(file || '[]');
+    getFile('users.json', options).then(file => {
+      const users = JSON.parse(file || '[]');
+     
       this.setState({
-        contacts,
-      });
-    });
-    getFile('today.json', options).then(file => {
-      let today = JSON.parse(file || '[]');
-      if (today.length === 0) {
-        today = [{ date: moment().format('L'), contactsLeft: 3 }];
-        const otherOption = { encrypt: true };
-        putFile('today.json', JSON.stringify(today), otherOption).then();
-      }
-      if (today[0].date !== moment().format('L')) {
-        const otherOption = { encrypt: true };
-        today = [{ date: moment().format('L'), contactsLeft: 3 }];
-        putFile('today.json', JSON.stringify(today), otherOption).then();
-      }
-      this.setState({
-        today,
+        users,
       });
     });
   }
 
   render() {
+    const { users } = this.state;
     const { handleSignOut } = this.props;
     const { person } = this.state;
     const { username } = this.state;
-    const { contacts } = this.state;
-    const { today } = this.state;
-    let AddMoreContactsBlock = null;
-    let ContactBlock = null;
-    const ContactToday = [];
-    let NoContactTodayBlock = null;
-  
-    if (ifAttribute(contacts[0])) {
-      ContactBlock = (
-        <div className="w-100 w-75-ns fl ph4 tl">
-          <h1>Your Contacts</h1>
-          {contacts.map(contact => (
-            <SingleContact contact={contact} key={contact.id} />
-          ))}
-        </div>
-      );
-    } else {
-      ContactBlock = null;
+    let UserCountryBlock;
+    let SocialBlock = null;
+    let TwitterBlock;
+    let NameBlock;
+    let LanguageBlock;
+    let userid;
+    let usertwitter;
+    let DefaultBlock;
+
+    DefaultBlock = (
+      <div className="mt2">
+         <img
+            src={person.avatarUrl() ? person.avatarUrl() : avatarFallbackImage}
+            className="h3 w3 br-100"
+         />
+         <br />
+         <span>{username}</span>
+      </div>
+    );
+
+    if (ifAttribute(users[0])) {
+      if (ifAttribute(users[0].country)) {
+        UserCountryBlock = (
+          <div className="mt2">
+            <span className="b">Country:</span> {users[0].country}
+          </div>
+        );
+      } else
+        UserCountryBlock = (
+          <div className="mt2">
+            <span className="b">Country:</span>
+            🌎
+          </div>
+        );
+      
+      if (
+        ifAttribute(users[0].twitterHandle) 
+      ) {
+        SocialBlock = <h2>Social</h2>;
+        if (ifAttribute(users[0].twitterHandle)) {
+          TwitterBlock = (
+            <a
+              href={`https://twitter.com/${users[0].twitterHandle}`}
+              className="no-underline black"
+            >
+              <div className="inline-flex justify-center items-center">
+                <i className="fa fa-twitter" />
+                <span className="ml2">{users[0].twitterHandle}</span>
+              </div>
+            </a>
+          );
+        } else TwitterBlock = null;
+      }
+    
+      if (ifAttribute(users[0].name)) {
+        NameBlock = (
+          <div className="mt2">
+            <span className="b">Name:</span> {users[0].name}
+          </div>
+        );
+      } else
+        UserCountryBlock = (
+          <div className="mt2">
+          </div>
+        );
+
+      if (ifAttribute(users[0].language)) {
+        LanguageBlock = (
+            <div className="mt2">
+              <span className="b">Language:</span> {users[0].language}
+            </div>
+          );
+        } else
+        LanguageBlock = (
+            <div className="mt2">
+            </div>
+          );
+        
+      userid = users[0].id;
+      usertwitter = users[0].twitterHandle;
     }
-   
+    
     return !isSignInPending() ? (
       <div>
         <Nav
@@ -96,36 +140,65 @@ export default class Profile extends Component {
           }
           logout={handleSignOut.bind(this)}
         />
-        <div className="mw9 center ph3 cf">
-          <ProfileDesktop
-            logout={handleSignOut.bind(this)}
-            profileImage={
-              person.avatarUrl() ? person.avatarUrl() : avatarFallbackImage
-            }
-            name={person.name() ? person.name() : 'Nameless Person'}
-            username={username}
-          />
-          {AddMoreContactsBlock}
-          <div className="w-100 w-75-ns fl ph4 tl">
-            <h1>Your Contacts!</h1>
-            {NoContactTodayBlock}
-            <div className="w-100 fl db">
-              {ContactToday.map(contact => (
-                <ContactBubble contact={contact} key={contact.id} />
-              ))}
+         
+          <div>
+            <div className="w-100 w-70-l center">
+              <div className="">
+                <div className="center w-80 w-40-ns pt6-ns">
+                  <div className="tl">
+                    {DefaultBlock}
+                    {NameBlock}
+                    {UserCountryBlock}
+                    {LanguageBlock}
+                  </div>
+                  <div className="tl">
+                    {SocialBlock}
+                    {TwitterBlock}
+                    <br />
+                  </div>
+                  <img
+                      src={`https://avatars.io/twitter/${usertwitter}`}
+                      className="center fl-ns br-100 h4 ml3-ns mt0-l mt3"
+                      alt=""
+                    />
+                </div>
+              </div>
+            </div>
+            <div className="mt3 right-ns tr pr4">
+            <Link
+                to={{
+                  pathname: '/edit-user',
+                  search: `?id=${userid}`,
+                }}
+                className="link dim ba bw1 ph2 pv2 mb2 dib no-underline black mr2"
+              >
+                ✏️️️ Edit Info
+            </Link>
+            <Link
+                to={{
+                  pathname: '/add-user', 
+                }}
+                className="link dim ba bw1 ph2 pv2 mb2 dib no-underline black mr2"
+              >
+                ✏️️️ Add New Info
+            </Link>
+            <Link
+                to={{
+                  pathname: '',
+                 
+                }}
+                className="link dim ba bw1 ph2 pv2 mb2 dib no-underline black mr2"
+              >
+                ✏️️️ Add User (Coming Soon!)
+            </Link>
             </div>
           </div>
-          {ContactBlock}
-          <div className="fr">
-            <Link
-              to="/add-contact"
-              className="f4 link dim ph3 pv2 mb2 dib white bg-black b--black"
-            >
-              Add Contact
-            </Link>
-          </div>
-        </div>
+        
       </div>
     ) : null;
   }
 }
+
+const SingleUserPage = withRouter(mySingleUserPage);
+
+export default SingleUserPage;

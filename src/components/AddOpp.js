@@ -28,7 +28,6 @@ export default class AddOpp extends Component {
     salesstage: '',
     probability: '',
     description: '',
-    blockstackId: '',
     opps: [],
     accounts: [],
     accountsnames: [],
@@ -112,7 +111,6 @@ export default class AddOpp extends Component {
       salesstage: this.state.salesstage,
       probability: this.state.probability,
       description: this.state.description,
-      blockstackId: this.state.blockstackId,
       contactDate,
     };
 
@@ -132,7 +130,6 @@ export default class AddOpp extends Component {
       salesstage: '',
       probability: '',
       description: '',
-      blockstackId: '',
     });
   }
 

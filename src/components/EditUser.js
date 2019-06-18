@@ -116,7 +116,7 @@ class EditUserPage extends Component {
     const error = false;
     if (this.state.saved) {
       //return <Redirect to={`/contact?id=${this.state.id}`} />;
-      return <Redirect to={`/settings`} />;
+      return <Redirect to={`/profile`} />;
     }
     return !isSignInPending() ? (
       <div>

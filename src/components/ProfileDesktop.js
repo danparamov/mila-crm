@@ -126,7 +126,7 @@ const useStyles = makeStyles(theme => ({
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      width: 120,
+      width: 200,
       '&:focus': {
         width: 200,
       },
@@ -168,7 +168,7 @@ function ProfileDesktop(props) {
           <StyledMenuItem>
             <ListItemIcon>
             <Link
-              to="/settings"
+              to="/profile"
               className="link dim dib green"
               >
             <div>
@@ -256,11 +256,11 @@ function ProfileDesktop(props) {
               <Settings />
             </ListItemIcon>
             <Link
-              to="/settings"
+              to="/profile"
               className="link dim dib green"
             >
               <Typography>
-               Settings
+               Profile
               </Typography>
             </Link>
           </StyledMenuItem>
@@ -297,7 +297,7 @@ function ProfileDesktop(props) {
               <SearchIcon/>
             </div>
             <InputBase
-              placeholder="Search..."
+              placeholder="Coming Soon..."
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput,

@@ -17,7 +17,7 @@ export default class NavLoggedOut extends Component {
     return (
       <div>
         <nav className="dt w-100 border-box pa3-ns ph5-ns">
-          <Link to="/profile" title="MILA CRM">
+          <Link to="/" title="MILA CRM">
             <img src={Logo} className="dib h5" alt="MILA CRM" />
           </Link>
         </nav>
