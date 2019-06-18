@@ -7,7 +7,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper'
+import Paper from '@material-ui/core/Paper';
+import'./Styles/Table.css';
 
 export default class SingleAccountTask extends Component {
   render() {
@@ -24,20 +25,27 @@ export default class SingleAccountTask extends Component {
     }));
 
     return (
-      <Paper className={classes.root}>
-          <Table className={classes.table}>
-          <TableHead></TableHead>
-            <TableBody>
-              <TableRow>
-                <TableCell component="th" scope="accounttask">
-                  {accounttask.contactname}
-                </TableCell>
-                <TableCell align="right">{accounttask.subject}</TableCell>
-                <TableCell align="right">{accounttask.duedate}</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </Paper>
+        <Paper className={classes.root}>
+            <Table className={classes.table}>
+            <TableHead></TableHead>
+              <TableBody>
+                <TableRow>
+                  <TableCell width="20%" align="left" component="th" scope="accounttask">
+                  <Link
+                    to={{
+                    pathname: '/edit-accounttask',
+                    search: `?id=${accounttask.id}`,
+                  }}>{accounttask.contactname}
+                  </Link>
+                  </TableCell>
+                  <TableCell width="20%" align="left">{accounttask.subject}</TableCell>
+                  <TableCell width="20%" align="left">{accounttask.duedate}</TableCell>
+                  <TableCell width="20%" align="left">{accounttask.priority}</TableCell>
+                  <TableCell width="20%" align="left">{accounttask.status}</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </Paper>
     );
   }
 }
