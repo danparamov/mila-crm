@@ -131,7 +131,7 @@ export default class AddAccountTask extends Component {
     const {accountsnames} = this.state;
     const error = false;
     if (this.state.saved) {
-      return <Redirect to="/accounttasks" />;
+      return <Redirect to="/tasks" />;
     }
 
     return !isSignInPending() ? (

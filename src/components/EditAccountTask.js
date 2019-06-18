@@ -57,7 +57,7 @@ class EditAccountTaskPage extends Component {
         id: this.props.location.search.substring(4),
       });
       if (!accounttask) {
-        this.props.history.push('/accounttasks');
+        this.props.history.push('/tasks');
       }
       this.setState({
         accounttasks,
@@ -91,7 +91,7 @@ class EditAccountTaskPage extends Component {
     const options = { encrypt: true };
     putFile('accounttasks.json', JSON.stringify(newContactsList), options).then(
       () => {
-        this.props.history.push('/accounttasks');
+        this.props.history.push('/tasks');
       }
     );
   }
@@ -139,7 +139,7 @@ class EditAccountTaskPage extends Component {
 
     if (this.state.saved) {
       //return <Redirect to={`/contact?id=${this.state.id}`} />;
-      return <Redirect to={`/accounttasks`} />;
+      return <Redirect to={`/tasks`} />;
     }
     return !isSignInPending() ? (
       <div>

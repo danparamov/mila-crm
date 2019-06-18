@@ -131,7 +131,7 @@ export default class AddContactTask extends Component {
     const {contactsnames} = this.state;
     const error = false;
     if (this.state.saved) {
-      return <Redirect to="/contacttasks" />;
+      return <Redirect to="/tasks" />;
     }
 
     return !isSignInPending() ? (

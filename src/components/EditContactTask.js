@@ -57,7 +57,7 @@ class EditContactTaskPage extends Component {
         id: this.props.location.search.substring(4),
       });
       if (!contacttask) {
-        this.props.history.push('/contacttasks');
+        this.props.history.push('/tasks');
       }
       this.setState({
         contacttasks,
@@ -91,7 +91,7 @@ class EditContactTaskPage extends Component {
     const options = { encrypt: true };
     putFile('contacttasks.json', JSON.stringify(newContactsList), options).then(
       () => {
-        this.props.history.push('/contacttasks');
+        this.props.history.push('/tasks');
       }
     );
   }
@@ -139,7 +139,7 @@ class EditContactTaskPage extends Component {
 
     if (this.state.saved) {
       //return <Redirect to={`/contact?id=${this.state.id}`} />;
-      return <Redirect to={`/contacttasks`} />;
+      return <Redirect to={`/tasks`} />;
     }
     return !isSignInPending() ? (
       <div>
@@ -246,17 +246,18 @@ class EditContactTaskPage extends Component {
                   />
                 </label>
               </fieldset>
-              <a
-                className="pointer link dim ba bw1 ph2 pv2 mb2 dib no-underline ba b--white white mr2 bg-green"
+              <span
+                className="pointer link dim ba bw1 ph2 pv3 mb2 dib no-underline white mr2 bg-red"
                 onClick={() => {
                   this.deleteContactTask();
                 }}
               >
                 Delete
-              </a>
+              </span> 
+              <br />
               <button type="submit" className="bg-black">
                 Submit
-              </button>
+              </button> 
             </Form>
           </div>
         </div>

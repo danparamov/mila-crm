@@ -131,7 +131,7 @@ export default class AddOppTask extends Component {
     const {oppsnames} = this.state;
     const error = false;
     if (this.state.saved) {
-      return <Redirect to="/opptasks" />;
+      return <Redirect to="/tasks" />;
     }
 
     return !isSignInPending() ? (

@@ -10,7 +10,7 @@ import {
 import EditContact from './EditContact';
 import EditAccount from './EditAccount';
 import EditOpp from './EditOpp';
-import EditUser from './EditUser';
+import EditUserInfo from './EditUserInfo';
 
 import IniPage from './IniPage';
 import SignIn from './SignIn';
@@ -19,7 +19,7 @@ import Updates from './Updates';
 import AddContact from './AddContact';
 import AddAccount from './AddAccount';
 import AddOpp from './AddOpp';
-import Adduser from './AddUser';
+import AddUserInfo from './AddUserInfo';
 
 import Profile from './Profile';
 import SingleContactPage from './SingleContactPage';
@@ -161,11 +161,11 @@ export default class Main extends Component {
               component={() => <SignIn handleSignIn={this.handleSignIn} />}
             />
             <Route
-              path="/edit-user"
+              path="/edit-user-info"
               component={() => <SignIn handleSignIn={this.handleSignIn} />}
             />
              <Route
-              path="/add-user"
+              path="/add-user-info"
               component={() => <SignIn handleSignIn={this.handleSignIn} />}
             />
             <Route
@@ -318,15 +318,15 @@ export default class Main extends Component {
               )}
             />
             <Route
-              path="/edit-user"
+              path="/edit-user-info"
               component={() => (
-                <EditUser handleSignOut={this.handleSignOut} />
+                <EditUserInfo handleSignOut={this.handleSignOut} />
               )}
             />
             <Route
-              path="/add-user"
+              path="/add-user-info"
               component={() => (
-                <Adduser handleSignOut={this.handleSignOut} />
+                <AddUserInfo handleSignOut={this.handleSignOut} />
               )}
             />
             <Route

@@ -57,7 +57,7 @@ class EditOppTaskPage extends Component {
         id: this.props.location.search.substring(4),
       });
       if (!opptask) {
-        this.props.history.push('/opptasks');
+        this.props.history.push('/tasks');
       }
       this.setState({
         opptasks,
@@ -91,7 +91,7 @@ class EditOppTaskPage extends Component {
     const options = { encrypt: true };
     putFile('opptasks.json', JSON.stringify(newContactsList), options).then(
       () => {
-        this.props.history.push('/opptasks');
+        this.props.history.push('/tasks');
       }
     );
   }
@@ -139,7 +139,7 @@ class EditOppTaskPage extends Component {
 
     if (this.state.saved) {
       //return <Redirect to={`/contact?id=${this.state.id}`} />;
-      return <Redirect to={`/opptasks`} />;
+      return <Redirect to={`/tasks`} />;
     }
     return !isSignInPending() ? (
       <div>

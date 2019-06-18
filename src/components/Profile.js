@@ -167,7 +167,7 @@ class mySingleUserPage extends Component {
             <div className="mt3 right-ns tr pr4">
             <Link
                 to={{
-                  pathname: '/edit-user',
+                  pathname: '/edit-user-info',
                   search: `?id=${userid}`,
                 }}
                 className="link dim ba bw1 ph2 pv2 mb2 dib no-underline black mr2"
@@ -176,7 +176,7 @@ class mySingleUserPage extends Component {
             </Link>
             <Link
                 to={{
-                  pathname: '/add-user', 
+                  pathname: '/add-user-info', 
                 }}
                 className="link dim ba bw1 ph2 pv2 mb2 dib no-underline black mr2"
               >
