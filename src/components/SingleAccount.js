@@ -30,13 +30,6 @@ export default class SingleAccount extends Component {
           <TableHead></TableHead>
             <TableBody>
               <TableRow>
-                <TableCell align="relevant">Account</TableCell>
-                <TableCell align="relevant">Website</TableCell>
-                <TableCell align="relevant">Industry</TableCell>
-                <TableCell align="relevant">Country</TableCell>
-                <TableCell align="relevant">Twitter</TableCell>
-              </TableRow>
-              <TableRow>
                 <TableCell component="th" scope="account">
                 <Link
                   to={{
@@ -45,7 +38,7 @@ export default class SingleAccount extends Component {
                 }}>{account.accountname}
                 </Link>
                 </TableCell>
-                <TableCell align="relevant">{account.website}</TableCell>
+                <TableCell className="w9 center ph3 green cf">{account.website}</TableCell>
                 <TableCell align="relevant">{account.industry}</TableCell>
                 <TableCell align="relevant">{account.country}</TableCell>
                 <TableCell align="relevant">@{account.twitterHandle}</TableCell>
