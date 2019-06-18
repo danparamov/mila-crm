@@ -12,6 +12,7 @@ import Nav from './Nav';
 import avatarFallbackImage from '../assets/avatar-placeholder.png';
 import SingleOppTask from './SingleOppTask';
 import ifAttribute from './util/ifAttribute';
+import AddOppIcon from '@material-ui/icons/noteadd';
 
 export default class Profile extends Component {
   state = {
@@ -90,14 +91,14 @@ export default class Profile extends Component {
         />
         <div className="mw9 center ph3 cf">
           <div className="w-100 w-75-ns fl ph4 tl">
-            <h1> Opportunity Tasks 
+            <h1> Opportunity Tasks
             <Link
               to="/add-opptask"
-              className="f2 link dim ph3 pv2 mb2 dib white bg-green b--black"
+              className="f2 link dim ph3 pv2 mb2 dib white bg-blue b--black"
             >
-             +
+            <AddOppIcon />
             </Link> </h1>
-            <br /> <br /> 
+            <br /> <br />
           </div>
           {OppTaskBlock}
         </div>
