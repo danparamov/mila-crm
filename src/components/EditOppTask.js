@@ -115,7 +115,7 @@ class EditOppTaskPage extends Component {
       contactDate: this.state.contactDate,
       created_at: this.state.created_at,
     };
-    
+
     opptasks = opptasks.filter(opptask => opptask.id !== newOppTask.id);
     opptasks.unshift(newOppTask);
     const options = { encrypt: true };
@@ -170,7 +170,7 @@ class EditOppTaskPage extends Component {
                     oppsnames.map(function(X) {
                     return <option>{X}</option>;
                     })
-                   }  
+                   }
                  </select>
                 </label>
               </fieldset>
@@ -246,14 +246,15 @@ class EditOppTaskPage extends Component {
                   />
                 </label>
               </fieldset>
-              <a
-                className="pointer link dim ba bw1 ph2 pv2 mb2 dib no-underline ba b--white white mr2 bg-green"
+              <span
+                className="pointer link dim ba bw1 ph2 pv3 mb2 dib no-underline white mr2 bg-red"
                 onClick={() => {
                   this.deleteOppTask();
                 }}
               >
                 Delete
-              </a>
+              </span>
+              <br/>
               <button type="submit" className="bg-black">
                 Submit
               </button>
