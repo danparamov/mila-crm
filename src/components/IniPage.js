@@ -154,11 +154,11 @@ export default class Profile extends Component {
                 <TableHead></TableHead>
                   <TableBody>
                       <TableRow>
-                        <TableCell align="relevant">Contact</TableCell>
-                        <TableCell align="relevant">Account Name</TableCell>
-                        <TableCell align="relevant">Email</TableCell>
-                        <TableCell align="relevant">Country</TableCell>
-                        <TableCell align="relevant">Twitter</TableCell>
+                        <TableCell width="20%" align="left">Contact</TableCell>
+                        <TableCell width="20%" align="left">Account Name</TableCell>
+                        <TableCell width="20%" align="left">Email</TableCell>
+                        <TableCell width="20%" align="left">Country</TableCell>
+                        <TableCell width="20%" align="left">Twitter</TableCell>
                       </TableRow>
                   </TableBody>
               </Table>
@@ -172,11 +172,11 @@ export default class Profile extends Component {
                 <TableHead></TableHead>
                   <TableBody>
                       <TableRow>
-                        <TableCell align="relevant">Account</TableCell>
-                        <TableCell align="relevant">Website</TableCell>
-                        <TableCell align="relevant">Industry</TableCell>
-                        <TableCell align="relevant">Country</TableCell>
-                        <TableCell align="relevant">Twitter</TableCell>
+                        <TableCell width="20%" align="left">Account</TableCell>
+                        <TableCell width="20%" align="left">Website</TableCell>
+                        <TableCell width="20%" align="left">Industry</TableCell>
+                        <TableCell width="20%" align="left">Country</TableCell>
+                        <TableCell width="20%" align="left">Twitter</TableCell>
                       </TableRow>
                   </TableBody>
               </Table>
@@ -191,11 +191,11 @@ export default class Profile extends Component {
                 <TableHead></TableHead>
                   <TableBody>
                       <TableRow>
-                        <TableCell align="relevant">Opportunity</TableCell>
-                        <TableCell align="relevant">Lead Source</TableCell>
-                        <TableCell align="relevant">Account</TableCell>
-                        <TableCell align="relevant">Amount</TableCell>
-                        <TableCell align="relevant">Closing Date</TableCell>
+                        <TableCell width="20%" align="left">Opportunity</TableCell>
+                        <TableCell width="20%" align="left">Lead Source</TableCell>
+                        <TableCell width="20%" align="left">Account</TableCell>
+                        <TableCell width="20%" align="left">Amount</TableCell>
+                        <TableCell width="20%" align="left">Closing Date</TableCell>
                       </TableRow>
                   </TableBody>
               </Table>
