@@ -55,7 +55,7 @@ export default class Updates extends Component {
           <p>
             Here is our{' '}
             <a
-              href="https://www.notion.so/milacrm/5f0435f1a0974109b814a640ab664d25?v=e7d2a0ec348548859d2f2f438a46281c"
+              href="https://www.notion.so/milacrm/8498353e92374913a0431647f519607f?v=d5f3659989474fd8893c3f4819c2ca16"
               className="black"
             >
               Roadmap
@@ -67,4 +67,3 @@ export default class Updates extends Component {
     ) : null;
   }
 }
-
