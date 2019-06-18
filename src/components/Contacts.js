@@ -13,6 +13,15 @@ import avatarFallbackImage from '../assets/avatar-placeholder.png';
 import ifAttribute from './util/ifAttribute';
 import SingleContact from './SingleContact';
 import AddContactIcon from '@material-ui/icons/personadd';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper'
+import PriorityLabel from './PriorityLabel';
+import'./Styles/Table.css';
+import { makeStyles } from '@material-ui/core/styles';
 
 export default class Profile extends Component {
   state = {
@@ -79,8 +88,18 @@ export default class Profile extends Component {
     const { handleSignOut } = this.props;
     const { person } = this.state;
     const { contacts } = this.state;
+    const classes = makeStyles(theme => ({
+      root: {
+        width: '100%',
+        marginTop: theme.spacing(3),
+        overflowX: 'auto',
+      },
+      table: {
+        minWidth: 650,
+      },
+    }));
     let ContactBlock = null;
-    
+
     if (ifAttribute(contacts[0])) {
       ContactBlock = (
         <div className="w-100 w-200-ns fl ph4 tl">
@@ -92,7 +111,7 @@ export default class Profile extends Component {
     } else {
       ContactBlock = null;
     }
-   
+
     return !isSignInPending() ? (
       <div>
         <Nav
@@ -116,10 +135,24 @@ export default class Profile extends Component {
             >
               Export as CSV
             </div>
+            <Paper className={classes.root}>
+              <Table className={classes.table}>
+                <TableHead></TableHead>
+                  <TableBody>
+                      <TableRow>
+                        <TableCell width="20%" align="left">Contact</TableCell>
+                        <TableCell width="20%" align="left">Account Name</TableCell>
+                        <TableCell width="20%" align="left">Email</TableCell>
+                        <TableCell width="20%" align="left">Country</TableCell>
+                        <TableCell width="20%" align="left">Twitter</TableCell>
+                      </TableRow>
+                  </TableBody>
+              </Table>
+            </Paper>
           </div>
           {ContactBlock}
         </div>
-      </div>
+      </div>  
     ) : null;
   }
 }
