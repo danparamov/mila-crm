@@ -12,6 +12,7 @@ import Nav from './Nav';
 import avatarFallbackImage from '../assets/avatar-placeholder.png';
 import SingleContactTask from './SingleContactTask';
 import ifAttribute from './util/ifAttribute';
+import AddContactIcon from '@material-ui/icons/personadd';
 
 export default class Profile extends Component {
   state = {
@@ -67,7 +68,7 @@ export default class Profile extends Component {
     const { person } = this.state;
     const { contacttasks } = this.state;
     let ContactTaskBlock = null;
-    
+
     if (ifAttribute(contacttasks[0])) {
       ContactTaskBlock = (
           <div className="w-100 w-200-ns fl ph4 tl">
@@ -90,14 +91,14 @@ export default class Profile extends Component {
         />
         <div className="mw9 center ph3 cf">
           <div className="w-100 w-75-ns fl ph4 tl">
-            <h1> Contact Tasks 
+            <h1> Contact Tasks
             <Link
               to="/add-contacttask"
               className="f2 link dim ph3 pv2 mb2 dib white bg-green b--black"
             >
-             +
+            <AddContactIcon />
             </Link> </h1>
-            <br /> <br /> 
+            <br /> <br />
           </div>
           {ContactTaskBlock}
         </div>
