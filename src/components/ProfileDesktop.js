@@ -297,7 +297,7 @@ function ProfileDesktop(props) {
               <SearchIcon/>
             </div>
             <InputBase
-              placeholder="Search..."
+              placeholder="Coming Soon"
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput,
