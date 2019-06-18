@@ -170,7 +170,7 @@ class EditAccountTaskPage extends Component {
                     accountsnames.map(function(X) {
                     return <option>{X}</option>;
                     })
-                   }  
+                   }
                  </select>
                 </label>
               </fieldset>
@@ -246,15 +246,16 @@ class EditAccountTaskPage extends Component {
                   />
                 </label>
               </fieldset>
-              <a
-                className="pointer link dim ba bw1 ph2 pv2 mb2 dib no-underline ba b--white white mr2 bg-green"
+              <span
+                className="pointer link dim ba bw1 ph2 pv3 mb2 dib no-underline white mr2 bg-red"
                 onClick={() => {
                   this.deleteAccountTask();
                 }}
               >
                 Delete
-              </a>
-              <button type="submit" className="bg-black">
+              </span>
+              <br />
+              <button type="submit" className="pointer link dim ba bw1 ph2 pv2 mb2 dib no-underline ba b--white white mr2 bg-green">
                 Submit
               </button>
             </Form>
