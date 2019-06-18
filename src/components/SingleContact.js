@@ -31,13 +31,6 @@ export default class SingleContact extends Component {
           <TableHead></TableHead>
             <TableBody>
               <TableRow>
-                <TableCell align="relative">Contact</TableCell>
-                <TableCell align="relative">Account Name</TableCell>
-                <TableCell align="relative">Email</TableCell>
-                <TableCell align="relative">Country</TableCell>
-                <TableCell align="relative">Twitter</TableCell>
-              </TableRow>
-              <TableRow>
                 <TableCell component="th" scope="contact">
                 <Link
                   to={{
