@@ -477,6 +477,10 @@
 		display: inline-block
 	}
 
+	.table1 {
+		margin-right: 10%;
+	}
+
 	.btn_three:hover {
 		color: #9ee381;
 		background: 0 0
@@ -1740,7 +1744,7 @@
 	}
 
 	.section_container_dash {
-		margin-left: 200px			
+		margin-left: 200px
 	}
 
 	.section_container .intro {
