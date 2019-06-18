@@ -7,7 +7,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper'
+import Paper from '@material-ui/core/Paper';
+import'./Styles/Table.css';
 
 export default class SingleOppTask extends Component {
   render() {
@@ -29,11 +30,18 @@ export default class SingleOppTask extends Component {
           <TableHead></TableHead>
             <TableBody>
               <TableRow>
-                <TableCell component="th" scope="opptask">
-                  {opptask.contactname}
+                <TableCell width="20%" align="left" component="th" scope="opptask">
+                <Link
+                  to={{
+                  pathname: '/edit-opptask',
+                  search: `?id=${opptask.id}`,
+                }}>{opptask.contactname}
+                </Link>
                 </TableCell>
-                <TableCell align="right">{opptask.subject}</TableCell>
-                <TableCell align="right">{opptask.duedate}</TableCell>
+                <TableCell width="20%" align="left">{opptask.subject}</TableCell>
+                <TableCell width="20%" align="left">{opptask.duedate}</TableCell>
+                <TableCell width="20%" align="left">{opptask.priority}</TableCell>
+                <TableCell width="20%" align="left">{opptask.status}</TableCell>
             </TableRow>
           </TableBody>
         </Table>
