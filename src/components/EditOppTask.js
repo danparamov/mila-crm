@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import {
   isSignInPending,
   putFile,
@@ -9,11 +8,9 @@ import {
   Person,
 } from 'blockstack';
 import { Redirect } from 'react-router';
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import findObjectBy from './util/findObjectBy';
 import avatarFallbackImage from '../assets/avatar-placeholder.png';
-import ProfileDesktop from './ProfileDesktop';
 import Nav from './Nav';
 import Form from './styles/Form';
 import Error from './ErrorMessage';
@@ -86,7 +83,7 @@ class EditOppTaskPage extends Component {
     });
   }
 
-  deleteContact() {
+  deleteOppTask() {
     const toDelete = this.state.id;
     const newContactsList = this.state.opptasks.filter(
         opptask => opptask.id !== toDelete
@@ -99,14 +96,14 @@ class EditOppTaskPage extends Component {
     );
   }
 
-  handleEditContactSubmit(event) {
+  handleEditOppTaskSubmit(event) {
     event.preventDefault();
-    this.saveEditedContact();
+    this.saveEditedOppTask();
   }
 
-  saveEditedContact() {
+  saveEditedOppTask() {
     let { opptasks } = this.state;
-    const newContact = {
+    const newOppTask = {
       id: this.state.id,
       contactname: this.state.contactname,
       subject: this.state.subject,
@@ -118,10 +115,9 @@ class EditOppTaskPage extends Component {
       contactDate: this.state.contactDate,
       created_at: this.state.created_at,
     };
-    // delete the contact with the same ID as the edited one
-    opptasks = opptasks.filter(opptask => opptask.id !== newContact.id);
-    // add the edited contact to all contacts
-    opptasks.unshift(newContact);
+    
+    opptasks = opptasks.filter(opptask => opptask.id !== newOppTask.id);
+    opptasks.unshift(newOppTask);
     const options = { encrypt: true };
     putFile('opptasks.json', JSON.stringify(opptasks), options).then(() => {});
     this.setState({
@@ -136,13 +132,11 @@ class EditOppTaskPage extends Component {
   };
 
   render() {
-    const { opptask } = this.state;
     const { handleSignOut } = this.props;
     const { person } = this.state;
-    const { username } = this.state;
     const {oppsnames} = this.state;
-    const loading = false;
     const error = false;
+
     if (this.state.saved) {
       //return <Redirect to={`/contact?id=${this.state.id}`} />;
       return <Redirect to={`/opptasks`} />;
@@ -161,7 +155,7 @@ class EditOppTaskPage extends Component {
             <Form
               onSubmit={async e => {
                 e.preventDefault();
-                this.handleEditContactSubmit(e);
+                this.handleEditOppTaskSubmit(e);
               }}
             >
               <Error error={error} />
@@ -253,9 +247,9 @@ class EditOppTaskPage extends Component {
                 </label>
               </fieldset>
               <a
-                className="pointer link dim ba bw1 ph2 pv2 mb2 dib no-underline ba b--white white mr2 bg-black"
+                className="pointer link dim ba bw1 ph2 pv2 mb2 dib no-underline ba b--white white mr2 bg-green"
                 onClick={() => {
-                  this.deleteContact();
+                  this.deleteOppTask();
                 }}
               >
                 Delete

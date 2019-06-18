@@ -7,14 +7,11 @@ import {
   getFile,
   putFile,
 } from 'blockstack';
-import moment from 'moment';
 import BlockstackLogo from '../assets/blockstack-icon.svg';
 import avatarFallbackImage from '../assets/avatar-placeholder.png';
 import findObjectBy from './util/findObjectBy';
 import ifAttribute from './util/ifAttribute';
 import Nav from './Nav';
-import PriorityLabel from './PriorityLabel';
-import nextContactDate from './util/nextContactDate';
 import SingleContactTask from './SingleContactTask';
 
 class mySingleContactPage extends Component {
@@ -83,23 +80,6 @@ class mySingleContactPage extends Component {
     );
   }
 
-  checkedIn() {
-    const toDelete = this.state.contact[0].id;
-    const newContactsList = this.state.contacts.filter(
-      contact => contact.id !== toDelete
-    );
-    this.state.contact[0].contactDate = nextContactDate(
-      this.state.contact[0].priority
-    );
-    newContactsList.unshift(this.state.contact[0]);
-    const options = { encrypt: true };
-    putFile('contacts.json', JSON.stringify(newContactsList), options).then(
-      () => {
-        this.props.history.push('/contacts');
-      }
-    );
-  }
-
   render() {
     const { contact } = this.state;
     const { contacttask } = this.state;
@@ -115,13 +95,8 @@ class mySingleContactPage extends Component {
     let ContactDateBlock;
     let TaskBlock = null;
     let ContactTaskBlock;
-    let contactDate = null;
+    
     if (contact[0]) {
-      if (ifAttribute(contact[0].contactDate)) {
-        contactDate = moment(contact[0].contactDate, 'MM/DD/YYYY').fromNow(
-          'days'
-        );
-      }
       if (ifAttribute(contact[0].country)) {
         UserCountryBlock = (
           <div className="mt2">
@@ -150,13 +125,6 @@ class mySingleContactPage extends Component {
           </div>
         );
       } else BirthDateBlock = null;
-      if (ifAttribute(contact[0].contactDate)) {
-        ContactDateBlock = (
-          <div className="mt2">
-            <span className="b">Next Check in is in {contactDate}</span>
-          </div>
-        );
-      } else ContactDateBlock = null;
       if (ifAttribute(contact[0].phoneNumber)) {
         PhoneNumberBlock = (
           <div className="mt2">
@@ -275,14 +243,6 @@ class mySingleContactPage extends Component {
               >
                 ✏️️️ Add Contact Task
               </Link>
-              <a
-                className="pointer link dim ba bw1 ph2 pv2 mb2 dib no-underline bg-black b--black white"
-                onClick={() => {
-                  this.checkedIn();
-                }}
-              >
-                ✅ Check In
-              </a>
             </div>
           </div>
         ))}

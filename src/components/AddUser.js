@@ -11,7 +11,6 @@ import moment from 'moment';
 import { Redirect } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.min.css';
 import avatarFallbackImage from '../assets/avatar-placeholder.png';
-import ProfileDesktop from './ProfileDesktop';
 import Nav from './Nav';
 import Form from './styles/Form';
 import Error from './ErrorMessage';
@@ -44,12 +43,9 @@ export default class AddUser extends Component {
 
   fetchData() {
     const options = { decrypt: true };
-   // getFile('contacts.json', options).then(file => {
     getFile('users.json', options).then(file => {
-      //const contacts = JSON.parse(file || '[]');
       const users = JSON.parse(file || '[]');
       this.setState({
-        //contacts
         users,
       });
     });
@@ -66,9 +62,9 @@ export default class AddUser extends Component {
     });
   }
 
-  handleNewContactSubmit(event) {
+  handleNewUserSubmit(event) {
     event.preventDefault();
-    this.saveNewContact(() => {
+    this.saveNewUser(() => {
       this.setState({ saved: true });
     });
     const today = [
@@ -81,11 +77,9 @@ export default class AddUser extends Component {
     putFile('today.json', JSON.stringify(today), options).then();
   }
 
-  saveNewContact(cb) {
-    //const { contacts } = this.state;
+  saveNewUser(cb) {
     const { users } = this.state;
     const contactDate = nextContactDate(this.state.priority);
-    //const newContact = {
     const newUser = {
       id: Date.now(),
       created_at: Date.now(),
@@ -96,11 +90,8 @@ export default class AddUser extends Component {
       contactDate,
     };
 
-    //contacts.unshift(newContact);
     users.unshift(newUser);
     const options = { encrypt: true };
-    //putFile('contacts.json', JSON.stringify(contacts), options).then(() => {
-     // cb();
     putFile('users.json', JSON.stringify(users), options).then(() => {
       cb();
     });
@@ -131,10 +122,9 @@ export default class AddUser extends Component {
     const { person } = this.state;
     const loading = false;
     const error = false;
-    const { username } = this.state;
-    const { users } = this.state;
+
     if (this.state.saved) {
-      return <Redirect to="/settings" />;
+      return <Redirect to={'/profile'} />;
     }
 
     return !isSignInPending() ? (
@@ -146,12 +136,12 @@ export default class AddUser extends Component {
           logout={handleSignOut.bind(this)}
         />
         <div className="mw9 center ph3 cf">
-          <h1 className="f2">Add User</h1>
+          <h1 className="f2">Add Info</h1>
           <div className="w-70-l fl">
             <Form
               onSubmit={async e => {
                 e.preventDefault();
-                this.handleNewContactSubmit(e);
+                this.handleNewUserSubmit(e);
               }}
             >
               <Error error={error} />

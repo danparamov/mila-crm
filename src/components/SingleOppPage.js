@@ -7,14 +7,11 @@ import {
   getFile,
   putFile,
 } from 'blockstack';
-import moment from 'moment';
 import BlockstackLogo from '../assets/blockstack-icon.svg';
 import avatarFallbackImage from '../assets/avatar-placeholder.png';
 import findObjectBy from './util/findObjectBy';
 import ifAttribute from './util/ifAttribute';
 import Nav from './Nav';
-import PriorityLabel from './PriorityLabel';
-import nextContactDate from './util/nextContactDate';
 import SingleOppTask from './SingleOppTask';
 
 class mySingleOppPage extends Component {
@@ -82,23 +79,6 @@ class mySingleOppPage extends Component {
     );
   }
 
-  checkedIn() {
-    const toDelete = this.state.opp[0].id;
-    const newContactsList = this.state.opps.filter(
-        opp => opp.id !== toDelete
-    );
-    this.state.opp[0].contactDate = nextContactDate(
-      this.state.opp[0].priority
-    );
-    newContactsList.unshift(this.state.opp[0]);
-    const options = { encrypt: true };
-    putFile('opps.json', JSON.stringify(newContactsList), options).then(
-      () => {
-        this.props.history.push('/opportunities');
-      }
-    );
-  }
-
   render() {
     const { opp } = this.state;
     const { opptask } = this.state;
@@ -114,27 +94,8 @@ class mySingleOppPage extends Component {
     let ContactDateBlock;
     let TaskBlock = null;
     let OppTaskBlock;
-    let contactDate = null;
+
     if (opp[0]) {
-      /*if (ifAttribute(opp[0].contactDate)) {
-        contactDate = moment(opp[0].contactDate, 'MM/DD/YYYY').fromNow(
-          'days'
-        );
-      }
-      if (ifAttribute(opp[0].country)) {
-        UserCountryBlock = (
-          <div className="mt2">
-            <span className="b">Country:</span> {opp[0].country},{' '}
-            {opp[0].region}
-          </div>
-        );
-      } else
-        UserCountryBlock = (
-          <div className="mt2">
-            <span className="b">Country:</span>
-            🌎
-          </div>
-        );*/
       if (ifAttribute(opp[0].accountname)) {
         AccountBlock = (
           <div className="mt2">
@@ -149,13 +110,6 @@ class mySingleOppPage extends Component {
           </div>
         );
       } else AmountBlock = null;
-      /*if (ifAttribute(opp[0].contactDate)) {
-        ContactDateBlock = (
-          <div className="mt2">
-            <span className="b">Next Check in is in {contactDate}</span>
-          </div>
-        );
-      } else ContactDateBlock = null;*/
       if (ifAttribute(opp[0].probability)) {
         ProbabilityBlock = (
           <div className="mt2">
@@ -274,15 +228,7 @@ class mySingleOppPage extends Component {
               >
                 ✏️️️ Add Opportunity Task
               </Link>
-              <a
-                className="pointer link dim ba bw1 ph2 pv2 mb2 dib no-underline bg-black b--black white"
-                onClick={() => {
-                  this.checkedIn();
-                }}
-              >
-                ✅ Check In
-              </a>
-            </div>
+             </div>
           </div>
         ))}
       </div>

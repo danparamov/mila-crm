@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import {
   isSignInPending,
   putFile,
@@ -14,7 +13,6 @@ import avatarFallbackImage from '../assets/avatar-placeholder.png';
 import Nav from './Nav';
 import Form from './styles/Form';
 import Error from './ErrorMessage';
-import ProfileDesktop from './ProfileDesktop';
 import nextContactDate from './util/nextContactDate';
 
 export default class AddOppTask extends Component {
@@ -76,9 +74,9 @@ export default class AddOppTask extends Component {
     });
   }
 
-  handleNewContactSubmit(event) {
+  handleNewOppTaskSubmit(event) {
     event.preventDefault();
-    this.saveNewContact(() => {
+    this.saveNewOppTask(() => {
       this.setState({ saved: true });
     });
     const today = [
@@ -91,10 +89,10 @@ export default class AddOppTask extends Component {
     putFile('today.json', JSON.stringify(today), options).then();
   }
 
-  saveNewContact(cb) {
+  saveNewOppTask(cb) {
     const { opptasks } = this.state;
     const contactDate = nextContactDate(this.state.priority);
-    const newContact = {
+    const newOppTask = {
       id: Date.now(),
       created_at: Date.now(),
       contactname: this.state.contactname,
@@ -106,7 +104,7 @@ export default class AddOppTask extends Component {
       contactDate,
     };
 
-    opptasks.unshift(newContact);
+    opptasks.unshift(newOppTask);
     const options = { encrypt: true };
     putFile('opptasks.json', JSON.stringify(opptasks), options).then(() => {
       cb();
@@ -130,9 +128,7 @@ export default class AddOppTask extends Component {
   render() {
     const { handleSignOut } = this.props;
     const { person } = this.state;
-    const { username } = this.state;
     const {oppsnames} = this.state;
-    const loading = false;
     const error = false;
     if (this.state.saved) {
       return <Redirect to="/opptasks" />;
@@ -152,7 +148,7 @@ export default class AddOppTask extends Component {
             <Form
               onSubmit={async e => {
                 e.preventDefault();
-                this.handleNewContactSubmit(e);
+                this.handleNewOppTaskSubmit(e);
               }}
             >
               <Error error={error} />

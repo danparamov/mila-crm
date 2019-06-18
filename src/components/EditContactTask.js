@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import {
   isSignInPending,
   putFile,
@@ -9,11 +8,9 @@ import {
   Person,
 } from 'blockstack';
 import { Redirect } from 'react-router';
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import findObjectBy from './util/findObjectBy';
 import avatarFallbackImage from '../assets/avatar-placeholder.png';
-import ProfileDesktop from './ProfileDesktop';
 import Nav from './Nav';
 import Form from './styles/Form';
 import Error from './ErrorMessage';
@@ -86,7 +83,7 @@ class EditContactTaskPage extends Component {
     });
   }
 
-  deleteContact() {
+  deleteContactTask() {
     const toDelete = this.state.id;
     const newContactsList = this.state.contacttasks.filter(
       contacttask => contacttask.id !== toDelete
@@ -99,14 +96,14 @@ class EditContactTaskPage extends Component {
     );
   }
 
-  handleEditContactSubmit(event) {
+  handleEditContactTaskSubmit(event) {
     event.preventDefault();
-    this.saveEditedContact();
+    this.saveEditedContactTask();
   }
 
-  saveEditedContact() {
+  saveEditedContactTask() {
     let { contacttasks } = this.state;
-    const newContact = {
+    const newContactTask = {
       id: this.state.id,
       contactname: this.state.contactname,
       subject: this.state.subject,
@@ -118,10 +115,9 @@ class EditContactTaskPage extends Component {
       contactDate: this.state.contactDate,
       created_at: this.state.created_at,
     };
-    // delete the contact with the same ID as the edited one
-    contacttasks = contacttasks.filter(contacttask => contacttask.id !== newContact.id);
-    // add the edited contact to all contacts
-    contacttasks.unshift(newContact);
+    
+    contacttasks = contacttasks.filter(contacttask => contacttask.id !== newContactTask.id);
+    contacttasks.unshift(newContactTask);
     const options = { encrypt: true };
     putFile('contacttasks.json', JSON.stringify(contacttasks), options).then(() => {});
     this.setState({
@@ -136,13 +132,11 @@ class EditContactTaskPage extends Component {
   };
 
   render() {
-    const { contacttask } = this.state;
     const { handleSignOut } = this.props;
     const { person } = this.state;
     const {contactsnames} = this.state;
-    const { username } = this.state;
-    const loading = false;
     const error = false;
+
     if (this.state.saved) {
       //return <Redirect to={`/contact?id=${this.state.id}`} />;
       return <Redirect to={`/contacttasks`} />;
@@ -161,7 +155,7 @@ class EditContactTaskPage extends Component {
             <Form
               onSubmit={async e => {
                 e.preventDefault();
-                this.handleEditContactSubmit(e);
+                this.handleEditContactTaskSubmit(e);
               }}
             >
               <Error error={error} />
@@ -253,9 +247,9 @@ class EditContactTaskPage extends Component {
                 </label>
               </fieldset>
               <a
-                className="pointer link dim ba bw1 ph2 pv2 mb2 dib no-underline ba b--white white mr2 bg-black"
+                className="pointer link dim ba bw1 ph2 pv2 mb2 dib no-underline ba b--white white mr2 bg-green"
                 onClick={() => {
-                  this.deleteContact();
+                  this.deleteContactTask();
                 }}
               >
                 Delete

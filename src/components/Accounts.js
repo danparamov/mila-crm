@@ -10,13 +10,8 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 import Nav from './Nav';
 import avatarFallbackImage from '../assets/avatar-placeholder.png';
-//import SingleContact from './SingleContact';
-//import ContactBubble from './ContactBubble';
-import NoOneLeft from '../assets/no-one-left.png';
 import ifAttribute from './util/ifAttribute';
-import ProfileDesktop from './ProfileDesktop';
 import SingleAccount from './SingleAccount';
-import AccountBubble from './AccountBubble';
 import AddAccountIcon from '@material-ui/icons/addtophotos';
 
 export default class Profile extends Component {
@@ -30,7 +25,6 @@ export default class Profile extends Component {
       },
     },
     username: '',
-    //contacts: [],
     accounts: [],
     today: [{ contactsLeft: 0, date: '' }],
   };
@@ -45,12 +39,9 @@ export default class Profile extends Component {
 
   fetchData() {
     const options = { decrypt: true };
-    //getFile('contacts.json', options).then(file => {
     getFile('accounts.json', options).then(file => {
-      //const contacts = JSON.parse(file || '[]');
       const accounts = JSON.parse(file || '[]');
       this.setState({
-        //contacts
         accounts,
       });
     });
@@ -72,7 +63,7 @@ export default class Profile extends Component {
     });
   }
 
-  async exportContacts() {
+  async exportAccounts() {
     const columns = Object.keys(this.state.accounts[0]).join(',');
     const rows = this.state.accounts
       .map(c => Object.values(c).join(','))
@@ -86,54 +77,20 @@ export default class Profile extends Component {
   render() {
     const { handleSignOut } = this.props;
     const { person } = this.state;
-    const { username } = this.state;
-    //const { contacts } = this.state;
     const { accounts } = this.state;
-    const { today } = this.state;
-    let AddMoreContactsBlock = null;
-    let ContactBlock = null;
-    const ContactToday = [];
-    let NoContactTodayBlock = null;
-    /*if (today[0].contactsLeft !== 0) {
-      AddMoreContactsBlock = (
-        <div className="w-100 w-75-ns fl tc bg-lightest-blue pa3 br1">
-          Add <span className="b">{this.state.today[0].contactsLeft}</span> more
-          people today to your accounts
-        </div>
-      );
-    }*/
-    //if (ifAttribute(contacts[0])) {
+    let AccountBlock = null;
     if (ifAttribute(accounts[0])) {
-      ContactBlock = (
+      AccountBlock = (
         <div className="w-100 w-200-ns fl ph4 tl">
           {accounts.map(account => (
             <SingleAccount account={account} key={account.id} />
           ))}
         </div>
       );
-      //contacts.map(contact => {
-      /*accounts.map(account => {
-        if (
-          //contact.contactDate === moment().format('l') ||
-          account.contactDate === moment().format('l') ||
-          //moment().isAfter(moment(contact.contactDate, 'MM/DD/YYYY'))
-          moment().isAfter(moment(account.contactDate, 'MM/DD/YYYY'))
-        ) {
-          //ContactToday.push(contact);
-          ContactToday.push(account);
-        }
-      });*/
     } else {
-      ContactBlock = null;
+      AccountBlock = null;
     }
-    /*if (ContactToday.length == 0 || ContactToday == null) {
-      NoContactTodayBlock = (
-        <div className="w-100">
-          <img src={NoOneLeft} className="center h4 db" alt="" />
-          <p className="center center tc b f4">No pending checkins for today</p>
-        </div>
-      );
-    }*/
+   
     return !isSignInPending() ? (
       <div>
         <Nav
@@ -153,12 +110,12 @@ export default class Profile extends Component {
             </Link></h1>
             <div
               className="f6 link dim ph2 pv1 mb2 dib white bg-red b--black pointer"
-              onClick={async () => await this.exportContacts()}
+              onClick={async () => await this.exportAccounts()}
             >
               Export as CSV
             </div>
           </div>
-          {ContactBlock}
+          {AccountBlock}
         </div>
       </div>
     ) : null;

@@ -9,14 +9,12 @@ import {
   Person,
 } from 'blockstack';
 import { Redirect } from 'react-router';
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import findObjectBy from './util/findObjectBy';
 import avatarFallbackImage from '../assets/avatar-placeholder.png';
 import Nav from './Nav';
 import Form from './styles/Form';
 import Error from './ErrorMessage';
-import ProfileDesktop from './ProfileDesktop';
 
 class EditOppPage extends Component {
   state = {
@@ -31,7 +29,6 @@ class EditOppPage extends Component {
     salesstage: '',
     probability: '',
     description: '',
-    blockstackId: '',
     priority: '',
     created_at: '',
     opps: [],
@@ -79,7 +76,6 @@ class EditOppPage extends Component {
         amount: opp[0].amount,
         closingdate: opp[0].closingdate,
         salesstage: opp[0].salesstage,
-        blockstackId: opp[0].blockstackId,
         probability: opp[0].probability,
         description: opp[0].description,
         created_at: opp[0].created_at,
@@ -96,14 +92,14 @@ class EditOppPage extends Component {
     });
   }
 
-  handleEditContactSubmit(event) {
+  handleEditOppSubmit(event) {
     event.preventDefault();
-    this.saveEditedContact();
+    this.saveEditedOpp();
   }
 
-  saveEditedContact() {
+  saveEditedOpp() {
     let { opps } = this.state;
-    const newContact = {
+    const newOpp = {
       id: this.state.id,
       oppname: this.state.oppname,
       accountname: this.state.accountname,
@@ -113,16 +109,14 @@ class EditOppPage extends Component {
       amount: this.state.amount,
       closingdate: this.state.closingdate,
       salesstage: this.state.salesstage,
-      blockstackId: this.state.blockstackId,
       probability: this.state.probability,
       description: this.state.description,
       priority: this.state.priority,
       created_at: this.state.created_at,
     };
-    // delete the contact with the same ID as the edited one
-    opps = opps.filter(opp => opp.id !== newContact.id);
-    // add the edited contact to all contacts
-    opps.unshift(newContact);
+ 
+    opps = opps.filter(opp => opp.id !== newOpp.id);
+    opps.unshift(newOpp);
     const options = { encrypt: true };
     putFile('opps.json', JSON.stringify(opps), options).then(() => {});
     this.setState({
@@ -137,13 +131,12 @@ class EditOppPage extends Component {
   };
 
   render() {
-    const { opp } = this.state;
     const { handleSignOut } = this.props;
     const { person } = this.state;
-    const { username } = this.state;
     const {accountsnames} = this.state;
     const loading = false;
     const error = false;
+    
     if (this.state.saved) {
       //return <Redirect to={`/opp?id=${this.state.id}`} />;
       return <Redirect to={`/opportunities`} />;
@@ -162,10 +155,11 @@ class EditOppPage extends Component {
             <Form
               onSubmit={async e => {
                 e.preventDefault();
-                this.handleEditContactSubmit(e);
+                this.handleEditOppSubmit(e);
               }}
             >
               <Error error={error} />
+              <h3 className="">Opportunity Information</h3>
               <fieldset>
                 <label htmlFor="oppname">
                   Opportunity Name
@@ -305,6 +299,7 @@ class EditOppPage extends Component {
                   />
                 </label>
               </fieldset>
+              <h3 className="">Description Information</h3>
               <fieldset>
                 <label htmlFor="description">
                   Description
@@ -314,19 +309,6 @@ class EditOppPage extends Component {
                     name="description"
                     placeholder="Description.."
                     value={this.state.description}
-                    onChange={this.handleChange}
-                  />
-                </label>
-              </fieldset>
-              <fieldset disabled={loading} aria-busy={loading}>
-                <label htmlFor="blockstackId">
-                  Blockstack Id
-                  <input
-                    type="text"
-                    id="blockstackId"
-                    name="blockstackId"
-                    placeholder="Blockstack ID.."
-                    value={this.state.blockstackId}
                     onChange={this.handleChange}
                   />
                 </label>

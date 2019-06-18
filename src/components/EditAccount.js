@@ -9,11 +9,9 @@ import {
   Person,
 } from 'blockstack';
 import { Redirect } from 'react-router';
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import findObjectBy from './util/findObjectBy';
 import avatarFallbackImage from '../assets/avatar-placeholder.png';
-import ProfileDesktop from './ProfileDesktop';
 import Nav from './Nav';
 import Form from './styles/Form';
 import Error from './ErrorMessage';
@@ -99,14 +97,14 @@ class EditAccountPage extends Component {
     });
   }
 
-  handleEditContactSubmit(event) {
+  handleEditAccountSubmit(event) {
     event.preventDefault();
-    this.saveEditedContact();
+    this.saveEditedAccount();
   }
 
-  saveEditedContact() {
+  saveEditedAccount() {
     let { accounts } = this.state;
-    const newContact = {
+    const newAccount = {
       id: this.state.id,
       accountname: this.state.accountname,
       website:this.state.website,
@@ -129,11 +127,9 @@ class EditAccountPage extends Component {
       contactDate: this.state.contactDate,
       created_at: this.state.created_at,
     };
-    // delete the contact with the same ID as the edited one
-    //contacts = contacts.filter(contact => contact.id !== newContact.id);
-    accounts = accounts.filter(account => account.id !== newContact.id);
-    // add the edited contact to all contacts
-    accounts.unshift(newContact);
+  
+    accounts = accounts.filter(account => account.id !== newAccount.id);
+    accounts.unshift(newAccount);
     const options = { encrypt: true };
     putFile('accounts.json', JSON.stringify(accounts), options).then(() => {});
     this.setState({
@@ -156,12 +152,11 @@ class EditAccountPage extends Component {
   };
 
   render() {
-    const { account } = this.state;
     const { handleSignOut } = this.props;
     const { person } = this.state;
-    const { username } = this.state;
     const loading = false;
     const error = false;
+    
     if (this.state.saved) {
       //return <Redirect to={`/account?id=${this.state.id}`} />;
       return <Redirect to={`/accounts`} />;
@@ -180,7 +175,7 @@ class EditAccountPage extends Component {
             <Form
               onSubmit={async e => {
                 e.preventDefault();
-                this.handleEditContactSubmit(e);
+                this.handleEditAccountSubmit(e);
               }}
             >
               <Error error={error} />

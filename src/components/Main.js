@@ -13,7 +13,6 @@ import EditOpp from './EditOpp';
 import EditUser from './EditUser';
 
 import IniPage from './IniPage';
-import Profile from './Profile';
 import SignIn from './SignIn';
 import Contacts from './Contacts';
 import Updates from './Updates';
@@ -22,7 +21,7 @@ import AddAccount from './AddAccount';
 import AddOpp from './AddOpp';
 import Adduser from './AddUser';
 
-import Settings from './Settings';
+import Profile from './Profile';
 import SingleContactPage from './SingleContactPage';
 import SingleAccountPage from './SingleAccountPage';
 import SingleOppPage from './SingleOppPage';
@@ -158,7 +157,7 @@ export default class Main extends Component {
               component={() => <SignIn handleSignIn={this.handleSignIn} />}
             />
             <Route
-              path="/settings"
+              path="/profile"
               component={() => <SignIn handleSignIn={this.handleSignIn} />}
             />
             <Route
@@ -313,9 +312,9 @@ export default class Main extends Component {
               )}
             />
             <Route
-              path="/settings"
+              path="/profile"
               component={() => (
-                <Settings handleSignOut={this.handleSignOut} />
+                <Profile handleSignOut={this.handleSignOut} />
               )}
             />
             <Route
@@ -336,7 +335,6 @@ export default class Main extends Component {
             />
             <Route
               path="/"
-              //component={() => <Profile handleSignOut={this.handleSignOut} />}
               component={() => <IniPage handleSignOut={this.handleSignOut} />}
             />
           </Switch>

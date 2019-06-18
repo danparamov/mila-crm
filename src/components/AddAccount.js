@@ -11,7 +11,6 @@ import moment from 'moment';
 import { Redirect } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.min.css';
 import avatarFallbackImage from '../assets/avatar-placeholder.png';
-import ProfileDesktop from './ProfileDesktop';
 import Nav from './Nav';
 import Form from './styles/Form';
 import Error from './ErrorMessage';
@@ -58,12 +57,9 @@ export default class AddAccount extends Component {
 
   fetchData() {
     const options = { decrypt: true };
-   // getFile('contacts.json', options).then(file => {
     getFile('accounts.json', options).then(file => {
-      //const contacts = JSON.parse(file || '[]');
       const accounts = JSON.parse(file || '[]');
       this.setState({
-        //contacts
         accounts,
       });
     });
@@ -80,9 +76,9 @@ export default class AddAccount extends Component {
     });
   }
 
-  handleNewContactSubmit(event) {
+  handleNewAccountSubmit(event) {
     event.preventDefault();
-    this.saveNewContact(() => {
+    this.saveNewAccount(() => {
       this.setState({ saved: true });
     });
     const today = [
@@ -95,11 +91,10 @@ export default class AddAccount extends Component {
     putFile('today.json', JSON.stringify(today), options).then();
   }
 
-  saveNewContact(cb) {
-    //const { contacts } = this.state;
+  saveNewAccount(cb) {
     const { accounts } = this.state;
     const contactDate = nextContactDate(this.state.priority);
-    //const newContact = {
+    
     const newAccount = {
       id: Date.now(),
       created_at: Date.now(),
@@ -124,11 +119,9 @@ export default class AddAccount extends Component {
       contactDate,
     };
 
-    //contacts.unshift(newContact);
     accounts.unshift(newAccount);
     const options = { encrypt: true };
-    //putFile('contacts.json', JSON.stringify(contacts), options).then(() => {
-     // cb();
+    
     putFile('accounts.json', JSON.stringify(accounts), options).then(() => {
       cb();
     });
@@ -173,9 +166,7 @@ export default class AddAccount extends Component {
     const { person } = this.state;
     const loading = false;
     const error = false;
-    const { username } = this.state;
-    //const { contacts } = this.state;
-    const { accounts } = this.state;
+
     if (this.state.saved) {
       return <Redirect to="/accounts" />;
     }
@@ -194,7 +185,7 @@ export default class AddAccount extends Component {
             <Form
               onSubmit={async e => {
                 e.preventDefault();
-                this.handleNewContactSubmit(e);
+                this.handleNewAccountSubmit(e);
               }}
             >
               <Error error={error} />

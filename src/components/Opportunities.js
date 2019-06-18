@@ -10,11 +10,8 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 import Nav from './Nav';
 import avatarFallbackImage from '../assets/avatar-placeholder.png';
-import NoOneLeft from '../assets/no-one-left.png';
 import ifAttribute from './util/ifAttribute';
-import ProfileDesktop from './ProfileDesktop';
 import SingleOpp from './SingleOpp';
-import OppBubble from './OppBubble';
 
 export default class Profile extends Component {
   state = {
@@ -27,7 +24,6 @@ export default class Profile extends Component {
       },
     },
     username: '',
-    //contacts: [],
     opps: [],
     today: [{ contactsLeft: 0, date: '' }],
   };
@@ -42,12 +38,9 @@ export default class Profile extends Component {
 
   fetchData() {
     const options = { decrypt: true };
-    //getFile('contacts.json', options).then(file => {
     getFile('opps.json', options).then(file => {
-      //const contacts = JSON.parse(file || '[]');
       const opps = JSON.parse(file || '[]');
       this.setState({
-        //contacts
         opps,
       });
     });
@@ -69,7 +62,7 @@ export default class Profile extends Component {
     });
   }
 
-  async exportContacts() {
+  async exportOpps() {
     const columns = Object.keys(this.state.opps[0]).join(',');
     const rows = this.state.opps
       .map(c => Object.values(c).join(','))
@@ -83,54 +76,20 @@ export default class Profile extends Component {
   render() {
     const { handleSignOut } = this.props;
     const { person } = this.state;
-    const { username } = this.state;
-    //const { contacts } = this.state;
     const { opps } = this.state;
-    const { today } = this.state;
-    let AddMoreContactsBlock = null;
-    let ContactBlock = null;
-    const ContactToday = [];
-    let NoContactTodayBlock = null;
-    /*if (today[0].contactsLeft !== 0) {
-      AddMoreContactsBlock = (
-        <div className="w-100 w-75-ns fl tc bg-lightest-blue pa3 br1">
-          Add <span className="b">{this.state.today[0].contactsLeft}</span> more
-          people today to your Opportunities
-        </div>
-      );
-    }*/
-    //if (ifAttribute(contacts[0])) {
+    let OppBlock = null;
     if (ifAttribute(opps[0])) {
-      ContactBlock = (
+      OppBlock = (
         <div className="w-100 w-200-ns fl ph4 tl">
           {opps.map(opp => (
             <SingleOpp opp={opp} key={opp.id} />
           ))}
         </div>
       );
-      //contacts.map(contact => {
-      /*opps.map(opp => {
-        if (
-          //contact.contactDate === moment().format('l') ||
-          opp.contactDate === moment().format('l') ||
-          //moment().isAfter(moment(contact.contactDate, 'MM/DD/YYYY'))
-          moment().isAfter(moment(opp.contactDate, 'MM/DD/YYYY'))
-        ) {
-          //ContactToday.push(contact);
-          ContactToday.push(opp);
-        }
-      });*/
     } else {
-      ContactBlock = null;
+      OppBlock = null;
     }
-    /*if (ContactToday.length == 0 || ContactToday == null) {
-      NoContactTodayBlock = (
-        <div className="w-100">
-          <img src={NoOneLeft} className="center h4 db" alt="" />
-          <p className="center center tc b f4">No pending checkins for today</p>
-        </div>
-      );
-    }*/
+    
     return !isSignInPending() ? (
       <div>
         <Nav
@@ -150,12 +109,12 @@ export default class Profile extends Component {
             </Link></h1>
             <div
               className="f6 link dim ph2 pv1 mb2 dib white bg-blue b--black pointer"
-              onClick={async () => await this.exportContacts()}
+              onClick={async () => await this.exportOpps()}
             >
               Export as CSV
             </div>
           </div>
-          {ContactBlock}
+          {OppBlock}
         </div>
       </div>
     ) : null;

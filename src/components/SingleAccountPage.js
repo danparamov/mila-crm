@@ -7,14 +7,11 @@ import {
   getFile,
   putFile,
 } from 'blockstack';
-import moment from 'moment';
 import BlockstackLogo from '../assets/blockstack-icon.svg';
 import avatarFallbackImage from '../assets/avatar-placeholder.png';
 import findObjectBy from './util/findObjectBy';
 import ifAttribute from './util/ifAttribute';
 import Nav from './Nav';
-import PriorityLabel from './PriorityLabel';
-import nextContactDate from './util/nextContactDate';
 import SingleAccountTask from './SingleAccountTask';
 
 class mySingleAccountPage extends Component {
@@ -82,23 +79,6 @@ class mySingleAccountPage extends Component {
     );
   }
 
-  checkedIn() {
-    const toDelete = this.state.account[0].id;
-    const newContactsList = this.state.accounts.filter(
-      account => account.id !== toDelete
-    );
-    this.state.account[0].contactDate = nextContactDate(
-      this.state.account[0].priority
-    );
-    newContactsList.unshift(this.state.account[0]);
-    const options = { encrypt: true };
-    putFile('accounts.json', JSON.stringify(newContactsList), options).then(
-      () => {
-        this.props.history.push('/accounts');
-      }
-    );
-  }
-
   render() {
     const { account } = this.state;
     const { accounttask } = this.state;
@@ -114,13 +94,8 @@ class mySingleAccountPage extends Component {
     let ContactDateBlock;
     let TaskBlock = null;
     let AccountTaskBlock;
-    let contactDate = null;
+
     if (account[0]) {
-      if (ifAttribute(account[0].contactDate)) {
-        contactDate = moment(account[0].contactDate, 'MM/DD/YYYY').fromNow(
-          'days'
-        );
-      }
       if (ifAttribute(account[0].country)) {
         UserCountryBlock = (
           <div className="mt2">
@@ -149,13 +124,6 @@ class mySingleAccountPage extends Component {
           </div>
         );
       } else BirthDateBlock = null;
-      if (ifAttribute(account[0].contactDate)) {
-        ContactDateBlock = (
-          <div className="mt2">
-            <span className="b">Next Check in is in {contactDate}</span>
-          </div>
-        );
-      } else ContactDateBlock = null;
       if (ifAttribute(account[0].phoneNumber)) {
         PhoneNumberBlock = (
           <div className="mt2">
@@ -225,7 +193,6 @@ class mySingleAccountPage extends Component {
                 <div className="w-100 w-80-ns center fl-ns">
                   <h1 className="f3 f1-ns">
                     {account.accountname} {' '}
-                    <PriorityLabel priority={account.priority} />
                   </h1>
                 </div>
                 <div className="center w-80 w-40-ns pt6-ns">
@@ -274,14 +241,6 @@ class mySingleAccountPage extends Component {
               >
                 ✏️️️ Add Account Task
               </Link>
-              <a
-                className="pointer link dim ba bw1 ph2 pv2 mb2 dib no-underline bg-black b--black white"
-                onClick={() => {
-                  this.checkedIn();
-                }}
-              >
-                ✅ Check In
-              </a>
             </div>
           </div>
         ))}

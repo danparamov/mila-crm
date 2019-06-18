@@ -10,14 +10,8 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 import Nav from './Nav';
 import avatarFallbackImage from '../assets/avatar-placeholder.png';
-import SingleContact from './SingleContact';
-import ContactBubble from './ContactBubble';
-import NoOneLeft from '../assets/no-one-left.png';
 import ifAttribute from './util/ifAttribute';
-import TableContacts from './TableContacts';
-import ProfileDesktop from './ProfileDesktop';
-import csvToJSON from './util/csvToJSON';
-import'./Styles/Table.css';
+import SingleContact from './SingleContact';
 import AddContactIcon from '@material-ui/icons/personadd';
 
 export default class Profile extends Component {
@@ -84,21 +78,9 @@ export default class Profile extends Component {
   render() {
     const { handleSignOut } = this.props;
     const { person } = this.state;
-    const { username } = this.state;
     const { contacts } = this.state;
-    const { today } = this.state;
-    let AddMoreContactsBlock = null;
     let ContactBlock = null;
-    const ContactToday = [];
-    let NoContactTodayBlock = null;
-    /*if (today[0].contactsLeft !== 0) {
-      AddMoreContactsBlock = (
-        <div className="w-100 w-75-ns fl tc bg-lightest-blue pa3 br1">
-          Add <span className="b">{this.state.today[0].contactsLeft}</span> more
-          people today to your contacts
-        </div>
-      );
-    }*/
+    
     if (ifAttribute(contacts[0])) {
       ContactBlock = (
         <div className="w-100 w-200-ns fl ph4 tl">
@@ -107,25 +89,10 @@ export default class Profile extends Component {
           ))}
         </div>
       );
-      /*contacts.map(contact => {
-        if (
-          contact.contactDate === moment().format('l') ||
-          moment().isAfter(moment(contact.contactDate, 'MM/DD/YYYY'))
-        ) {
-          ContactToday.push(contact);
-        }
-      });*/
     } else {
       ContactBlock = null;
     }
-    /*if (ContactToday.length == 0 || ContactToday == null) {
-      NoContactTodayBlock = (
-        <div className="w-100">
-          <img src={NoOneLeft} className="center h4 db" alt="" />
-          <p className="center center tc b f4">No pending</p>
-        </div>
-      );
-    }*/
+   
     return !isSignInPending() ? (
       <div>
         <Nav

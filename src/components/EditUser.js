@@ -9,11 +9,9 @@ import {
   Person,
 } from 'blockstack';
 import { Redirect } from 'react-router';
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import findObjectBy from './util/findObjectBy';
 import avatarFallbackImage from '../assets/avatar-placeholder.png';
-import ProfileDesktop from './ProfileDesktop';
 import Nav from './Nav';
 import Form from './styles/Form';
 import Error from './ErrorMessage';
@@ -72,14 +70,14 @@ class EditUserPage extends Component {
     });
   }
 
-  handleEditContactSubmit(event) {
+  handleEditUserSubmit(event) {
     event.preventDefault();
-    this.saveEditedContact();
+    this.saveEditedUser();
   }
 
-  saveEditedContact() {
+  saveEditedUser() {
     let { users } = this.state;
-    const newContact = {
+    const newUser = {
       id: this.state.id,
       name: this.state.name,
       country: this.state.country,
@@ -88,10 +86,9 @@ class EditUserPage extends Component {
       contactDate: this.state.contactDate,
       created_at: this.state.created_at,
     };
-    // delete the contact with the same ID as the edited one
-    users = users.filter(user => user.id !== newContact.id);
-    // add the edited contact to all contacts
-    users.unshift(newContact);
+    
+    users = users.filter(user => user.id !== newUser.id);
+    users.unshift(newUser);
     const options = { encrypt: true };
     putFile('users.json', JSON.stringify(users), options).then(() => {});
     this.setState({
@@ -119,7 +116,7 @@ class EditUserPage extends Component {
     const error = false;
     if (this.state.saved) {
       //return <Redirect to={`/contact?id=${this.state.id}`} />;
-      return <Redirect to={`/settings`} />;
+      return <Redirect to={`/profile`} />;
     }
     return !isSignInPending() ? (
       <div>
@@ -135,7 +132,7 @@ class EditUserPage extends Component {
             <Form
               onSubmit={async e => {
                 e.preventDefault();
-                this.handleEditContactSubmit(e);
+                this.handleEditUserSubmit(e);
               }}
             >
               <Error error={error} />
