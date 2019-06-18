@@ -17,6 +17,15 @@ import ContactBubble from './ContactBubble';
 import NoOneLeft from '../assets/no-one-left.png';
 import ifAttribute from './util/ifAttribute';
 import ProfileDesktop from './ProfileDesktop';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper'
+import PriorityLabel from './PriorityLabel';
+import'./Styles/Table.css';
+import { makeStyles } from '@material-ui/core/styles';
 
 export default class Profile extends Component {
   state = {
@@ -90,6 +99,16 @@ export default class Profile extends Component {
     const { accounts } = this.state;
     const { opps } = this.state;
     const { today } = this.state;
+    const classes = makeStyles(theme => ({
+      root: {
+        width: '100%',
+        marginTop: theme.spacing(3),
+        overflowX: 'auto',
+      },
+      table: {
+        minWidth: 650,
+      },
+    }));
     let AddMoreContactsBlock = null;
     let ContactBlock = null;
     let AccountBlock = null;
@@ -209,14 +228,56 @@ export default class Profile extends Component {
         <div class="w9 center ph3 cf">
           <div className="w-100 w-200-ns fl ph4 tl">
             <h1>Contacts</h1>
+            <Paper className={classes.root}>
+              <Table className={classes.table}>
+                <TableHead></TableHead>
+                  <TableBody>
+                      <TableRow>
+                        <TableCell align="relevant">Contact</TableCell>
+                        <TableCell align="relevant">Account Name</TableCell>
+                        <TableCell align="relevant">Email</TableCell>
+                        <TableCell align="relevant">Country</TableCell>
+                        <TableCell align="relevant">Twitter</TableCell>
+                      </TableRow>
+                  </TableBody>
+              </Table>
+            </Paper>
           </div>
           {ContactBlock}
           <div className="w-100 w-200-ns fl ph4 tl">
             <h1>Accounts</h1>
+            <Paper className={classes.root}>
+              <Table className={classes.table}>
+                <TableHead></TableHead>
+                  <TableBody>
+                      <TableRow>
+                        <TableCell align="relevant">Account</TableCell>
+                        <TableCell align="relevant">Website</TableCell>
+                        <TableCell align="relevant">Industry</TableCell>
+                        <TableCell align="relevant">Country</TableCell>
+                        <TableCell align="relevant">Twitter</TableCell>
+                      </TableRow>
+                  </TableBody>
+              </Table>
+            </Paper>
           </div>
           {AccountBlock}
           <div className="w-100 w-200-ns fl ph4 tl">
             <h1>Opportunities</h1>
+            <Paper className={classes.root}>
+              <Table className={classes.table}>
+                <TableHead></TableHead>
+                  <TableBody>
+                      <TableRow>
+                        <TableCell align="relevant">Opportunity</TableCell>
+                        <TableCell align="relevant">Lead Source</TableCell>
+                        <TableCell align="relevant">Account</TableCell>
+                        <TableCell align="relevant">Amount</TableCell>
+                        <TableCell align="relevant">Closing Date</TableCell>
+                      </TableRow>
+                  </TableBody>
+              </Table>
+            </Paper>
           </div>
           {OppBlock}
         </div>
