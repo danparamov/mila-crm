@@ -12,6 +12,7 @@ import Nav from './Nav';
 import avatarFallbackImage from '../assets/avatar-placeholder.png';
 import SingleAccountTask from './SingleAccountTask';
 import ifAttribute from './util/ifAttribute';
+import AddAccountIcon from '@material-ui/icons/addtophotos';
 
 export default class Profile extends Component {
   state = {
@@ -93,9 +94,9 @@ export default class Profile extends Component {
             <h1> Account Tasks
             <Link
               to="/add-accounttask"
-              className="f2 link dim ph3 pv2 mb2 dib white bg-green b--black"
+              className="f2 link dim ph3 pv2 mb2 dib white bg-red b--black"
             >
-             +
+            <AddAccountIcon />
             </Link> </h1>
             <br /> <br />
           </div>
