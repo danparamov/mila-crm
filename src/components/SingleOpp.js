@@ -29,13 +29,6 @@ export default class SingleOpp extends Component {
         <Table className={classes.table}>
           <TableHead></TableHead>
             <TableBody>
-                <TableRow>
-                  <TableCell align="relevant">Opportunity</TableCell>
-                  <TableCell align="relevant">Lead Source</TableCell>
-                  <TableCell align="relevant">Account</TableCell>
-                  <TableCell align="relevant">Amount</TableCell>
-                  <TableCell align="relevant">Closing Date</TableCell>
-                </TableRow>
               <TableRow>
                 <TableCell component="th" scope="opp">
                 <Link
