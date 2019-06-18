@@ -7,7 +7,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper'
+import Paper from '@material-ui/core/Paper';
+import'./Styles/Table.css';
 
 export default class SingleContactTask extends Component {
   render() {
@@ -29,11 +30,18 @@ export default class SingleContactTask extends Component {
           <TableHead></TableHead>
             <TableBody>
               <TableRow>
-                <TableCell component="th" scope="contacttask">
-                  {contacttask.contactname}
+                <TableCell width="20%" align="left" component="th" scope="contacttask">
+                <Link
+                  to={{
+                  pathname: '/edit-contacttask',
+                  search: `?id=${contacttask.id}`,
+                }}>{contacttask.contactname}
+                </Link>
                 </TableCell>
-                <TableCell align="right">{contacttask.subject}</TableCell>
-                <TableCell align="right">{contacttask.duedate}</TableCell>
+                <TableCell width="20%" align="left">{contacttask.subject}</TableCell>
+                <TableCell width="20%" align="left">{contacttask.duedate}</TableCell>
+                <TableCell width="20%" align="left">{contacttask.priority}</TableCell>
+                <TableCell width="20%" align="left">{contacttask.status}</TableCell>
             </TableRow>
           </TableBody>
         </Table>
