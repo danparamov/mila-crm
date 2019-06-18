@@ -30,7 +30,7 @@ export default class SingleOpp extends Component {
           <TableHead></TableHead>
             <TableBody>
               <TableRow>
-                <TableCell component="th" scope="opp">
+                <TableCell width="20%" align="left" component="th" scope="opp">
                 <Link
                   to={{
                   pathname: '/opportunity',
@@ -38,10 +38,10 @@ export default class SingleOpp extends Component {
                 }}>{opp.oppname}
                 </Link>
                 </TableCell>
-                <TableCell align="relavant">{opp.leadsource}</TableCell>
-                <TableCell align="relevant">{opp.accountname}</TableCell>
-                <TableCell align="relevant">${opp.amount}</TableCell>
-                <TableCell align="relevant">{opp.closingdate}</TableCell>
+                <TableCell width="20%" align="left">{opp.leadsource}</TableCell>
+                <TableCell width="20%" align="left">{opp.accountname}</TableCell>
+                <TableCell width="20%" align="left">${opp.amount}</TableCell>
+                <TableCell width="20%" align="left">{opp.closingdate}</TableCell>
               </TableRow>
             </TableBody>
         </Table>
