@@ -31,7 +31,7 @@ export default class SingleContact extends Component {
           <TableHead></TableHead>
             <TableBody>
               <TableRow>
-                <TableCell component="th" scope="contact">
+                <TableCell width="20%" align="left" component="th" scope="contact">
                 <Link
                   to={{
                   pathname: '/contact',
@@ -39,10 +39,10 @@ export default class SingleContact extends Component {
                 }}>{contact.name}
                 </Link>
                 </TableCell>
-                <TableCell align="relative">{contact.accountname}</TableCell>
-                <TableCell align="relative">{contact.email}</TableCell>
-                <TableCell align="relative">{contact.country}</TableCell>
-                <TableCell margin="relative">@{contact.twitterHandle}</TableCell>
+                <TableCell width="20%" align="left">{contact.accountname}</TableCell>
+                <TableCell width="20%" align="left">{contact.email}</TableCell>
+                <TableCell width="20%" align="left">{contact.country}</TableCell>
+                <TableCell width="20%" align="left">@{contact.twitterHandle}</TableCell>
               </TableRow>
             </TableBody>
         </Table>
