@@ -185,7 +185,7 @@ export default class Profile extends Component {
           {AccountBlock}
           <div className="w-100 w-200-ns fl ph4 tl">
             <h1>Opportunities</h1>
-            <div className="f2 green">Total Opp Amount: ${oppstotal}</div>
+            <div className="f2 green">Total Amount: ${oppstotal}</div>
             <Paper className={classes.root}>
               <Table className={classes.table}>
                 <TableHead></TableHead>
