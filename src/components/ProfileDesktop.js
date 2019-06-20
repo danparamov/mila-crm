@@ -181,7 +181,7 @@ function ProfileDesktop(props) {
             </div>
             <p className="h6">
               <span id="heading-name">{props.name}</span>
-              <Typography className="green">{props.username}</Typography>
+              <Typography variant="body2" color="textSecondary">{props.username}</Typography>
             </p>
             </Link>
             </ListItemIcon>
@@ -192,7 +192,7 @@ function ProfileDesktop(props) {
             </ListItemIcon>
               <Link
                 to="/"
-                className="link dim dib green"
+                variant="body2" color="textSecondary"
               >
                 <Typography>
                  Dashboard
@@ -205,7 +205,7 @@ function ProfileDesktop(props) {
             </ListItemIcon>
             <Link
               to="/contacts"
-              className="link dim dib green"
+              variant="body2" color="textSecondary"
             >
               <Typography>
                Contacts
@@ -218,7 +218,7 @@ function ProfileDesktop(props) {
             </ListItemIcon>
             <Link
               to="/accounts"
-              className="link dim dib green"
+              variant="body2" color="textSecondary"
             >
               <Typography>
                Accounts
@@ -231,7 +231,7 @@ function ProfileDesktop(props) {
             </ListItemIcon>
             <Link
               to="/opportunities"
-              className="link dim dib green"
+              variant="body2" color="textSecondary"
             >
               <Typography>
                Opportunities
@@ -244,7 +244,7 @@ function ProfileDesktop(props) {
             </ListItemIcon>
             <Link
               to="/tasks"
-              className="link dim dib green"
+              variant="body2" color="textSecondary"
             >
               <Typography>
                Tasks
@@ -257,7 +257,7 @@ function ProfileDesktop(props) {
             </ListItemIcon>
             <Link
               to="/profile"
-              className="link dim dib green"
+              variant="body2" color="textSecondary"
             >
               <Typography>
                Profile
@@ -270,7 +270,7 @@ function ProfileDesktop(props) {
             </ListItemIcon>
             <Link
               to="/updates"
-              className="link dim dib green"
+              variant="body2" color="textSecondary"
             >
               <Typography>
                Updates
@@ -282,7 +282,7 @@ function ProfileDesktop(props) {
               <Logout />
             </ListItemIcon>
             <a
-              className="link dim dib green"
+              variant="body2" color="textSecondary"
               id="signout-button"
               onClick={props.logout}
             >
