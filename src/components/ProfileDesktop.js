@@ -6,7 +6,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
-import Logo from '../assets/logo_transparent.png';
+import Logo from '../assets/twitter_header_photo_1.png';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -173,16 +173,10 @@ function ProfileDesktop(props) {
               >
             <div>
               <img
-                src={props.profileImage}
-                className="h3 w3 br-100"
-                id="avatar-image"
-                alt=""
+                src={Logo}
+                className="h3 w4.6"
               />
             </div>
-            <p className="h6">
-              <span id="heading-name">{props.name}</span>
-              <Typography variant="body2" color="textSecondary">{props.username}</Typography>
-            </p>
             </Link>
             </ListItemIcon>
           </StyledMenuItem>
