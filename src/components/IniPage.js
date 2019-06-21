@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import clsx from 'clsx';
+import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer } from 'recharts';
 import {
   isSignInPending,
   loadUserData,
@@ -22,6 +24,26 @@ import Paper from '@material-ui/core/Paper'
 import PriorityLabel from './PriorityLabel';
 import'./Styles/Table.css';
 import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link';
+import Chart from './Chart';
+import Deposits from './Deposits';
+import Orders from './Orders';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
+import CssBaseline from '@material-ui/core/CssBaseline';
+
+function MadeWithLove() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {'Built with love by the '}
+      <Link color="inherit" href="https://milacrm.com/">
+        Mila CRM
+      </Link>
+      {' team.'}
+    </Typography>
+  );
+}
 
 export default class Profile extends Component {
   state = {
@@ -83,14 +105,83 @@ export default class Profile extends Component {
     const { today } = this.state;
     const classes = makeStyles(theme => ({
       root: {
-        width: '100%',
-        marginTop: theme.spacing(3),
-        overflowX: 'auto',
+        display: 'flex',
       },
-      table: {
-        minWidth: 650,
+      toolbar: {
+        paddingRight: 24, // keep right padding when drawer closed
+      },
+      toolbarIcon: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        padding: '0 8px',
+        ...theme.mixins.toolbar,
+      },
+      appBar: {
+        zIndex: theme.zIndex.drawer + 1,
+        transition: theme.transitions.create(['width', 'margin'], {
+          easing: theme.transitions.easing.sharp,
+          duration: theme.transitions.duration.leavingScreen,
+        }),
+      },
+      appBarShift: {
+        marginLeft: drawerWidth,
+        width: `calc(100% - ${drawerWidth}px)`,
+        transition: theme.transitions.create(['width', 'margin'], {
+          easing: theme.transitions.easing.sharp,
+          duration: theme.transitions.duration.enteringScreen,
+        }),
+      },
+      menuButton: {
+        marginRight: 36,
+      },
+      menuButtonHidden: {
+        display: 'none',
+      },
+      title: {
+        flexGrow: 1,
+      },
+      drawerPaper: {
+        position: 'relative',
+        whiteSpace: 'nowrap',
+        width: drawerWidth,
+        transition: theme.transitions.create('width', {
+          easing: theme.transitions.easing.sharp,
+          duration: theme.transitions.duration.enteringScreen,
+        }),
+      },
+      drawerPaperClose: {
+        overflowX: 'hidden',
+        transition: theme.transitions.create('width', {
+          easing: theme.transitions.easing.sharp,
+          duration: theme.transitions.duration.leavingScreen,
+        }),
+        width: theme.spacing(7),
+        [theme.breakpoints.up('sm')]: {
+          width: theme.spacing(9),
+        },
+      },
+      appBarSpacer: theme.mixins.toolbar,
+      content: {
+        flexGrow: 1,
+        height: '100vh',
+        overflow: 'auto',
+      },
+      container: {
+        paddingTop: theme.spacing(4),
+        paddingBottom: theme.spacing(4),
+      },
+      paper: {
+        padding: theme.spacing(2),
+        display: 'flex',
+        overflow: 'auto',
+        flexDirection: 'column',
+      },
+      fixedHeight: {
+        height: 240,
       },
     }));
+
     let AddMoreContactsBlock = null;
     let ContactBlock = null;
     let AccountBlock = null;
@@ -138,72 +229,44 @@ export default class Profile extends Component {
         OppBlock = null;
     }
 
+    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
     return !isSignInPending() ? (
-      <div>
+      <div className={classes.root}>
+      <CssBaseline />
         <Nav
           profileImage={
             person.avatarUrl() ? person.avatarUrl() : avatarFallbackImage
           }
           logout={handleSignOut.bind(this)}
         />
-        <div class="w9 center ph3 cf">
-          <div className="w-100 w-200-ns fl ph4 tl">
-            <h1>Contacts</h1>
-            <Paper className={classes.root}>
-              <Table className={classes.table}>
-                <TableHead></TableHead>
-                  <TableBody>
-                      <TableRow>
-                        <TableCell width="20%" align="left">Contact</TableCell>
-                        <TableCell width="20%" align="left">Account Name</TableCell>
-                        <TableCell width="20%" align="left">Email</TableCell>
-                        <TableCell width="20%" align="left">Country</TableCell>
-                        <TableCell width="20%" align="left">Twitter</TableCell>
-                      </TableRow>
-                  </TableBody>
-              </Table>
-            </Paper>
-          </div>
-          {ContactBlock}
-          <div className="w-100 w-200-ns fl ph4 tl">
-            <h1>Accounts</h1>
-            <Paper className={classes.root}>
-              <Table className={classes.table}>
-                <TableHead></TableHead>
-                  <TableBody>
-                      <TableRow>
-                        <TableCell width="20%" align="left">Account</TableCell>
-                        <TableCell width="20%" align="left">Website</TableCell>
-                        <TableCell width="20%" align="left">Industry</TableCell>
-                        <TableCell width="20%" align="left">Country</TableCell>
-                        <TableCell width="20%" align="left">Twitter</TableCell>
-                      </TableRow>
-                  </TableBody>
-              </Table>
-            </Paper>
-          </div>
-          {AccountBlock}
-          <div className="w-100 w-200-ns fl ph4 tl">
-            <h1>Opportunities</h1>
-            <div className="f2 green">Total Amount: ${oppstotal}</div>
-            <Paper className={classes.root}>
-              <Table className={classes.table}>
-                <TableHead></TableHead>
-                  <TableBody>
-                      <TableRow>
-                        <TableCell width="20%" align="left">Opportunity</TableCell>
-                        <TableCell width="20%" align="left">Lead Source</TableCell>
-                        <TableCell width="20%" align="left">Account</TableCell>
-                        <TableCell width="20%" align="left">Amount</TableCell>
-                        <TableCell width="20%" align="left">Closing Date</TableCell>
-                      </TableRow>
-                  </TableBody>
-              </Table>
-            </Paper>
-          </div>
-          {OppBlock}
+        <main className={classes.content}>
+          <div className={classes.appBarSpacer} />
+          <Container maxWidth="lg" className={classes.container}>
+            <Grid container spacing={3}>
+              {/* Chart */}
+              <Grid item xs={12} md={8} lg={9}>
+                <Paper className={fixedHeightPaper}>
+                  <Chart />
+                </Paper>
+              </Grid>
+              {/* Recent Deposits */}
+              <Grid item xs={12} md={4} lg={3}>
+                <Paper className={fixedHeightPaper}>
+                  <Deposits />
+                </Paper>
+              </Grid>
+              {/* Recent Orders */}
+              <Grid item xs={12}>
+                <Paper className={classes.paper}>
+                  <Orders />
+                </Paper>
+              </Grid>
+            </Grid>
+          </Container>
+        </main>
+          <MadeWithLove />
         </div>
-      </div>
     ) : null;
   }
 }
