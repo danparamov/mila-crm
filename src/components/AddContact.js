@@ -59,7 +59,7 @@ export default class AddContact extends Component {
 
   fetchData() {
     const options = { decrypt: true };
-    getFile('contacts2.json', options).then(file => {
+    getFile('contacts.json', options).then(file => {
       const contacts = JSON.parse(file || '[]');
       this.setState({
         contacts,
@@ -131,7 +131,7 @@ export default class AddContact extends Component {
 
     contacts.unshift(newContact);
     const options = { encrypt: true };
-    putFile('contacts2.json', JSON.stringify(contacts), options).then(() => {
+    putFile('contacts.json', JSON.stringify(contacts), options).then(() => {
       cb();
     });
     this.setState({
