@@ -101,42 +101,6 @@ export default class Profile extends Component {
     window.open(url);
   }
 
-  saveEditedContact() {
-    let { contacts } = this.state;
-    const newContact = {
-      id: this.state.id,
-      name: this.state.name,
-      accountname: this.state.accountname,
-      title: this.state.title,
-      medium: this.state.medium,
-      twitterHandle: this.state.twitterHandle,
-      email: this.state.email,
-      bestcomm: this.state.bestcomm,
-      reachout: this.state.reachout,
-      telegramId: this.state.telegramId,
-      phoneNumber: this.state.phoneNumber,
-      country: this.state.country,
-      region: this.state.region,
-      streetAddress: this.state.streetAddress,
-      leadsource: this.state.leadsource,
-      description: this.state.description,
-      blockstackId: this.state.blockstackId,
-      birthDate: this.state.birthDate,
-      priority: this.state.priority,
-      contactDate: this.state.contactDate,
-      created_at: this.state.created_at,
-    };
-    // delete the contact with the same ID as the edited one
-    contacts = contacts.filter(contact => contact.id !== newContact.id);
-    // add the edited contact to all contacts
-    contacts.unshift(newContact);
-    const options = { encrypt: true };
-    putFile('contacts2.json', JSON.stringify(contacts), options).then(() => {});
-    this.setState({
-      saved: true,
-    });
-  }
-
   render() {
     const { handleSignOut } = this.props;
     const { person } = this.state;
@@ -234,13 +198,8 @@ export default class Profile extends Component {
             new Promise(resolve => {
               setTimeout(() => {
                 resolve();
-                const data = [...state.data];
-                data.push(newData);
-                setState({ ...state, data });
               }, 600);
-
-              console.log(data)
-              
+            
               const newContact = {
                 id: Date.now(),
                 created_at: Date.now(),
@@ -264,8 +223,9 @@ export default class Profile extends Component {
                 priority: newData.priority,
               };
 
+              console.log(contacts);
               contacts.unshift(newContact);
-              console.log(contacts)
+             
               const options = { encrypt: true };
               putFile('contacts2.json', JSON.stringify(contacts), options).then(() => {
                 cb();
@@ -275,13 +235,9 @@ export default class Profile extends Component {
             new Promise(resolve => {
               setTimeout(() => {
                 resolve();
-                const data = [...state.data];
-                data[data.indexOf(oldData)] = newData;
-                setState({ ...state, data });
               }, 600);
-              
-              console.log(newData)
 
+              let { contacts } = this.state;     
               const newContact1 = {
                 id: newData.id,
                 created_at: newData.created_at,
@@ -304,21 +260,16 @@ export default class Profile extends Component {
                 birthDate: newData.birthDate,
                 priority: newData.priority,
               };
+            
+              // delete the contact with the same ID as the edited one
+              contacts = contacts.filter(contact => contact.id !== newContact1.id);
+              console.log(contacts)
 
-              console.log(oldData.id)
-
-                // delete the contact with the same ID as the edited one
-                
-                // add the edited contact to all contacts
-                contacts.unshift(newContact1);
-
-                console.log(contacts)
-
-                const options = { encrypt: true };
-                putFile('contacts2.json', JSON.stringify(contacts), options).then(() => {});
-                this.setState({
-                  saved: true,
-                });
+              // delete the contact with the same ID as the edited one
+              contacts.unshift(newContact1);
+              const options = { encrypt: true };
+              putFile('contacts2.json', JSON.stringify(contacts), options).then(() => {
+              });
             }),
           onRowDelete: oldData =>
             new Promise(resolve => {
