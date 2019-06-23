@@ -40,26 +40,6 @@ import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 
-const columns = [
-      { title: 'Name', field: 'name' },
-      { title: 'Surname', field: 'surname' },
-      { title: 'Birth Year', field: 'birthYear', type: 'numeric' },
-      {
-        title: 'Birth Place',
-        field: 'birthCity',
-        lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' },
-      },
-];
-const data = [
-      { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
-      {
-        name: 'Zerya Betül',
-        surname: 'Baran',
-        birthYear: 2017,
-        birthCity: 34,
-      },
-];
-
 export default class Profile extends Component {
   state = {
     person: {
@@ -86,7 +66,7 @@ export default class Profile extends Component {
 
   fetchData() {
     const options = { decrypt: true };
-    getFile('contacts.json', options).then(file => {
+    getFile('contacts2.json', options).then(file => {
       const contacts = JSON.parse(file || '[]');
       this.setState({
         contacts,
@@ -119,6 +99,42 @@ export default class Profile extends Component {
     const url = await putFile('contacts.csv', csv, { encrypt: false });
     console.log(url);
     window.open(url);
+  }
+
+  saveEditedContact() {
+    let { contacts } = this.state;
+    const newContact = {
+      id: this.state.id,
+      name: this.state.name,
+      accountname: this.state.accountname,
+      title: this.state.title,
+      medium: this.state.medium,
+      twitterHandle: this.state.twitterHandle,
+      email: this.state.email,
+      bestcomm: this.state.bestcomm,
+      reachout: this.state.reachout,
+      telegramId: this.state.telegramId,
+      phoneNumber: this.state.phoneNumber,
+      country: this.state.country,
+      region: this.state.region,
+      streetAddress: this.state.streetAddress,
+      leadsource: this.state.leadsource,
+      description: this.state.description,
+      blockstackId: this.state.blockstackId,
+      birthDate: this.state.birthDate,
+      priority: this.state.priority,
+      contactDate: this.state.contactDate,
+      created_at: this.state.created_at,
+    };
+    // delete the contact with the same ID as the edited one
+    contacts = contacts.filter(contact => contact.id !== newContact.id);
+    // add the edited contact to all contacts
+    contacts.unshift(newContact);
+    const options = { encrypt: true };
+    putFile('contacts2.json', JSON.stringify(contacts), options).then(() => {});
+    this.setState({
+      saved: true,
+    });
   }
 
   render() {
@@ -170,6 +186,16 @@ export default class Profile extends Component {
     ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
     };
 
+    const columns = [
+      { title: 'Contact', field: 'name' },
+      { title: 'Account', field: 'accountname' },
+      { title: 'Email', field: 'email'},
+      { title: 'Country', field: 'country'},
+      { title: 'LeadSource', field: 'leadsource'},
+    ];
+
+    const data = [];
+
     return !isSignInPending() ? (
       <div>
       <div>
@@ -194,29 +220,15 @@ export default class Profile extends Component {
             >
               Export as CSV
             </div>
-            <Paper className={classes.root}>
-              <Table className={classes.table}>
-                <TableHead></TableHead>
-                  <TableBody>
-                      <TableRow>
-                        <TableCell width="20%" align="left">Contact</TableCell>
-                        <TableCell width="20%" align="left">Account Name</TableCell>
-                        <TableCell width="20%" align="left">Email</TableCell>
-                        <TableCell width="20%" align="left">Country</TableCell>
-                        <TableCell width="20%" align="left">Twitter</TableCell>
-                      </TableRow>
-                  </TableBody>
-              </Table>
-            </Paper>
           </div>
-          {ContactBlock}
+          
         </div>
       </div>
         <MaterialTable
         icons={tableIcons}
         title="Contacts"
         columns={columns}
-        data={data}
+        data={contacts}
         editable={{
           onRowAdd: newData =>
             new Promise(resolve => {
@@ -226,6 +238,38 @@ export default class Profile extends Component {
                 data.push(newData);
                 setState({ ...state, data });
               }, 600);
+
+              console.log(data)
+              
+              const newContact = {
+                id: Date.now(),
+                created_at: Date.now(),
+                name: newData.name,
+                accountname: newData.accountname,
+                title: newData.title,
+                medium: newData.medium,
+                twitterHandle: newData.twitterHandle,
+                email: newData.email,
+                bestcomm: newData.bestcomm,
+                reachout: newData.reachout,
+                telegramId: newData.telegramId,
+                phoneNumber: newData.phoneNumber,
+                country: newData.country,
+                region: newData.region,
+                streetAddress: newData.streetAddress,
+                leadsource: newData.leadsource,
+                description: newData.description,
+                blockstackId: newData.blockstackId,
+                birthDate: newData.birthDate,
+                priority: newData.priority,
+              };
+
+              contacts.unshift(newContact);
+              console.log(contacts)
+              const options = { encrypt: true };
+              putFile('contacts2.json', JSON.stringify(contacts), options).then(() => {
+                cb();
+              });
             }),
           onRowUpdate: (newData, oldData) =>
             new Promise(resolve => {
@@ -235,6 +279,46 @@ export default class Profile extends Component {
                 data[data.indexOf(oldData)] = newData;
                 setState({ ...state, data });
               }, 600);
+              
+              console.log(newData)
+
+              const newContact1 = {
+                id: newData.id,
+                created_at: newData.created_at,
+                name: newData.name,
+                accountname: newData.accountname,
+                title: newData.title,
+                medium: newData.medium,
+                twitterHandle: newData.twitterHandle,
+                email: newData.email,
+                bestcomm: newData.bestcomm,
+                reachout: newData.reachout,
+                telegramId: newData.telegramId,
+                phoneNumber: newData.phoneNumber,
+                country: newData.country,
+                region: newData.region,
+                streetAddress: newData.streetAddress,
+                leadsource: newData.leadsource,
+                description: newData.description,
+                blockstackId: newData.blockstackId,
+                birthDate: newData.birthDate,
+                priority: newData.priority,
+              };
+
+              console.log(oldData.id)
+
+                // delete the contact with the same ID as the edited one
+                
+                // add the edited contact to all contacts
+                contacts.unshift(newContact1);
+
+                console.log(contacts)
+
+                const options = { encrypt: true };
+                putFile('contacts2.json', JSON.stringify(contacts), options).then(() => {});
+                this.setState({
+                  saved: true,
+                });
             }),
           onRowDelete: oldData =>
             new Promise(resolve => {
