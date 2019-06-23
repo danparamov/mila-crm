@@ -39,6 +39,7 @@ import Remove from '@material-ui/icons/Remove';
 import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
+import { Redirect } from 'react-router';
 
 export default class Profile extends Component {
   state = {
@@ -66,7 +67,7 @@ export default class Profile extends Component {
 
   fetchData() {
     const options = { decrypt: true };
-    getFile('contacts2.json', options).then(file => {
+    getFile('contacts.json', options).then(file => {
       const contacts = JSON.parse(file || '[]');
       this.setState({
         contacts,
@@ -227,7 +228,7 @@ export default class Profile extends Component {
               contacts.unshift(newContact);
              
               const options = { encrypt: true };
-              putFile('contacts2.json', JSON.stringify(contacts), options).then(() => {
+              putFile('contacts.json', JSON.stringify(contacts), options).then(() => {
                 cb();
               });
             }),
@@ -263,22 +264,32 @@ export default class Profile extends Component {
             
               // delete the contact with the same ID as the edited one
               contacts = contacts.filter(contact => contact.id !== newContact1.id);
-              console.log(contacts)
-
+             
               // delete the contact with the same ID as the edited one
               contacts.unshift(newContact1);
               const options = { encrypt: true };
-              putFile('contacts2.json', JSON.stringify(contacts), options).then(() => {
+              putFile('contacts.json', JSON.stringify(contacts), options).then(() => {
               });
             }),
           onRowDelete: oldData =>
             new Promise(resolve => {
               setTimeout(() => {
                 resolve();
-                const data = [...state.data];
-                data.splice(data.indexOf(oldData), 1);
-                setState({ ...state, data });
               }, 600);
+
+              const toDelete = oldData.id; 
+              const newContactsList = contacts.filter(
+                contact => contact.id !== toDelete
+              );
+
+              const options = { encrypt: true };
+              putFile('contacts.json', JSON.stringify(newContactsList), options).then(
+                () => {
+                  //this.props.history.push('/contacts');
+                  return <Redirect to={`/contacts`} />;
+                }
+              );
+
             }),
           }}
         />
