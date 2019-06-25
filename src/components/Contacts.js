@@ -286,7 +286,8 @@ export default class Profile extends Component {
               putFile('contacts.json', JSON.stringify(newContactsList), options).then(
                 () => {
                   //this.props.history.push('/contacts');
-                  return <Redirect to={`/contacts`} />;
+                  //return <Redirect to={`/`} />;
+                  location.reload();
                 }
               );
 
