@@ -40,6 +40,7 @@ import Orders from './Orders';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import Divider from '@material-ui/core/Divider';
 
 function MadeWithLove() {
   return (
@@ -313,6 +314,7 @@ export default class Profile extends Component {
               </Grid>
               {/* Total Revenue */}
               <Grid item xs={12} md={4} lg={3}>
+              <br></br>
                 <Paper className={fixedHeightPaper}>
                 <React.Fragment>
                   <Title>Total Revenue</Title>
@@ -320,7 +322,7 @@ export default class Profile extends Component {
                     ${oppstotal}
                   </Typography>
                   <Typography color="textSecondary" className={classes.depositContext}>
-                    This yearly
+                    Monthly - Yearly
                   </Typography>
                   <div>
                     <Link color="primary" href="javascript:;">
@@ -329,12 +331,31 @@ export default class Profile extends Component {
                   </div>
                 </React.Fragment>
                 </Paper>
+                <Divider/>
+                <br></br>
+              {/* Total Tasks */}
+                <Paper className={fixedHeightPaper}>
+                <React.Fragment>
+                  <Title>Tasks Due</Title>
+                  <Typography component="p" variant="h4">
+                    ${oppstotal}
+                  </Typography>
+                  <Typography color="textSecondary" className={classes.depositContext}>
+                    This yearly
+                  </Typography>
+                  <div>
+                    <Link color="primary" href="javascript:;">
+                      View All Tasks
+                    </Link>
+                  </div>
+                </React.Fragment>
+                </Paper>
               </Grid>
               {/* Recent Opportunities */}
-              <Title>Recent Opportunities</Title>
               <Grid item xs={12}>
                 <Paper className={classes.root}>
                 <Table className={classes.table}>
+                <Title>Recent Opportunities</Title>
                 <TableHead></TableHead>
                   <TableBody>
                       <TableRow>
