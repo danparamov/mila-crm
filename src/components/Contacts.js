@@ -162,15 +162,15 @@ export default class Profile extends Component {
     const data = [];
 
     return !isSignInPending() ? (
-      <div>
-      <div>
+      <div className={classes.root}>
+      <div className={classes.table}>
         <Nav
           profileImage={
             person.avatarUrl() ? person.avatarUrl() : avatarFallbackImage
           }
           logout={handleSignOut.bind(this)}
         />
-        <div className="mw9 center ph3 cf">
+        {/*"<div className="mw9 center ph3 cf">
           <div className="w-100 w-200-ns fl ph4 tl">
             <h1> Contacts
             <Link
@@ -186,9 +186,8 @@ export default class Profile extends Component {
               Export as CSV
             </div>
           </div>
-          
-        </div>
-      </div>
+        </div>"*/}
+        <div className="mw9 center ph3 cf">
         <MaterialTable
         icons={tableIcons}
         title="Contacts"
@@ -200,7 +199,7 @@ export default class Profile extends Component {
               setTimeout(() => {
                 resolve();
               }, 600);
-            
+
               const newContact = {
                 id: Date.now(),
                 created_at: Date.now(),
@@ -226,7 +225,7 @@ export default class Profile extends Component {
 
               console.log(contacts);
               contacts.unshift(newContact);
-             
+
               const options = { encrypt: true };
               putFile('contacts.json', JSON.stringify(contacts), options).then(() => {
                 cb();
@@ -238,7 +237,7 @@ export default class Profile extends Component {
                 resolve();
               }, 600);
 
-              let { contacts } = this.state;     
+              let { contacts } = this.state;
               const newContact1 = {
                 id: newData.id,
                 created_at: newData.created_at,
@@ -261,10 +260,10 @@ export default class Profile extends Component {
                 birthDate: newData.birthDate,
                 priority: newData.priority,
               };
-            
+
               // delete the contact with the same ID as the edited one
               contacts = contacts.filter(contact => contact.id !== newContact1.id);
-             
+
               // delete the contact with the same ID as the edited one
               contacts.unshift(newContact1);
               const options = { encrypt: true };
@@ -278,7 +277,7 @@ export default class Profile extends Component {
                 resolve();
               }, 600);
 
-              const toDelete = oldData.id; 
+              const toDelete = oldData.id;
               const newContactsList = contacts.filter(
                 contact => contact.id !== toDelete
               );
@@ -296,6 +295,8 @@ export default class Profile extends Component {
           }}
         />
       </div>
+    </div>
+  </div>
     ) : null;
   }
 }
