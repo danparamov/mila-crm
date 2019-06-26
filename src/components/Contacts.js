@@ -269,6 +269,7 @@ export default class Profile extends Component {
               contacts.unshift(newContact1);
               const options = { encrypt: true };
               putFile('contacts.json', JSON.stringify(contacts), options).then(() => {
+                location.reload();
               });
             }),
           onRowDelete: oldData =>
@@ -286,7 +287,8 @@ export default class Profile extends Component {
               putFile('contacts.json', JSON.stringify(newContactsList), options).then(
                 () => {
                   //this.props.history.push('/contacts');
-                  return <Redirect to={`/contacts`} />;
+                  //return <Redirect to={`/`} />;
+                  location.reload();
                 }
               );
 
