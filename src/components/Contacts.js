@@ -152,14 +152,16 @@ export default class Profile extends Component {
     };
 
     const columns = [
-      { title: 'Contact', field: 'name' },
+      { title: 'Contact Name', field: 'name' },
       { title: 'Account', field: 'accountname' },
+      { title: 'Opportunity', field: 'oppname' },
+      { title: 'Title', field: 'title' },
       { title: 'Email', field: 'email'},
       { title: 'Country', field: 'country'},
       { title: 'LeadSource', field: 'leadsource'},
+      { title: 'Twitter', field: 'twitterHandle' },
+      { title: 'Phone Number', field: 'phoneNumber'},
     ];
-
-    const data = [];
 
     return !isSignInPending() ? (
       <div className={classes.root}>
