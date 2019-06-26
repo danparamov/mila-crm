@@ -55,25 +55,25 @@ function MadeWithLove() {
 
 const data = [
   {
-    name: 'Leads', year: 40, month: 24, amt: 24,
+    name: 'Leads', yearly: 40, monthly: 24, amt: 24,
   },
   {
-    name: 'Prospects', year: 30, month: 13, amt: 22,
+    name: 'Prospects', yearly: 30, monthly: 13, amt: 22,
   },
   {
-    name: 'Customers', year: 20, month: 98, amt: 22,
+    name: 'Customers', yearly: 20, monthly: 98, amt: 22,
   },
   {
-    name: 'Partners', year: 27, month: 39, amt: 20,
+    name: 'Partners', yearly: 27, monthly: 39, amt: 20,
   },
   {
-    name: 'Opportunities', year: 18, month: 48, amt: 21,
+    name: 'Opportunities', yearly: 18, monthly: 48, amt: 21,
   },
   {
-    name: 'Won', year: 23, month: 38, amt: 25,
+    name: 'Won', yearly: 23, monthly: 38, amt: 25,
   },
   {
-    name: 'Closed', year: 34, month: 43, amt: 21,
+    name: 'Closed', yearly: 34, monthly: 43, amt: 21,
   },
 ];
 
@@ -304,8 +304,8 @@ export default class Profile extends Component {
                     <YAxis />
                     <Tooltip />
                     <Legend />
-                    <Line type="monotone" dataKey="month" stroke="#8884d8" activeDot={{ r: 8 }} />
-                    <Line type="monotone" dataKey="year" stroke="#82ca9d" />
+                    <Line type="monotone" dataKey="monthly" stroke="#8884d8" activeDot={{ r: 8 }} />
+                    <Line type="monotone" dataKey="yearly" stroke="#82ca9d" />
                   </LineChart>
                   </ResponsiveContainer>
                   </div>
@@ -320,7 +320,7 @@ export default class Profile extends Component {
                     ${oppstotal}
                   </Typography>
                   <Typography color="textSecondary" className={classes.depositContext}>
-                    This Year
+                    This yearly
                   </Typography>
                   <div>
                     <Link color="primary" href="javascript:;">
