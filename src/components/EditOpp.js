@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { PieChart, Pie, Sector } from 'recharts';
 import { withRouter } from 'react-router';
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
 import {
@@ -15,6 +16,74 @@ import avatarFallbackImage from '../assets/avatar-placeholder.png';
 import Nav from './Nav';
 import Form from './styles/Form';
 import Error from './ErrorMessage';
+import clsx from 'clsx';
+import { makeStyles } from '@material-ui/core/styles';
+import MenuItem from '@material-ui/core/MenuItem';
+import TextField from '@material-ui/core/TextField';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
+import Stepper from '@material-ui/core/Stepper';
+import Step from '@material-ui/core/Step';
+import StepButton from '@material-ui/core/StepButton';
+import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
+import Title from './Title';
+import Typography from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link';
+
+const data = [
+  { name: 'Group A', value: 400 },
+  { name: 'Group B', value: 300 },
+  { name: 'Group C', value: 300 },
+  { name: 'Group D', value: 200 },
+];
+
+const renderActiveShape = (props) => {
+  const RADIAN = Math.PI / 180;
+  const {
+    cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle,
+    fill, payload, percent, value,
+  } = props;
+  const sin = Math.sin(-RADIAN * midAngle);
+  const cos = Math.cos(-RADIAN * midAngle);
+  const sx = cx + (outerRadius + 10) * cos;
+  const sy = cy + (outerRadius + 10) * sin;
+  const mx = cx + (outerRadius + 30) * cos;
+  const my = cy + (outerRadius + 30) * sin;
+  const ex = mx + (cos >= 0 ? 1 : -1) * 22;
+  const ey = my;
+  const textAnchor = cos >= 0 ? 'start' : 'end';
+
+  return (
+    <g>
+      <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>{payload.name}</text>
+      <Sector
+        cx={cx}
+        cy={cy}
+        innerRadius={innerRadius}
+        outerRadius={outerRadius}
+        startAngle={startAngle}
+        endAngle={endAngle}
+        fill={fill}
+      />
+      <Sector
+        cx={cx}
+        cy={cy}
+        startAngle={startAngle}
+        endAngle={endAngle}
+        innerRadius={outerRadius + 6}
+        outerRadius={outerRadius + 10}
+        fill={fill}
+      />
+      <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" />
+      <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
+      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#333">{`PV ${value}`}</text>
+      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#999">
+        {`(Rate ${(percent * 100).toFixed(2)}%)`}
+      </text>
+    </g>
+  );
+};
 
 class EditOppPage extends Component {
   state = {
@@ -34,6 +103,7 @@ class EditOppPage extends Component {
     opps: [],
     accounts: [],
     accountsnames: [],
+    activeIndex: 0,
 
     person: {
       name() {
@@ -54,6 +124,14 @@ class EditOppPage extends Component {
     });
     this.fetchData();
   }
+
+    static jsfiddleUrl = 'https://jsfiddle.net/alidingling/hqnrgxpj/';
+
+    onPieEnter = (data, index) => {
+      this.setState({
+        activeIndex: index,
+      });
+    };
 
   fetchData() {
     const options = { decrypt: true };
@@ -114,7 +192,7 @@ class EditOppPage extends Component {
       priority: this.state.priority,
       created_at: this.state.created_at,
     };
- 
+
     opps = opps.filter(opp => opp.id !== newOpp.id);
     opps.unshift(newOpp);
     const options = { encrypt: true };
@@ -136,20 +214,242 @@ class EditOppPage extends Component {
     const {accountsnames} = this.state;
     const loading = false;
     const error = false;
-    
+
+    const classes = makeStyles(theme => ({
+      root: {
+        display: 'flex',
+      },
+      container: {
+        display: 'flex',
+        flexWrap: 'wrap',
+      },
+      textField: {
+        marginLeft: theme.spacing(1),
+        marginRight: theme.spacing(1),
+      },
+      dense: {
+        marginTop: theme.spacing(2),
+      },
+      menu: {
+        width: 200,
+      },
+      container1: {
+        paddingTop: theme.spacing(4),
+        paddingBottom: theme.spacing(4),
+      },
+      content: {
+        flexGrow: 1,
+        height: '100vh',
+        overflow: 'auto',
+      },
+      paper: {
+        padding: theme.spacing(2),
+        display: 'flex',
+        overflow: 'auto',
+        flexDirection: 'column',
+      },
+      fixedHeight: {
+        height: 500,
+      },
+    }));
+
+
     if (this.state.saved) {
       //return <Redirect to={`/opp?id=${this.state.id}`} />;
       return <Redirect to={`/opportunities`} />;
     }
+
+    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
     return !isSignInPending() ? (
-      <div>
+      <div className={classes.root}>
         <Nav
           profileImage={
             person.avatarUrl() ? person.avatarUrl() : avatarFallbackImage
           }
           logout={handleSignOut.bind(this)}
         />
-        <div className="mw9 center ph3 cf">
+        <div className={classes.content}>
+        <Container maxWidth="lg" className={classes.container1}>
+        <Title>Opportunity</Title>
+        <Grid container spacing={3}>
+          <Grid item xs={5} md={5} lg={2}>
+          <Paper className={fixedHeightPaper}>
+          <form className={classes.container} noValidate autoComplete="off">
+            <TextField
+              type="text"
+              id="oppname"
+              label="Opportunity Name"
+              name="oppname"
+              className={classes.textField}
+              placeholder="Opportunity Name.."
+              value={this.state.oppname}
+              onChange={this.handleChange}
+              margin="normal"
+              variant="outlined"
+            />
+            <br></br>
+            <TextField
+              type="text"
+              id="accountname"
+              label="Account Name"
+              name="accountname"
+              className={classes.textField}
+              placeholder="Account Name.."
+              onChange={this.handleChange}
+              value={this.state.accountname}
+              margin="normal"
+              variant="outlined"
+            />
+            <br></br>
+            <TextField
+              type="text"
+              id="contactname"
+              label="Contact Name"
+              name="contactname"
+              className={classes.textField}
+              placeholder="Contact Name.."
+              onChange={this.handleChange}
+              value={this.state.contactname}
+              margin="normal"
+              variant="outlined"
+            />
+            <br></br>
+            <TextField
+              type="text"
+              id="nextstep"
+              label="Next Step"
+              name="nextstep"
+              className={classes.textField}
+              placeholder="Next Step.."
+              value={this.state.nextstep}
+              onChange={this.handleChange}
+              margin="normal"
+              variant="outlined"
+            />
+            <br></br>
+            <TextField
+              type="text"
+              id="leadsource"
+              label="Lead Source"
+              name="leadsource"
+              className={classes.textField}
+              placeholder="Lead Source.."
+              value={this.state.leadsource}
+              onChange={this.handleChange}
+              margin="normal"
+              variant="outlined"
+            />
+            <br></br>
+            <TextField
+              type="currency"
+              id="amount"
+              label="Amount"
+              name="amount"
+              className={classes.textField}
+              placeholder="$ Amount.."
+              value={this.state.amount}
+              onChange={this.handleChange}
+              margin="normal"
+              variant="outlined"
+            />
+            <br></br>
+            <TextField
+              type="date"
+              id="closingdate"
+              label="Closing Date"
+              name="closingdate"
+              className={classes.textField}
+              placeholder="MM/DD/YYYY"
+              value={this.state.closingdate}
+              onChange={this.handleChange}
+              margin="normal"
+              variant="outlined"
+            />
+            <br></br>
+            <TextField
+              type="text"
+              id="salesstage"
+              label="Sales stage"
+              name="salesstage"
+              className={classes.textField}
+              placeholder="Lead.."
+              value={this.state.salesstage}
+              onChange={this.handleChange}
+              margin="normal"
+              variant="outlined"
+            />
+            <br></br>
+            <TextField
+              type="percetage"
+              id="probability"
+              label="Probability"
+              name="probability"
+              className={classes.textField}
+              placeholder="25%.."
+              value={this.state.probability}
+              onChange={this.handleChange}
+              margin="normal"
+              variant="outlined"
+            />
+            <br></br>
+            <TextField
+              id="outlined-width"
+              style={{ margin: 8 }}
+              fullWidth
+              label="Description"
+              name="description"
+              className={classes.textField}
+              placeholder="Description.."
+              InputLabelProps={{
+                shrink: true,
+              }}
+              value={this.state.description}
+              onChange={this.handleChange}
+              margin="normal"
+              variant="outlined"
+            />
+          </form>
+          </Paper>
+          </Grid>
+          <Grid>
+          <br></br>
+            <Paper>
+            <Title>Sales Stage</Title>
+            <PieChart width={400} height={220}>
+            <Pie
+              activeIndex={this.state.activeIndex}
+              activeShape={renderActiveShape}
+              data={data}
+              cx={170}
+              cy={90}
+              innerRadius={40}
+              outerRadius={60}
+              fill="#8884d8"
+              dataKey="value"
+              onMouseEnter={this.onPieEnter}
+            />
+            </PieChart>
+            </Paper>
+            <br></br>
+            {/* Total Tasks */}
+            <Paper className={fixedHeightPaper}>
+            <Title>Tasks</Title>
+            <Typography>
+              Call Harold
+            </Typography>
+            <Typography>
+              Get Harold Food
+            </Typography>
+            <div>
+              <Link color="primary" href="javascript:;">
+              Add a Task
+              </Link>
+            </div>
+            </Paper>
+            </Grid>
+          </Grid>
+          </Container>
           <h1>Edit Opportunity</h1>
           <div className="w-70-l fl">
             <Form
@@ -159,21 +459,6 @@ class EditOppPage extends Component {
               }}
             >
               <Error error={error} />
-              <h3 className="">Opportunity Information</h3>
-              <fieldset>
-                <label htmlFor="oppname">
-                  Opportunity Name
-                  <input
-                    type="text"
-                    id="oppname"
-                    name="oppname"
-                    placeholder="Opportunity Name.."
-                    value={this.state.oppname}
-                    onChange={this.handleChange}
-                    required
-                  />
-                </label>
-              </fieldset>
               <fieldset>
                 <label htmlFor="accountname">
                   Account Name
@@ -185,7 +470,7 @@ class EditOppPage extends Component {
                     accountsnames.map(function(X) {
                     return <option>{X}</option>;
                     })
-                   }  
+                   }
                  </select>
                 </label>
               </fieldset>
@@ -317,7 +602,7 @@ class EditOppPage extends Component {
                 Submit
               </button>
             </Form>
-          </div>  
+          </div>
         </div>
       </div>
     ) : null;
