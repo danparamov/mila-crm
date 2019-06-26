@@ -1,6 +1,17 @@
 import React, { Component } from 'react';
 import clsx from 'clsx';
-import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer } from 'recharts';
+import {
+  LineChart,
+  Line,
+  CartesianGrid,
+  XAxis,
+  Tooltip,
+  Legend,
+  YAxis,
+  Label,
+  ResponsiveContainer
+} from 'recharts';
+import Title from './Title';
 import {
   isSignInPending,
   loadUserData,
@@ -20,14 +31,11 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper'
+import Paper from '@material-ui/core/Paper';
 import PriorityLabel from './PriorityLabel';
-import'./Styles/Table.css';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
-import Chart from './Chart';
-import Deposits from './Deposits';
 import Orders from './Orders';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -44,6 +52,30 @@ function MadeWithLove() {
     </Typography>
   );
 }
+
+const data = [
+  {
+    name: 'Leads', year: 40, month: 24, amt: 24,
+  },
+  {
+    name: 'Prospects', year: 30, month: 13, amt: 22,
+  },
+  {
+    name: 'Customers', year: 20, month: 98, amt: 22,
+  },
+  {
+    name: 'Partners', year: 27, month: 39, amt: 20,
+  },
+  {
+    name: 'Opportunities', year: 18, month: 48, amt: 21,
+  },
+  {
+    name: 'Won', year: 23, month: 38, amt: 25,
+  },
+  {
+    name: 'Closed', year: 34, month: 43, amt: 21,
+  },
+];
 
 export default class Profile extends Component {
   state = {
@@ -178,7 +210,16 @@ export default class Profile extends Component {
         flexDirection: 'column',
       },
       fixedHeight: {
-        height: 240,
+        height: 500,
+      },
+      depositContext: {
+        flex: 1,
+      },
+      seeMore: {
+        marginTop: theme.spacing(3),
+      },
+      table: {
+        minWidth: 650,
       },
     }));
 
@@ -219,7 +260,7 @@ export default class Profile extends Component {
 
     if (ifAttribute(opps[0])) {
       OppBlock = (
-        <div className="w-100 w-200-ns fl ph4 tl">
+        <div className="">
           {opps.map(opp => (
             <SingleOpp opp={opp} key={opp.id} />
           ))}
@@ -240,31 +281,77 @@ export default class Profile extends Component {
           }
           logout={handleSignOut.bind(this)}
         />
-        <main className={classes.content}>
+        <div className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Container maxWidth="lg" className={classes.container}>
             <Grid container spacing={3}>
               {/* Chart */}
-              <Grid item xs={12} md={8} lg={9}>
-                <Paper className={fixedHeightPaper}>
-                  <Chart />
-                </Paper>
+              <Grid item xs={12} md={8} lg={9} className={fixedHeightPaper}>
+                <React.Fragment>
+                  <Title>Today</Title>
+                  <div style={{ width: '100%', height: 300 }}>
+                  <ResponsiveContainer style={{ width: '100%', height: 300 }}>
+                  <LineChart
+                    width={500}
+                    height={300}
+                    data={data}
+                    margin={{
+                      top: 30, right: 30, left: 20, bottom: 5,
+                    }}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <Line type="monotone" dataKey="month" stroke="#8884d8" activeDot={{ r: 8 }} />
+                    <Line type="monotone" dataKey="year" stroke="#82ca9d" />
+                  </LineChart>
+                  </ResponsiveContainer>
+                  </div>
+                </React.Fragment>
               </Grid>
-              {/* Recent Deposits */}
+              {/* Total Revenue */}
               <Grid item xs={12} md={4} lg={3}>
                 <Paper className={fixedHeightPaper}>
-                  <Deposits />
+                <React.Fragment>
+                  <Title>Total Revenue</Title>
+                  <Typography component="p" variant="h4">
+                    ${oppstotal}
+                  </Typography>
+                  <Typography color="textSecondary" className={classes.depositContext}>
+                    This Year
+                  </Typography>
+                  <div>
+                    <Link color="primary" href="javascript:;">
+                      View balance
+                    </Link>
+                  </div>
+                </React.Fragment>
                 </Paper>
               </Grid>
-              {/* Recent Orders */}
+              {/* Recent Opportunities */}
+              <Title>Recent Opportunities</Title>
               <Grid item xs={12}>
-                <Paper className={classes.paper}>
-                  <Orders />
+                <Paper className={classes.root}>
+                <Table className={classes.table}>
+                <TableHead></TableHead>
+                  <TableBody>
+                      <TableRow>
+                        <TableCell width="20%" align="left">Opportunity</TableCell>
+                        <TableCell width="20%" align="left">Lead Source</TableCell>
+                        <TableCell width="20%" align="left">Account</TableCell>
+                        <TableCell width="20%" align="left">Amount</TableCell>
+                        <TableCell width="20%" align="left">Closing Date</TableCell>
+                      </TableRow>
+                  </TableBody>
+                  </Table>
                 </Paper>
+                {OppBlock}
               </Grid>
             </Grid>
           </Container>
-        </main>
+        </div>
           <MadeWithLove />
         </div>
     ) : null;
