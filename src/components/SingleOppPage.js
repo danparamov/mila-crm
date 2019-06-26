@@ -13,6 +13,10 @@ import findObjectBy from './util/findObjectBy';
 import ifAttribute from './util/ifAttribute';
 import Nav from './Nav';
 import SingleOppTask from './SingleOppTask';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 
 class mySingleOppPage extends Component {
   state = {
@@ -79,6 +83,7 @@ class mySingleOppPage extends Component {
     );
   }
 
+
   render() {
     const { opp } = this.state;
     const { opptask } = this.state;
@@ -94,6 +99,94 @@ class mySingleOppPage extends Component {
     let ContactDateBlock;
     let TaskBlock = null;
     let OppTaskBlock;
+
+    const classes = makeStyles(theme => ({
+      root: {
+        display: 'flex',
+      },
+      toolbar: {
+        paddingRight: 24, // keep right padding when drawer closed
+      },
+      toolbarIcon: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        padding: '0 8px',
+        ...theme.mixins.toolbar,
+      },
+      appBar: {
+        zIndex: theme.zIndex.drawer + 1,
+        transition: theme.transitions.create(['width', 'margin'], {
+          easing: theme.transitions.easing.sharp,
+          duration: theme.transitions.duration.leavingScreen,
+        }),
+      },
+      appBarShift: {
+        marginLeft: drawerWidth,
+        width: `calc(100% - ${drawerWidth}px)`,
+        transition: theme.transitions.create(['width', 'margin'], {
+          easing: theme.transitions.easing.sharp,
+          duration: theme.transitions.duration.enteringScreen,
+        }),
+      },
+      menuButton: {
+        marginRight: 36,
+      },
+      menuButtonHidden: {
+        display: 'none',
+      },
+      title: {
+        flexGrow: 1,
+      },
+      drawerPaper: {
+        position: 'relative',
+        whiteSpace: 'nowrap',
+        width: drawerWidth,
+        transition: theme.transitions.create('width', {
+          easing: theme.transitions.easing.sharp,
+          duration: theme.transitions.duration.enteringScreen,
+        }),
+      },
+      drawerPaperClose: {
+        overflowX: 'hidden',
+        transition: theme.transitions.create('width', {
+          easing: theme.transitions.easing.sharp,
+          duration: theme.transitions.duration.leavingScreen,
+        }),
+        width: theme.spacing(7),
+        [theme.breakpoints.up('sm')]: {
+          width: theme.spacing(9),
+        },
+      },
+      appBarSpacer: theme.mixins.toolbar,
+      content: {
+        flexGrow: 1,
+        height: '100vh',
+        overflow: 'auto',
+      },
+      container: {
+        paddingTop: theme.spacing(4),
+        paddingBottom: theme.spacing(4),
+      },
+      paper: {
+        padding: theme.spacing(2),
+        display: 'flex',
+        overflow: 'auto',
+        flexDirection: 'column',
+      },
+      fixedHeight: {
+        height: 500,
+      },
+      depositContext: {
+        flex: 1,
+      },
+      seeMore: {
+        marginTop: theme.spacing(3),
+      },
+      table: {
+        minWidth: 650,
+      },
+    }));
 
     if (opp[0]) {
       if (ifAttribute(opp[0].accountname)) {
@@ -159,7 +252,7 @@ class mySingleOppPage extends Component {
       }
     }
     return !isSignInPending() ? (
-      <div>
+      <div className={classes.root}>
         <Nav
           profileImage={
             person.avatarUrl() ? person.avatarUrl() : avatarFallbackImage
@@ -167,22 +260,24 @@ class mySingleOppPage extends Component {
           logout={handleSignOut.bind(this)}
         />
         {opp.map(opp => (
-          <div>
-            <div class="section_container_dash">
-              <div className="">
+          <div className={classes.content}>
+            <div className={classes.appBarSpacer} />
+            <Container maxWidth="lg" className={classes.container}>
+              <Grid container spacing={3}>
+              <div class="">
                 <div className="">
                   <img
                     src={`https://avatars.io/twitter/${opp.twitterHandle}`}
-                    className="center fl-ns br-100 h4 ml3-ns mt0-l mt3"
+                    className=""
                     alt=""
                   />
                 </div>
-                <div className="w-100 w-80-ns center fl-ns">
-                  <h1 className="f3 f1-ns">
+                <div className={classes.table}>
+                  <Typography>
                     {opp.oppname} {' '}
-                  </h1>
+                  </Typography>
                 </div>
-                <div className="center w-80 w-40-ns pt6-ns">
+                <div className="">
                   <div className="tl">
                     {ContactDateBlock}
                     {AccountBlock}
@@ -201,7 +296,6 @@ class mySingleOppPage extends Component {
                   </div>
                 </div>
               </div>
-            </div>
             <div className="mt3 right-ns tr pr4">
               <a
                 className="pointer link dim ba bw1 ph2 pv2 mb2 dib no-underline ba b--black black mr2 "
@@ -228,9 +322,11 @@ class mySingleOppPage extends Component {
               >
                 ✏️️️ Add Opportunity Task
               </Link>
-             </div>
-          </div>
-        ))}
+            </div>
+            </Grid>
+          </Container>
+        </div>
+          ))}
       </div>
     ) : null;
   }
