@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, memo } from 'react';
 import { PieChart, Pie, Sector } from 'recharts';
 import { withRouter } from 'react-router';
 import { CountryDropdown, RegionDropdown } from 'react-country-region-selector';
@@ -30,12 +30,44 @@ import Paper from '@material-ui/core/Paper';
 import Title from './Title';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
+import ReactDOM from 'react-dom';
+
+import { useInputValue, useTodos } from './custom-hooks';
+import Layout from './Layout';
+import AddTodo from './AddTodo';
+import TodoList from './TodoList';
+
+const TodoApp = memo(props => {
+  const { inputValue, changeInput, clearInput, keyInput } = useInputValue();
+  const { todos, addTodo, checkTodo, removeTodo } = useTodos();
+
+  const clearInputAndAddTodo = _ => {
+    clearInput();
+    addTodo(inputValue);
+  };
+
+  return (
+    <Layout>
+      <AddTodo
+        inputValue={inputValue}
+        onInputChange={changeInput}
+        onButtonClick={clearInputAndAddTodo}
+        onInputKeyPress={event => keyInput(event, clearInputAndAddTodo)}
+      />
+      <TodoList
+        items={todos}
+        onItemCheck={idx => checkTodo(idx)}
+        onItemRemove={idx => removeTodo(idx)}
+      />
+    </Layout>
+  );
+});
 
 const data = [
-  { name: 'Group A', value: 400 },
-  { name: 'Group B', value: 300 },
-  { name: 'Group C', value: 300 },
-  { name: 'Group D', value: 200 },
+  { name: 'Prospect', value: 400 },
+  { name: 'Design', value: 300 },
+  { name: 'Contract', value: 300 },
+  { name: 'Won', value: 200 },
 ];
 
 const renderActiveShape = (props) => {
@@ -77,7 +109,7 @@ const renderActiveShape = (props) => {
       />
       <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" />
       <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
-      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#333">{`PV ${value}`}</text>
+      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#333">{`${value} Days`}</text>
       <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#999">
         {`(Rate ${(percent * 100).toFixed(2)}%)`}
       </text>
@@ -214,7 +246,6 @@ class EditOppPage extends Component {
     const {accountsnames} = this.state;
     const loading = false;
     const error = false;
-
     const classes = makeStyles(theme => ({
       root: {
         display: 'flex',
@@ -270,14 +301,14 @@ class EditOppPage extends Component {
           logout={handleSignOut.bind(this)}
         />
         <div className={classes.content}>
-        <Container maxWidth="lg" className={classes.container1}>
+        <Container item xs={5} md={5} lg={2}>
         <Title>Opportunity</Title>
         <Grid container spacing={3}>
           <Grid item xs={5} md={5} lg={2}>
           <Paper className={fixedHeightPaper}>
-          <form className={classes.container} noValidate autoComplete="off">
+          <form noValidate autoComplete="off">
             <TextField
-              type="text"
+              type="outlined-width"
               id="oppname"
               label="Opportunity Name"
               name="oppname"
@@ -288,9 +319,8 @@ class EditOppPage extends Component {
               margin="normal"
               variant="outlined"
             />
-            <br></br>
             <TextField
-              type="text"
+              type="outlined-width"
               id="accountname"
               label="Account Name"
               name="accountname"
@@ -301,9 +331,8 @@ class EditOppPage extends Component {
               margin="normal"
               variant="outlined"
             />
-            <br></br>
             <TextField
-              type="text"
+              type="outlined-width"
               id="contactname"
               label="Contact Name"
               name="contactname"
@@ -314,9 +343,8 @@ class EditOppPage extends Component {
               margin="normal"
               variant="outlined"
             />
-            <br></br>
             <TextField
-              type="text"
+              type="outlined-width"
               id="nextstep"
               label="Next Step"
               name="nextstep"
@@ -327,9 +355,8 @@ class EditOppPage extends Component {
               margin="normal"
               variant="outlined"
             />
-            <br></br>
             <TextField
-              type="text"
+              type="outlined-width"
               id="leadsource"
               label="Lead Source"
               name="leadsource"
@@ -340,9 +367,8 @@ class EditOppPage extends Component {
               margin="normal"
               variant="outlined"
             />
-            <br></br>
             <TextField
-              type="currency"
+              type="outlined-width"
               id="amount"
               label="Amount"
               name="amount"
@@ -353,9 +379,8 @@ class EditOppPage extends Component {
               margin="normal"
               variant="outlined"
             />
-            <br></br>
             <TextField
-              type="date"
+              type="outlined-width"
               id="closingdate"
               label="Closing Date"
               name="closingdate"
@@ -366,9 +391,8 @@ class EditOppPage extends Component {
               margin="normal"
               variant="outlined"
             />
-            <br></br>
             <TextField
-              type="text"
+              type="outlined-width"
               id="salesstage"
               label="Sales stage"
               name="salesstage"
@@ -379,9 +403,8 @@ class EditOppPage extends Component {
               margin="normal"
               variant="outlined"
             />
-            <br></br>
             <TextField
-              type="percetage"
+              type="outlined-width"
               id="probability"
               label="Probability"
               name="probability"
@@ -392,10 +415,8 @@ class EditOppPage extends Component {
               margin="normal"
               variant="outlined"
             />
-            <br></br>
             <TextField
               id="outlined-width"
-              style={{ margin: 8 }}
               fullWidth
               label="Description"
               name="description"
@@ -412,16 +433,29 @@ class EditOppPage extends Component {
           </form>
           </Paper>
           </Grid>
-          <Grid>
+          <Grid style={{ marginLeft: 100 }}>
+          <Paper>
+          <Button
+            variant="outlined"
+            onClick={() => {
+              this.deleteOpp();
+            }}
+          >
+            Delete
+          </Button>
+          <Button type="submit" variant="outlined">
+            Save
+          </Button>
+          </Paper>
           <br></br>
             <Paper>
-            <Title>Sales Stage</Title>
+            <Title>Time in Sales Stage</Title>
             <PieChart width={400} height={220}>
             <Pie
               activeIndex={this.state.activeIndex}
               activeShape={renderActiveShape}
               data={data}
-              cx={170}
+              cx={180}
               cy={90}
               innerRadius={40}
               outerRadius={60}
@@ -435,17 +469,7 @@ class EditOppPage extends Component {
             {/* Total Tasks */}
             <Paper className={fixedHeightPaper}>
             <Title>Tasks</Title>
-            <Typography>
-              Call Harold
-            </Typography>
-            <Typography>
-              Get Harold Food
-            </Typography>
-            <div>
-              <Link color="primary" href="javascript:;">
-              Add a Task
-              </Link>
-            </div>
+            <TodoApp />
             </Paper>
             </Grid>
           </Grid>
