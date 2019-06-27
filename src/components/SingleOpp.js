@@ -33,7 +33,7 @@ export default class SingleOpp extends Component {
                 <TableCell width="20%" align="left" component="th" scope="opp">
                 <Link
                   to={{
-                  pathname: '/opportunity',
+                  pathname: '/edit-opportunity',
                   search: `?id=${opp.id}`,
                 }}>{opp.oppname}
                 </Link>
