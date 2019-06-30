@@ -152,7 +152,7 @@ export default class Profile extends Component {
     };
 
     const columns = [
-      { title: 'Contact Name', field: 'name' },
+      { title: 'Contact Name', field: 'name'},
       { title: 'Account', field: 'accountname' },
       { title: 'Opportunity', field: 'oppname' },
       { title: 'Title', field: 'title' },
@@ -230,7 +230,8 @@ export default class Profile extends Component {
 
               const options = { encrypt: true };
               putFile('contacts.json', JSON.stringify(contacts), options).then(() => {
-                cb();
+                //cb();
+                this.fetchData();
               });
             }),
           onRowUpdate: (newData, oldData) =>
@@ -270,7 +271,7 @@ export default class Profile extends Component {
               contacts.unshift(newContact1);
               const options = { encrypt: true };
               putFile('contacts.json', JSON.stringify(contacts), options).then(() => {
-                location.reload();
+                this.fetchData();
               });
             }),
           onRowDelete: oldData =>
@@ -289,7 +290,8 @@ export default class Profile extends Component {
                 () => {
                   //this.props.history.push('/contacts');
                   //return <Redirect to={`/`} />;
-                  location.reload();
+                  //location.reload();
+                  this.fetchData();
                 }
               );
 
